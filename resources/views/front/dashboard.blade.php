@@ -242,20 +242,34 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-6">
-                        <img style="border-radius:10px;" class="img-fluid" src="{{ asset('public/front/images/marketing_images/unit-1.webp') }}" alt="image" loading="eager">
+                        {{-- <img style="border-radius:10px;" class="img-fluid" src="{{ asset('public/front/images/marketing_images/unit-1.webp') }}" alt="image" loading="eager"> --}}
+                        <div class="video_card_top">
+                            {{-- <img src="{{ 'https://img.youtube.com/vi/s6EGImtiRD4/hqdefault.jpg' }}" 
+                                alt="FIBC Unit" class="img-fluid"> --}}
+                               <img src="{{ asset('public/front/images/marketing_images/unit-1.webp') }}" 
+                                alt="FIBC Unit" class="img-fluid"> 
+                                <a href="https://www.youtube.com/watch?v=s6EGImtiRD4" data-fancybox="">
+                                <img class="play_btn" src="{{asset('public/front/img/play-btn.png')}}" alt="play">
+                                </a>
+                        </div>
                         <h5 class="text-center mt-2">FIBC Unit</h5>
                     </div>
-    
                     <!--<div class="col-lg-4">-->
-                    <!--    <img style="border-radius:10px;" class="img-fluid" src="{{ asset('public/front/images/marketing_images/unit-2.webp') }}" alt="image" loading="lazy">-->
-                    <!--    <h5 class="text-center mt-2">Unit 2</h5>-->
+                    {{-- <!--    <img style="border-radius:10px;" class="img-fluid" src="{{ asset('public/front/images/marketing_images/unit-2.webp') }}" alt="image" loading="lazy">-->
+                    <!--    <h5 class="text-center mt-2">Unit 2</h5>--> --}}
                     <!--</div>-->
-    
                     <div class="col-lg-6">
-                        <img style="border-radius:10px;" class="img-fluid" src="{{ asset('public/front/images/marketing_images/unit-3.webp') }}" alt="image" loading="lazy">
+                        {{-- <img style="border-radius:10px;" class="img-fluid" src="{{ asset('public/front/images/marketing_images/unit-3.webp') }}" alt="image" loading="lazy"> --}}
+                        <div class="video_card_top">
+                            {{-- <img src="{{ 'https://img.youtube.com/vi/KPL5ACWmJNw&t=8s/hqdefault.jpg' }}" alt="FIBC Unit" class="img-fluid"> --}}
+                               <img src="{{ asset('public/front/images/marketing_images/unit-3.webp') }}" 
+                                alt="FIBC Unit" class="img-fluid"> 
+                                <a href="https://www.youtube.com/watch?v=KPL5ACWmJNw" data-fancybox="">
+                                <img class="play_btn" src="{{asset('public/front/img/play-btn.png')}}" alt="play">
+                                </a>
+                        </div>
                         <h5 class="text-center mt-2">Stitching Machine Unit</h5>
-                    </div>
-                                
+                    </div>        
                 </div>
              <!--<div class="Home_slider_new_sec owl-theme owl-carousel">-->
              <!--   <div>-->
@@ -338,18 +352,13 @@
                 <!--</div>-->
                 <div class="col-md-3">
                     <ul class="nav flex-column machine-tabs scroll-tabs" id="machineTab" role="tablist">
-                        @foreach($category as $index => $cat)
+                        @foreach($category->sortBy('sort_order') as $index => $cat)
                             <li class="nav-item">
                                  <span><img src="{{ asset('/' . $cat->category_small_image ?? 'public/front/img/cp.png') }}" alt="product"></span>
                                 <a class="nav-link {{ $index == 0 ? 'active' : '' }}" id="tab{{ $index + 1 }}-tab" data-bs-toggle="pill" href="#tab{{ $index + 1 }}" role="tab">
                                     {{ $cat->name }} <br>
-                                     @if($cat->name == 'Mulch Film Punching' || $cat->name == 'Needle Loom')
-                                                        Machine
-                                                    @elseif($cat->name=='Spare Parts')
-                                                    
-                                                    @else
-                                                        Machines
-                                                    @endif
+                                     @if($cat->name == 'Mulch Film Punching' || $cat->name == 'Needle Loom') Machine @elseif($cat->name=='Spare Parts')
+                                                    @else Machines @endif
                                 </a>
                             </li>
                         @endforeach
