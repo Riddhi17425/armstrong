@@ -1,0 +1,17 @@
+User-Agent: *
+Disallow: /?pid
+Disallow: /?fp
+Disallow: /login
+Disallow: /thank-you
+Disallow: /landing 
+Disallow: /admin/
+Disallow: /login/
+Disallow: /*?*
+Disallow: /*&*
+Disallow: /?id=
+Disallow: /?ref=packtrust
+Disallow: /?orderby
+Allow: /
+
+Sitemap: https://www.armstrongex.com/sitemap.xml
+
