@@ -57,6 +57,28 @@ class HomeController extends Controller
         $homesliders = HomeSlider::orderBy('id','asc')->where('status','Active')->select('id','image')->get();
         return view('front.about',compact('metatitle','metadescription','milestones','aboutsliders' , 'homesliders'));
     }
+
+     public function application()
+    {
+        $metatitle="application| Armstrong";
+        $metadescription="With over 43 years of experience, Armstrong is a trusted manufacturer and exporter of finishing machinery & spare parts for PP/FIBC and woven-sack industries.";
+        $milestones = Milestone::orderBy('id','asc')->where('status','Active')->get();
+        $aboutsliders = AboutUsSlider::where('status','Active')->get();
+        $homesliders = HomeSlider::orderBy('id','asc')->where('status','Active')->select('id','image')->get();
+        return view('front.application',compact('metatitle','metadescription','milestones','aboutsliders' , 'homesliders'));
+    }
+
+
+      public function agriculture()
+    {
+        $metatitle="Agriculture | Armstrong";
+        $metadescription="With over 43 years of experience, Armstrong is a trusted manufacturer and exporter of finishing machinery & spare parts for PP/FIBC and woven-sack industries.";
+        $milestones = Milestone::orderBy('id','asc')->where('status','Active')->get();
+        $aboutsliders = AboutUsSlider::where('status','Active')->get();
+        $homesliders = HomeSlider::orderBy('id','asc')->where('status','Active')->select('id','image')->get();
+        return view('front.agriculture',compact('metatitle','metadescription','milestones','aboutsliders' , 'homesliders'));
+    }
+
     
     public function events()
     {    

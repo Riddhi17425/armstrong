@@ -66,7 +66,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('public/front/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('public/front/css/responsive.css')}}">
-    <link rel="canonical" href="{{ $_SERVER['SCRIPT_URI'] }}" />
+    
 
      <style>
         .custom-placeholder {
