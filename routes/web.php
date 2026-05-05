@@ -82,8 +82,8 @@ Route::post('/whatsaapinquiry', [HomeController::class, 'whatsaapinquiry'])->nam
     Route::get('/machinery-woven-sacks-fibc', function () {
         return redirect('/category/woven-sack', 301);
     });
-     route::get('application', [HomeController::class, 'application'])->name('application');
-     route::get('agriculture', [HomeController::class, 'agriculture'])->name('agriculture');
+    route::get('application', [HomeController::class, 'application'])->name('front.application');
+    route::get('application-details/{url}', [HomeController::class, 'applicationDetails'])->name('front.application.details');
 
     
     Route::get('/product/circular-loom-spare-parts', [ProductsController::class, 'circularLoomStatic'])->name('product.circular-loom-spare-parts.static');
@@ -139,7 +139,9 @@ Route::post('/whatsaapinquiry', [HomeController::class, 'whatsaapinquiry'])->nam
         
         Route::post('/upload-image', [ImageUploadController::class, 'upload'])->name('image.upload');
         // for application crud 
-        route::get('/application', [ApplicationController::class , 'index'])->name('application');
+        route::get('/applications', [ApplicationController::class , 'index'])->name('application');
+        route::get('/applications/create', [ApplicationController::class , 'create'])->name('application.create');
+        Route::get('/applications/edit/{id}' , [ApplicationController::class , 'edit'])->name('application.edit');
         Route::post('/application_store', [ApplicationController::class, 'store'])->name('application.store');
         Route::post('/application/update/{id}', [ApplicationController::class, 'update'])->name('application.update');
         // route::Post('/applicationStoreAndUpdate' , [ApplicationController::class , 'storeAndUpdate'])->name('applicationStoreAndUpdate');

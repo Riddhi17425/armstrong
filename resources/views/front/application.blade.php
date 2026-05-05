@@ -31,7 +31,28 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-mb-6 col-lg-4 mb-4 product_card">
+            @foreach ($applications as $application)
+                <div class="col-mb-6 col-lg-4 mb-4 product_card">
+                    <a href="{{ route('front.application.details',['url' => $application->url ]) }}">
+                        <img src="{{ asset($application->application_image)}}" alt="images" class="img-fluid mb-4">
+                    </a>
+                    <a href="{{ route('front.application.details',['url' => $application->url ]) }}">
+                        <h3 class="news-title">{{ $application->name }} </h3>
+                    </a>
+                    <div class="product-contant mt-0">
+                        {!! $application->short_description  !!}
+                        <span>
+                            <a class="arrow_circle" href="{{ route('front.application.details',['url' => $application->url ]) }}">
+                                <img src="{{ asset('public/front/img/arrow.png')}}" alt="arrow"
+                                    class="img-fluid arrow_icon">
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            @endforeach
+            
+
+            {{-- <div class="col-mb-6 col-lg-4 mb-4 product_card">
                 <a href="#">
                     <img src="public/front/img/application/applicaiton_1.png" alt="images" class="img-fluid mb-4">
                 </a>
@@ -150,7 +171,6 @@
                     </span>
                 </div>
             </div>
-
             <div class="col-mb-6 col-lg-4 mb-4 product_card">
                 <a href="#">
                     <img src="public/front/img/application/applicaiton_1.png" alt="images" class="img-fluid mb-4">
@@ -169,26 +189,7 @@
                         </a>
                     </span>
                 </div>
-            </div>
-            <div class="col-mb-6 col-lg-4 mb-4 product_card">
-                <a href="#">
-                    <img src="public/front/img/application/applicaiton_1.png" alt="images" class="img-fluid mb-4">
-                </a>
-                <a href="#">
-                    <h3 class="news-title">Agriculture </h3>
-                </a>
-                <div class="product-contant mt-0">
-                    <p class="mb-0">Agricultural packaging requires high-volume and durable bag production. Armstrong’s
-                        bag-making machines and FIBC bag finishing machines are engineered to handle grains, seeds, and
-                        crops</p>
-                    <span>
-                        <a class="arrow_circle" href="#">
-                            <img src="https://www.localhost/armstrong/public/front/img/arrow.png" alt="arrow"
-                                class="img-fluid arrow_icon">
-                        </a>
-                    </span>
-                </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </section>
@@ -222,7 +223,7 @@
             </div>
             <div class="col-lg-5">
                 <div>
-                    <img class=" img-fluid" src="public/front/img/application/why_rely_Us.webp" alt="images">
+                    <img class=" img-fluid" src="{{ asset('public/front/img/application/why_rely_Us.webp')}}" alt="images">
                 </div>
 
             </div>

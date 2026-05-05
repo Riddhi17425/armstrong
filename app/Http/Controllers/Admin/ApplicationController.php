@@ -15,15 +15,27 @@ class ApplicationController extends Controller
         return view('admin.application.index');
     }  
 
+    public function create(){
+        return view('admin.application.create');
+    }
+
     public function getData(Request $request)
     {
         $applications = Application::select(['id', 'name', 'status', 'created_at']);
         return DataTables::of($applications)
             ->addColumn('action', function ($row) {
+                $editUrl = route('application.edit', $row->id);
                 return '
-                    <button type="button" class="btn btn-outline-secondary edit_application" data-id="' . $row->id . '"><i class="icofont-edit text-success"></i></button>
-                    <button type="button" class="btn btn-outline-secondary delete_application" data-id="' . $row->id . '"><i class="icofont-ui-delete text-danger"></i></button>
-                ';
+                        <a href="'.$editUrl.'" class="btn btn-outline-secondary">
+                            <i class="icofont-edit text-success"></i>
+                        </a>
+
+                        <button type="button"
+                            class="btn btn-outline-secondary delete_application"
+                            data-id="'.$row->id.'">
+                            <i class="icofont-ui-delete text-danger"></i>
+                        </button>
+                    ';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -33,90 +45,176 @@ class ApplicationController extends Controller
     {
         $exists = Application::where('name', $request->application_name)->exists();
         if ($exists) {
-            return response()->json(['result' => false, 'message' => 'Application name already exists.']);
+            return response()->json([
+                'result' => false,
+                'message' => 'Application name already exists.'
+            ]);
         }
 
         $application = new Application();
         $application->name = $request->application_name;
         $application->alt = $request->alt;
         $application->status = $request->application_status;
+
         
+        $application->details_title = $request->details_title;
+        $application->short_description = $request->short_description;
+        $application->website_top_desc = $request->website_top_desc;
+        $application->website_bottom_desc = $request->website_bottom_desc;
+        $application->url = $request->url;
+        $application->meta_title = $request->meta_title;
+        $application->meta_description = $request->meta_description;
+                
+
+        //  MAIN IMAGE
         if ($request->hasFile('application_image')) {
-            $image = $request->file('application_image');
-            $extension = $image->getClientOriginalExtension();
+            $application->application_image = $this->uploadImage(
+                $request->file('application_image'),
+                'admin/application',
+                $request->has('compress')
+            );
+        }
 
-            $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-            $slugName = Str::slug($originalName);
-            $imageName = $slugName . '_' . uniqid() . '.' . $extension;
+        //  TOP IMAGE
+        if ($request->hasFile('website_top_image')) {
+            $application->website_top_image = $this->uploadImage(
+                $request->file('website_top_image'),
+                'admin/application'
+            );
+        }
 
-            $uploadPath = public_path('admin/application/');
-            $savePath = $uploadPath . $imageName;
+        //  BOTTOM IMAGE
+        if ($request->hasFile('website_bottom_image')) {
+            $application->website_bottom_image = $this->uploadImage(
+                $request->file('website_bottom_image'),
+                'admin/application'
+            );
+        }
 
-            if (!file_exists($uploadPath)) {
-                mkdir($uploadPath, 0755, true);
-            }
-
-            if ($request->has('compress')) {
-                $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
-                $img = $manager->read($image->getRealPath());
-                $img->toJpeg(75)->save($savePath);
-            } else {
-                $image->move($uploadPath, $imageName);
-            }
-
-            $image_url = 'public/admin/application/' . $imageName;
-            $application->application_image = $image_url;
+        //  FAQ (STORE AS JSON)
+        if ($request->has('faq')) {
+            $application->faq = json_encode($request->faq);
         }
 
         $application->save();
 
         return response()->json([
             'result' => true,
-            'message' => 'Application Created Successfully.',
-            'image' => $application->application_image ?? null
+            'message' => 'Application Created Successfully.'
         ]);
+    }
+
+    public function uploadImage($file, $folder, $compress = false)
+    {
+        $extension = $file->getClientOriginalExtension();
+        $name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $slug = \Str::slug($name);
+        $fileName = $slug . '_' . uniqid() . '.' . $extension;
+
+        //  physical path (NO public here)
+        $uploadPath = public_path($folder);
+
+        if (!file_exists($uploadPath)) {
+            mkdir($uploadPath, 0755, true);
+        }
+
+        $fullPath = $uploadPath . '/' . $fileName;
+
+        if ($compress) {
+            $manager = new \Intervention\Image\ImageManager(
+                new \Intervention\Image\Drivers\Gd\Driver()
+            );
+            $img = $manager->read($file->getRealPath());
+            $img->toJpeg(75)->save($fullPath);
+        } else {
+            $file->move($uploadPath, $fileName);
+        }
+
+        //  RETURN DB PATH WITH "public/"
+        return 'public/' . $folder . '/' . $fileName;
     }
 
     public function update(Request $request, $id)
     {
         $application = Application::find($id);
+
         if (!$application) {
-            return response()->json(['result' => false, 'message' => 'Application not found.']);
+            return response()->json([
+                'result' => false,
+                'message' => 'Application not found.'
+            ]);
         }
 
-        $exists = Application::where('name', $request->application_name)->where('id', '!=', $id)->exists();
+        //  Check duplicate name
+        $exists = Application::where('name', $request->application_name)
+            ->where('id', '!=', $id)
+            ->exists();
+
         if ($exists) {
-            return response()->json(['result' => false, 'message' => 'Application name already exists.']);
+            return response()->json([
+                'result' => false,
+                'message' => 'Application name already exists.'
+            ]);
         }
 
+        //  BASIC DATA
         $application->name = $request->application_name;
         $application->alt = $request->alt;
         $application->status = $request->application_status;
 
+        //  NEW FIELDS
+        $application->details_title = $request->details_title;
+        $application->short_description = $request->short_description;
+        $application->website_top_desc = $request->website_top_desc;
+        $application->website_bottom_desc = $request->website_bottom_desc;
+        $application->url = $request->url;
+        $application->meta_title = $request->meta_title;
+        $application->meta_description = $request->meta_description;
+
+        // ================= MAIN IMAGE =================
         if ($request->hasFile('application_image')) {
-            $image = $request->file('application_image');
 
-            $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-            $slugName = Str::slug($originalName);
-            $imageName = $slugName . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-
-            $uploadPath = public_path('admin/application/');
-            $savePath = $uploadPath . $imageName;
-
-            if (!file_exists($uploadPath)) {
-                mkdir($uploadPath, 0755, true);
+            // delete old image
+            if ($application->application_image && file_exists(public_path($application->application_image))) {
+                unlink(public_path($application->application_image));
             }
 
-            if ($request->has('compress')) {
-                $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
-                $img = $manager->read($image->getRealPath());
-                $img->toJpeg(75)->save($savePath);
-            } else {
-                $image->move($uploadPath, $imageName);
+            $application->application_image = $this->uploadImage(
+                $request->file('application_image'),
+                'admin/application',
+                $request->has('compress')
+            );
+        }
+
+        // ================= TOP IMAGE =================
+        if ($request->hasFile('website_top_image')) {
+
+            if ($application->website_top_image && file_exists(public_path($application->website_top_image))) {
+                unlink(public_path($application->website_top_image));
             }
 
-            $image_url = 'public/admin/application/' . $imageName;
-            $application->application_image = $image_url;
+            $application->website_top_image = $this->uploadImage(
+                $request->file('website_top_image'),
+                'admin/application'
+            );
+        }
+
+        // ================= BOTTOM IMAGE =================
+        if ($request->hasFile('website_bottom_image')) {
+
+            if ($application->website_bottom_image && file_exists(public_path($application->website_bottom_image))) {
+                unlink(public_path($application->website_bottom_image));
+            }
+
+            $application->website_bottom_image = $this->uploadImage(
+                $request->file('website_bottom_image'),
+                'admin/application'
+            );
+        }
+
+        // ================= FAQ =================
+        if ($request->has('faq')) {
+            $application->faq = json_encode(array_values($request->faq));
         }
 
         $application->save();
@@ -126,22 +224,14 @@ class ApplicationController extends Controller
             'message' => 'Application Updated Successfully.',
         ]);
     }
-
     public function edit($id)
     {
-        $get_data = Application::find($id);
-        if (empty($get_data)) {
-            return response()->json([
-                'result' => false,
-                'message' => "Data Not Found",
-            ]);
-        }
+        $application = Application::findOrFail($id);
 
-        return response()->json([
-            'result' => true,
-            "message" => "Data Found",
-            "data" => $get_data,
-        ]); 
+        // decode FAQ
+        $application->faq = json_decode($application->faq, true);
+
+        return view('admin.application.edit', compact('application'));
     }
 
     public function destroy($id)
