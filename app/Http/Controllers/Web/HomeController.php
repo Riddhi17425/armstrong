@@ -74,7 +74,7 @@ class HomeController extends Controller
     {
         $applications = Application::where('url' , $url)->where('status' , 'Active')->first();
         $faqs = json_decode($applications->faq, true) ?? [];
-        $products = ProductMaster::whereJsonContains('product_applications', $applications->name)->where('product_status' , 'Active')->take(3)->get();
+        $products = ProductMaster::whereJsonContains('product_applications', $applications->name)->where('product_status' , 'Active')->get();
         // return $products;
         $metatitle= $applications->meta_title ?? "Agriculture | Armstrong";
         $metadescription= $applications->meta_description  ?? "With over 43 years of experience, Armstrong is a trusted manufacturer and exporter of finishing machinery & spare parts for PP/FIBC and woven-sack industries.";

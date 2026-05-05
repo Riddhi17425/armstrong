@@ -51,20 +51,37 @@
 <section class="section-pt">
     <div class="container">
 
-        <div class="text-center mb-3">
-            <h2 class="main_head head_wrapper">Machines Used in Agricultural Packaging </h2>
+     <div class="row justify-content-center mb-3">
+            <div class="col-lg-9">
+                <h2 class="main_head head_wrapper">Machines Used in Agricultural Packaging</h2>
+            </div>
+            <div class="col-lg-3">
+                <div class="custom_arrow justify-content-md-end">
+                    <img src="{{ asset('public/front/img/arrow_left.svg') }}" alt="Previous" id="productprev"
+                        class="img-fluid product-prev">
+                    <img src="{{ asset('public/front/img/arrow_right.svg') }}" alt="Next" id="productnext"
+                        class="img-fluid product-next">
+                </div>
+            </div>
         </div>
+        
 
-        <div class="row">
+        <div class="product_list_slider owl-theme owl-carousel ">
             @foreach ($products as $product)
-                <div class="col-mb-6 col-lg-4 mb-3 product_card">
+                <div class="product_card">
                     <a href="{{ route('products.detail' , ['url' => $product->url]) }}">
-                        <img src="{{ asset('public/admin/product/front_image/' .$product->front_image) }}" alt="images" class="img-fluid mb-4">
+                        <img src="{{ asset('public/admin/product/front_image/' .$product->front_image) }}" alt="images" class="img-fluid mb-4 product_card_img">
                         <h3 class="news-title pt-0">{{ $product->product_name }} </h3>
                     </a>
                     <div class="product-contant mt-0">
                         {{ \Illuminate\Support\Str::limit(strip_tags($product->product_short_desc), 150) }}
+                         <span>
+                           <a class="arrow_circle" href="{{ route('products.detail' , ['url' => $product->url]) }}">
+                                 <img src="{{ asset('public/front/img/arrow.png') }}" alt="arrow" class="img-fluid arrow_icon">
+                           </a>
+                        </span>
                     </div>
+                    
                 </div>
             @endforeach
             
@@ -72,6 +89,7 @@
     </div>
 </section>
 @endif
+
 
 <section class="section-pt">
     <div class="container">
