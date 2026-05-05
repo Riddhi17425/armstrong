@@ -4,36 +4,36 @@
 
     @if (!empty($blog->blog_faq) && count($blog->blog_faq) > 0)
         @php
-    $faqSchemaEntities = [];
+            $faqSchemaEntities = [];
 
-    foreach ($blog->blog_faq as $faq) {
+            foreach ($blog->blog_faq as $faq) {
 
-        $question = trim($faq['faq_title'] ?? '');
-        $answer = trim(strip_tags($faq['faq_description'] ?? ''));
+                $question = trim($faq['faq_title'] ?? '');
+                $answer = trim(strip_tags($faq['faq_description'] ?? ''));
 
-        if ($question && $answer) {
-            $faqSchemaEntities[] = [
-                '@type' => 'Question',
-                'name' => $question,
-                'acceptedAnswer' => [
-                    '@type' => 'Answer',
-                    'text' => $answer,
-                ],
-            ];
-        }
-    }
-@endphp
+                if ($question && $answer) {
+                    $faqSchemaEntities[] = [
+                        '@type' => 'Question',
+                        'name' => $question,
+                        'acceptedAnswer' => [
+                            '@type' => 'Answer',
+                            'text' => $answer,
+                        ],
+                    ];
+                }
+            }
+        @endphp
 
-            @if(!empty($faqSchemaEntities))
-                <script type="application/ld+json">
-                    {!! json_encode([
-                        '@context' => 'https://schema.org',
-                        '@type' => 'FAQPage',
-                        'mainEntity' => $faqSchemaEntities,
-                    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
-                </script>
-            @endif
+        @if(!empty($faqSchemaEntities))
+            <script type="application/ld+json">
+                {!! json_encode([
+                    '@context' => 'https://schema.org',
+                    '@type' => 'FAQPage',
+                    'mainEntity' => $faqSchemaEntities,
+                ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+            </script>
         @endif
+    @endif
 
 <style>
     .blog_detail_wrapper h4{
