@@ -30,4 +30,3 @@ class Application extends Model
     ];
     
 }
- 

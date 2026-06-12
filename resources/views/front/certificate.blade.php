@@ -37,10 +37,11 @@
                     <div class="certi">
                         <a href="{{ asset('/'.$certificate->image) }}" data-fancybox="certificates">
                             <img class="img-fluid" src="{{ asset('/'.$certificate->image) }}" alt="{{  str_replace(['-', '_'],' ', pathinfo($certificate->alt, PATHINFO_FILENAME)) }}">
-                        </a>
-                        <a href="{{ asset('/'.$certificate->image) }}" data-fancybox="certificates">
                             <img class="certi_plush" src="{{ asset('public/front/img/arrow_plush.svg') }}" alt="arrow plush">
                         </a>
+                        <!--<a href="{{ asset('/'.$certificate->image) }}" data-fancybox="certificates">-->
+                            <!--<img class="certi_plush" src="{{ asset('public/front/img/arrow_plush.svg') }}" alt="arrow plush">-->
+                        <!--</a>-->
                     </div>
                     <!--<div>-->
                     <!--    <h3 class="news-title mt-2 mt-lg-4">{{ ucfirst(strtolower($certificate->name))  }}</h3>-->

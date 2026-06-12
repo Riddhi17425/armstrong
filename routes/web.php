@@ -82,10 +82,9 @@ Route::post('/whatsaapinquiry', [HomeController::class, 'whatsaapinquiry'])->nam
     Route::get('/machinery-woven-sacks-fibc', function () {
         return redirect('/category/woven-sack', 301);
     });
+    
     route::get('application', [HomeController::class, 'application'])->name('front.application');
     route::get('application-details/{url}', [HomeController::class, 'applicationDetails'])->name('front.application.details');
-
-    
     Route::get('/product/circular-loom-spare-parts', [ProductsController::class, 'circularLoomStatic'])->name('product.circular-loom-spare-parts.static');
     
     Route::get('/product/{url}', [ProductsController::class, 'detail'])->name('products.detail');

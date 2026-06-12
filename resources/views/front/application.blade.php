@@ -40,7 +40,10 @@
                         <h3 class="news-title">{{ $application->name }} </h3>
                     </a>
                     <div class="product-contant mt-0">
-                        {!! $application->short_description  !!}
+                        @if(isset($application->short_description) && $application->short_description != '')
+                        <!--{!! $application->short_description  !!}-->
+                        {!! mb_substr(strip_tags($application->short_description), 0, 100) !!}.....
+                        @endif
                         <span>
                             <a class="arrow_circle" href="{{ route('front.application.details',['url' => $application->url ]) }}">
                                 <img src="{{ asset('public/front/img/arrow.png')}}" alt="arrow"
@@ -223,7 +226,7 @@
             </div>
             <div class="col-lg-5">
                 <div>
-                    <img class=" img-fluid" src="{{ asset('public/front/img/application/why_rely_Us.webp')}}" alt="images">
+                    <img class=" img-fluid" src="public/front/img/application/why_rely_Us.webp" alt="images">
                 </div>
 
             </div>

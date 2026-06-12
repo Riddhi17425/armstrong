@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Http;
 use App\Mail\SendProductInQMailToUser;
 use App\Models\Milestone;
 use App\Models\AboutUsSlider;
-use App\Models\Application;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use App\Models\Event;
@@ -30,8 +29,9 @@ use App\Models\ResearchDevelopmentSlider;
 use App\Models\ProductMaster;
 use App\Models\WhatsappInquiry;
 use App\Models\ChannelPartner;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Application;
+
 
 class HomeController extends Controller
 {
@@ -50,16 +50,6 @@ class HomeController extends Controller
         return view('front.dashboard',compact('metatitle','metadescription','steps','homesliders','clientsays','blogs','category'));
     }
     
-    public function about()
-    {
-        $metatitle="About Us | Armstrong";
-        $metadescription="With over 43 years of experience, Armstrong is a trusted manufacturer and exporter of finishing machinery & spare parts for PP/FIBC and woven-sack industries.";
-        $milestones = Milestone::orderBy('id','asc')->where('status','Active')->get();
-        $aboutsliders = AboutUsSlider::where('status','Active')->get();
-        $homesliders = HomeSlider::orderBy('id','asc')->where('status','Active')->select('id','image')->get();
-        return view('front.about',compact('metatitle','metadescription','milestones','aboutsliders' , 'homesliders'));
-    }
-
     public function application()
     {
         $applications = Application::where('status' , 'Active')->orderBy('created_at' , 'desc')->get();
@@ -80,7 +70,16 @@ class HomeController extends Controller
         $metadescription= $applications->meta_description  ?? "With over 43 years of experience, Armstrong is a trusted manufacturer and exporter of finishing machinery & spare parts for PP/FIBC and woven-sack industries.";
         return view('front.applications-details',compact('metatitle','metadescription' , 'applications' , 'faqs' , 'products'));
     }
-
+    
+    public function about()
+    {
+        $metatitle="About Us | Armstrong";
+        $metadescription="With over 43 years of experience, Armstrong is a trusted manufacturer and exporter of finishing machinery & spare parts for PP/FIBC and woven-sack industries.";
+        $milestones = Milestone::orderBy('id','asc')->where('status','Active')->get();
+        $aboutsliders = AboutUsSlider::where('status','Active')->get();
+        $homesliders = HomeSlider::orderBy('id','asc')->where('status','Active')->select('id','image')->get();
+        return view('front.about',compact('metatitle','metadescription','milestones','aboutsliders' , 'homesliders'));
+    }
     
     public function events()
     {    
@@ -620,8 +619,9 @@ public function productenquirystore(Request $request)
         // Redirect to WhatsApp
         $number = '916358820089'; // Change if needed
         $message = 'Inquiry from the website.';
-        $whatsappUrl = "https://api.whatsapp.com/send/?phone={$number}&text=" . urlencode($message);
-    
+        //$whatsappUrl = "https://api.whatsapp.com/send/?phone={$number}&text=" . urlencode($message);
+        $whatsappUrl = 'https://wa.me/' . $number . '?text=' . urlencode($message);
+        
         return back()->with('whatsapp_url', $whatsappUrl);
     }
 

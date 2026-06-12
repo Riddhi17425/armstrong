@@ -12,7 +12,6 @@
         </nav>
         <div class="setting_vector_icon">
             <h1 class="heading mb-4">{{ $applications->details_title }}</h1>
-            {{-- short descriptions --}}
             {!! $applications->short_description !!}
             <img src="{{asset('public/front/img/setting_vector.svg')}}" alt="setting vector"
                 class="img-fluid setting-wrapper" style="top:10%">
@@ -30,7 +29,7 @@
                         fill="#E41E29" />
                 </svg>
 
-                <h2 class="main_head d-block">How do we support you?</h2>
+                <!--<h2 class="main_head d-block">How do we support you?</h2>-->
                 {{-- top descriptions --}}
                 {!! $applications->website_top_desc  !!}
             </div>
@@ -53,7 +52,7 @@
 
      <div class="row justify-content-center mb-3">
             <div class="col-lg-9">
-                <h2 class="main_head head_wrapper">Machines Used in Agricultural Packaging</h2>
+                <h2 class="main_head head_wrapper">Machines Used in {{ $applications->name }}</h2>
             </div>
             <div class="col-lg-3">
                 <div class="custom_arrow justify-content-md-end">
@@ -90,7 +89,6 @@
 </section>
 @endif
 
-
 <section class="section-pt">
     <div class="container">
         <div class="row gx-5">
@@ -112,9 +110,9 @@
     </div>
 </section>
 
-
-
-@if(!empty($faqs))
+@if(!empty($faqs) && collect($faqs)->filter(function($faq){
+    return !empty($faq['title']) || !empty($faq['description']);
+})->count())
 <section class="section-pt">
     <div class="container">
 
@@ -126,7 +124,6 @@
         <div class="accordion" id="accordionExample">
 
             @foreach($faqs as $index => $faq)
-
                 <div class="mb-4">
                     <h5 class="according_head"
                         data-bs-toggle="collapse"

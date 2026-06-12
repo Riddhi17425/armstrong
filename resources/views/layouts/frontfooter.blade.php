@@ -10,7 +10,11 @@
                         <span>T:</span> <a href="tel:07927543747">079-27543747</a>
                     </div>
                     <div class="d-flex gap-1 mb-1">
-                        <span>M: </span> <span><a href="tel:916358740011"> +91 63587 40011</a> , <a href="tel:916358740024"> +91 63587 40024</a> , <br/> <a href="tel:+916358740025"> +91 63587 40025</a></span>
+                        <span>M: </span> <span>
+                            <a href="tel:916358740011"> +91 63587 40011</a> , 
+                            <a href="tel:916358740024"> +91 63587 40024</a> , 
+                            <a href="tel:+916358740025"> +91 63587 40025</a>
+                        </span>
                     </div>
                     <div class="mb-1">
                         <span>E:</span> <a href="mailto:inquiry@armstrongex.com"> inquiry@armstrongex.com</a> <br>
@@ -88,6 +92,11 @@
                     <p>6th Floor, SARAP Building, Opp. Navjivan Press, B/H Gujarat Vidyapith, Ahmedabad - 380014, Gujarat, India.</p>
                     </a>
                     
+                    <h3 class="address_title">Get The App</h3>
+                    <a href="https://play.google.com/store/apps/details?id=com.iw.armstrong" target="_blank"><img src="{{ asset('public/front/img/Google-play.svg') }}" alt="Google play" class="img-fluid me-2" width="90px"></a>
+                    
+                    <a href="https://apps.apple.com/us/app/armstrong-machinery-india/id6752468619" target="_blank"><img src="{{ asset('public/front/img/App-Store.svg') }}" alt="App Store" class="img-fluid" width="90px"></a>
+                    
                    <!-- <h3 class="address_title mt-3">Factory Address:</h3>-->
                    <!-- <p class="mb-0"><b>Unit 1</b></p>-->
                    <!--<a href="https://www.google.com/maps/search/Plot+no.+A2%2F502-1,+Opp.+Indo-German+Tool+Room+Phase+-+4,+GIDC+Estate,+Vatva,+Ahmedabad,+Gujarat+382445,+India/@22.9713059,72.6397786,17z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI1MDgxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank">-->
@@ -115,6 +124,9 @@
                 <a href="https://www.facebook.com/armstrong.stitchman" target="_blank"><img src="{{ asset('public/front//img/facebook_icon.svg') }}" alt="facebook" class="img-fluid"></a>
                 <a href="https://www.linkedin.com/company/armstrong-india/" target="_blank"><img src="{{ asset('public/front//img/linkedin_icon.svg') }}" alt="linkedin" class="img-fluid"></a>
                 <a href="https://www.youtube.com/@armstrongmachineryllp1330" target="_blank"><img src="{{ asset('public/front//img/youtube_icon.svg') }}" alt="youtube" class="img-fluid"></a>
+                
+                <!--<a href="https://play.google.com/store/apps/details?id=com.iw.armstrong" target="_blank"><img src="{{ asset('public/front//img/playstore_icon.svg') }}" alt="Play Store" class="img-fluid"></a>-->
+                <!--<a href="https://apps.apple.com/us/app/armstrong-machinery-india/id6752468619" target="_blank"><img src="{{ asset('public/front//img/appstore_icon.svg') }}" alt="App Store" class="img-fluid"></a>-->
             </div>
             <div class="d-flex">
                 <a href="{{route('privacy-policy')}}" class="">Privacy Policy</a><span class="mx-2">|</span><a href="{{route('terms-condition')}}" class="">Terms &
@@ -326,13 +338,26 @@
 </div>
 
 @include('layouts.cookies')
+<!--@if(session('whatsapp_url'))-->
+<!--<script>-->
+<!--    window.onload = function () {-->
+<!--        window.open("{{ session('whatsapp_url') }}", "_blank");-->
+<!--    };-->
+<!--</script>-->
+<!--@endif-->
+
+<script>
 @if(session('whatsapp_url'))
-    <script>
-        window.onload = function () {
-            window.open("{{ session('whatsapp_url') }}", "_blank");
-        };
-    </script>
+    window.location.href = "{{ session('whatsapp_url') }}";
 @endif
+</script>
+@if(session('whatsapp_url'))
+<noscript>
+    <a href="{{ session('whatsapp_url') }}">Click here if not redirected</a>
+</noscript>
+@endif
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
