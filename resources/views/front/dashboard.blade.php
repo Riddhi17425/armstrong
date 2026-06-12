@@ -663,14 +663,11 @@
 <section class="section-pt">
     <div class="container">
         <div class="text-center ">
-            <h2 class="main_head head_wrapper">Socials</h2>
-
-            <p>Socials</p>
-          
+            <h2 class="main_head head_wrapper mb-4">Socials</h2>
         </div>
         <div class="layout-wrapper-Socials">
             <div class="left-card">
-                <img class="home_instagram" src="https://hnoww.com/public/images/front/Instagram_logo_home.svg"
+                <img class="home_instagram" src="{{ asset('public/front/img/LinkedIn_logo.svg') }}"
                     alt="Instagram Logo" loading="lazy">
 
                 <div>
@@ -715,99 +712,6 @@
         </div>
     </div>
 </section>
-
-<style>
-.layout-wrapper-Socials {
-    display: flex;
-    gap: 20px;
-    width: 100%;
-
-}
-
-/* --- LEFT PANEL --- */
-.layout-wrapper-Socials .left-card {
-    /* flex: 0 0 35%;  */
-    border-radius: 6px;
-    padding: 50px 30px;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-     background: #F5F5F5;
-}
-
-
-.layout-wrapper-Socials .left-card:before {
-    content: "";
-    position: absolute;
-    background: url(../../images/front/ct_design.svg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    bottom: 0;
-    right: 0;
-    width: 228px;
-    height: 243px;
-    z-index: -1;
-
-}
-
-.home_instagram {
-    width: 250px;
-}
-
-
-.layout-wrapper-Socials .logo-text {
-    font-size: 46px;
-    letter-spacing: 1px;
-}
-
-/* Middle Section: Text */
-.layout-wrapper-Socials .text-content {
-    margin: auto 0;
-}
-
-.layout-wrapper-Socials .main-title {
-    font-size: 28px;
-    font-weight: 600;
-    line-height: 1.4;
-    margin: 0 0 40px 0;
-    letter-spacing: 0.5px;
-
-}
-
-
-.layout-wrapper-Socials .body-text {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 2.2;
-    color: #d1d8e0;
-    margin: 0;
-}
-
-/* Bottom Section: Handle */
-.layout-wrapper-Socials .brand-tag {
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: 0.5px;
-    margin-top: 20px;
-}
-
-/* --- RIGHT SIDE: IMAGE GRID --- */
-.layout-wrapper-Socials .image-grid {
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-/* Styling for each image in the grid */
-.layout-wrapper-Socials .grid-image {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 6px;
-    display: block;
-}
-</style>
 
 <section class="section-pt">
     <div class="container">
