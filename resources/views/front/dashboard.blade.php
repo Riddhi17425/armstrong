@@ -660,6 +660,72 @@
     </div>
 </section>
 
+{{-- <section class="section-pt">
+    <div class="row gx-md-5">
+        <div class="col-sm-12 col-lg-12">
+            <div class="linkedin_slider row">
+                @forelse ($feed as $post)
+                <div class="col-lg-4 linkedinslid"
+                    style="border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+                    <div class="linkedin_card">
+                        @php
+                        $description = $post['text']['text'] ?? '';
+                        $contentEntities = $post['content']['contentEntities'][0] ?? [];
+                        $thumbnail = $contentEntities['thumbnails'][0]['imageSpecificContent']['url'] ?? null;
+                        $image = $thumbnail ?? ($contentEntities['entityLocation'] ?? null);
+                        $mediaUrl = $image;
+                        $isVideo = Str::contains($mediaUrl, ['.mp4', 'video']);
+                        $activityUrn = $post['activity'] ?? null;
+                        $permalink = $activityUrn ? 'https://www.linkedin.com/feed/update/' . $activityUrn : '#';
+                        @endphp
+
+                        @if ($mediaUrl)
+                        @if ($isVideo)
+                        <iframe width="100%" height="auto" class="linkedin_img mb-3" src="{{ $mediaUrl }}"
+                            title="LinkedIn video" frameborder="0"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                        @else
+                        <img src="{{ $mediaUrl }}" alt="LinkedIn Image" width="100%" class="linkedin_img mb-3">
+                        @endif
+                        @endif
+
+                        @if (!empty($description))
+                        <p class="linkedin_card_subtext">{{ Str::limit($description, 100) }}</p>
+                        @endif
+
+                        <div class="text-center mt-2">
+                            <a href="{{ $permalink }}" class="main_btn" target="_blank">
+                                View on LinkedIn
+                                <span class="btn_svg">
+                                    <img src="{{ asset('public/front/images/blue_gear.svg') }}" loading="lazy"
+                                        alt="setting icon" class="img-fluid">
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                <p>No LinkedIn posts found.</p>
+                @endforelse
+            </div>
+
+            <div class="col-sm-12 col-lg-4 mt-4 d-block d-md-none">
+                <div class="linkedin_slider_arrow">
+                    <div class="d-flex gap-3 align-items-center justify-content-center">
+                        <img src="{{ asset('public/front/images/slider_leftarrow.svg')}}" loading="lazy" alt="left"
+                            id="linkedin-prev" class="linkedin-prev" style="cursor: pointer;">
+                        <img src="{{ asset('public/front/images/slider_rightarrow.svg')}}" loading="lazy"
+                            alt="right" id="linkedin-next" class="linkedin-next" style="cursor: pointer;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> --}}
+
+
 <section class="section-pt">
     <div class="container">
         <div class="text-center ">
@@ -671,13 +737,13 @@
                     alt="Instagram Logo" loading="lazy">
 
                 <div>
-                    <h4 class=" my-4 fw-bold">The Collection, In Motion.</h4>
+                    <h4 class=" my-4 fw-bold">Stay Updated with Us.</h4>
                     <p>
-                        Architectural Objects in context. <br> Follow the work at @h.noww
+                        Follow our latest news, milestones, and innovations.
                     </p>
                 </div>
-                <a class="sub_btn2 mt-2" href="#" target="_blank">
-                                <span>Follow on Instagram</span>
+                <a class="sub_btn2 mt-2" href="https://in.linkedin.com/company/armstrong-india" target="_blank">
+                                <span>Follow on LinkedIn</span>
                                 <svg class="ms-3" width="15" height="15" viewBox="0 0 15 15">
                                     <path d="M1 14.3333L14.3333 1M14.3333 1H4.33333M14.3333 1V11" stroke="#E41E29" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
                                 </svg>
@@ -688,7 +754,7 @@
                     <img src="https://scontent-bom5-2.cdninstagram.com/v/t51.82787-15/720712320_17891018538538481_7854508961222383686_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=108&amp;ccb=7-5&amp;_nc_sid=18de74&amp;efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&amp;_nc_ohc=IKqmdiBBVDAQ7kNvwGnLvxl&amp;_nc_oc=Adqjko9REN6gyQW46xsygepgBwr1HDBrqXqU1hJ9O3CqzsZZI2AVXs2dEt8VVr4lkMU&amp;_nc_zt=23&amp;_nc_ht=scontent-bom5-2.cdninstagram.com&amp;edm=ANo9K5cEAAAA&amp;_nc_gid=H6UhMPu5TJgc9zxWp383fw&amp;_nc_tpa=Q5bMBQG3Q1aZiAPDmmlWtJ3NncUX5uWeQD3jcwlVJ56GZz-7BMbxryQvnM-Sjn_j9TrGLfXzjvtVhXlQVw&amp;oh=00_Af_wVJ2Fla9im7KhVP0mvjRJRoNsDZHI9iVm36x5Iha6sA&amp;oe=6A31A256"
                         alt="Instagram Post" class="grid-image" onerror="this.parentElement.style.display='none'">
                 </a>
-                <a href="https://www.instagram.com/reel/DZXOryjtsWq/" target="_blank" rel="noopener noreferrer">
+                {{-- <a href="https://www.instagram.com/reel/DZXOryjtsWq/" target="_blank" rel="noopener noreferrer">
                     <img src="https://scontent-bom5-1.cdninstagram.com/v/t51.71878-15/717437228_1038497592169404_3733843455641271530_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=109&amp;ccb=7-5&amp;_nc_sid=18de74&amp;efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&amp;_nc_ohc=hS2pdJMrnjEQ7kNvwFI8T5g&amp;_nc_oc=AdoWM5jud7P6oHsyVu29EygWuFbc9qhVQbR-ErMF2o1JdgO6KkzYR_wLLHKEchW1oBI&amp;_nc_zt=23&amp;_nc_ht=scontent-bom5-1.cdninstagram.com&amp;edm=ANo9K5cEAAAA&amp;_nc_gid=H6UhMPu5TJgc9zxWp383fw&amp;_nc_tpa=Q5bMBQH_xU9gUo3fh2p3rSJJ0fJPcwh71MMmG-46DskmQa9200Y4D7kuQOTtfOJU3ggyBj_JfpFOJfjZdg&amp;oh=00_Af9opPJlvV7PCkzaSfs3vIBvV24wzZ71dgaLZAQLgfhy5Q&amp;oe=6A3198B3"
                         alt="Instagram Post" class="grid-image" onerror="this.parentElement.style.display='none'">
                 </a>
@@ -707,7 +773,7 @@
                 <a href="https://www.instagram.com/p/DY6l4huNyPK/" target="_blank" rel="noopener noreferrer">
                     <img src="https://scontent-bom5-2.cdninstagram.com/v/t51.82787-15/711466541_17888873466538481_3207478071701920941_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=104&amp;ccb=7-5&amp;_nc_sid=18de74&amp;efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&amp;_nc_ohc=KM3opdXEpgUQ7kNvwHt8_gE&amp;_nc_oc=AdqegSN9EIQ5J-K4OWnu2cyZLk2nnCtwamhV8lxMbRTiH1JOflL6Si7gcYrmIbZpBLE&amp;_nc_zt=23&amp;_nc_ht=scontent-bom5-2.cdninstagram.com&amp;edm=ANo9K5cEAAAA&amp;_nc_gid=H6UhMPu5TJgc9zxWp383fw&amp;_nc_tpa=Q5bMBQHvT8jM2lEOM8JTBmK9x738ASCXWlUOqdmDV6ix9WcfncY0qBjEue-PqO7nH-uxpQwv_V1RQy9RFg&amp;oh=00_Af-XIQyXGmmNncUA1GUbyIV1w_YQsud1NaPwgNFG_fJStw&amp;oe=6A31B637"
                         alt="Instagram Post" class="grid-image" onerror="this.parentElement.style.display='none'">
-                </a>
+                </a> --}}
             </div>
         </div>
     </div>
