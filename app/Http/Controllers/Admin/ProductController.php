@@ -431,18 +431,21 @@ class ProductController extends Controller
         if (!$category) {
             return response()->json(['error' => 'Category not found'], 404);
         }
-        $products = ProductMaster::where('category_id', $id)
-                    ->where('product_status', 'Active')
-                    ->where('is_live', 1)
-                    ->orderBy('product_name', 'ASC')
-                    ->get(['product_name', 'url']);
-        // $products = ProductMaster::where('category_id', $id)
-        //     ->where('product_status', 'Active')
-        //     ->whereNotNull('index_id')        // exclude NULL
-        //     ->where('index_id', '>', 0)       // exclude 0
-        //     ->orderBy('index_id', 'ASC')
-        //     ->get(['product_name', 'url']);
-
+        $products = ProductMaster::where('product_status', 'Active')->where('is_live', 1);
+            if ($category->id == 18 || $category->url == 'flexographic-printing') {
+                $products = $products->whereIn('id', [
+                    90, // Woven Sack Flexographic Printing Machine
+                    116, // Wide Width Flexo Printing Machine
+                    89, // Six Colors Roll to Roll Flexographic Printing Machine
+                    72, // Six Color Flexo Printing Machine With Sheet Cutting Machine
+                    30  // Flexographic Printing
+                ]);
+            }else{
+                $products = $products->where('category_id', $id);
+            }
+                    
+        $products = $products->orderBy('product_name', 'ASC')->get(['product_name', 'url']);
+      
         return response()->json([
             'category' => [
                 'banner_image' => asset($category->category_image ?? 'public/front/img/products_bg_1.png'),

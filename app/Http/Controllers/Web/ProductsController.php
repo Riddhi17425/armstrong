@@ -20,13 +20,26 @@ class ProductsController extends Controller
             $query->where('product_status', 'active')->where('is_live', 1)->with('images')->orderBy('product_name', 'asc');
         }])->where('url', $url)->firstOrFail();
         $products = $category->products;
+
+        if ($category->id == 18 || $url == 'flexographic-printing') {
+            $products = ProductMaster::whereIn('id', [
+                90, // Woven Sack Flexographic Printing Machine
+                116, // Wide Width Flexo Printing Machine
+                89, // Six Colors Roll to Roll Flexographic Printing Machine
+                72, // Six Color Flexo Printing Machine With Sheet Cutting Machine
+                30  // Flexographic Printing
+            ])
+            ->where('product_status', 'active')
+            ->where('is_live', 1)
+            ->with('images')
+            ->orderBy('product_name', 'asc')
+            ->get();
+        }
         
        $faqs = [];
         if (!empty($category->faqs)) {
             $faqs = $category->faqs; 
         }
-        
-        
         
         $metatitle = $category->meta_title;
         $metadescription = $category->meta_description;

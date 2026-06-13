@@ -42,11 +42,10 @@
     Redirect 301 /product/webbing-cutting-machine https://www.armstrongex.com/product/webbing-and-tape-making-machine
     
     RewriteRule ^product/ultrasonic-pp-woven-bag-hemming-machine/?$ https://www.armstrongex.com/ [R=301,L]
-     RewriteRule ^product/flexographic-fibc-printing-machine/?$ https://www.armstrongex.com/ [R=301,L]
      RewriteRule ^product/fibc-handle-wrapping-machine/?$ https://www.armstrongex.com/ [R=301,L]
      RewriteRule ^product/six-colours-roll-to-roll-flexographic-cylinder-less-printing-machined/?$ https://www.armstrongex.com/ [R=301,L]
      RewriteRule ^product/ultrasonic-pp-woven-bag-hemming-machined/?$ https://www.armstrongex.com/ [R=301,L]
-     RewriteRule ^product/flexographic-fibc-printing-machined/?$ https://www.armstrongex.com/ [R=301,L]
+    #  RewriteRule ^product/flexographic-fibc-printing-machined/?$ https://www.armstrongex.com/ [R=301,L]
      RewriteRule ^product/fibc-handle-wrapping-machined/?$ https://www.armstrongex.com/ [R=301,L]
      RewriteRule ^product/electrical-bale-press-machined/?$ https://www.armstrongex.com/ [R=301,L]
      RewriteRule ^product/bag-closing-machined/?$ https://www.armstrongex.com/category/bag-closing-machine [R=301,L]
