@@ -2,6 +2,35 @@
     'og_image' => asset($product->images->first()->image ?? '')
 ])
 
+@php
+    $faqSchemaEntities = [];
+    if(isset($faqs) && is_countable($faqs) && count($faqs) > 0){
+        foreach ($faqs as $faq) {
+            $question = trim($faq->question ?? '');
+            $answer = trim(strip_tags($faq->answer ?? ''));
+            if ($question && $answer) {
+                $faqSchemaEntities[] = [
+                    '@type' => 'Question',
+                    'name' => $question,
+                    'acceptedAnswer' => [
+                        '@type' => 'Answer',
+                        'text' => $answer,
+                    ],
+                ];
+            }
+        }
+    }
+@endphp
+@if(!empty($faqSchemaEntities))
+    <script type="application/ld+json">
+        {!! json_encode([
+            '@@context' => 'https://schema.org',
+            '@type' => 'FAQPage',
+            'mainEntity' => $faqSchemaEntities,
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+    </script>
+@endif
+
 @if($product->url == 'bag-testing-machine')
  <script type="application/ld+json">
     {
