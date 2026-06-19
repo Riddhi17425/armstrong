@@ -234,8 +234,6 @@
     </div>
 </section>
 
-
-
 <section class="section-pt">
     <div class="container">
         <div class=" help-card">
@@ -247,8 +245,9 @@
                         downtime, and guarantee consistent production, among other benefits.</P>
                     <div class=" mt-5">
                         <a class="need-request" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"> Get a
-                            Quote • </a>
-                        <a class="need-request ms-3" href="#">Speak With our Experts • </a>
+                            Quote </a>
+                        <a class="need-request ms-3" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal-4"
+ >Send Inquiry on WhatsApp</a>
                     </div>
                 </div>
             </div>
