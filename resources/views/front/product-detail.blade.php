@@ -31,6 +31,7 @@
     </script>
 @endif
 
+
 @if($product->url == 'bag-testing-machine')
  <script type="application/ld+json">
     {
@@ -186,7 +187,8 @@
 
    </div>
 </section>
-@if ($applications)
+
+{{-- @if ($applications)
     <section class="how-it-works section-pt">
    <div class="container px-0">
       <div class="text-center">
@@ -218,7 +220,7 @@
         </div>
    </div>
 </section>
-@endif
+@endif --}}
 
    @php
     $hasSpecifications = $specifications && is_array($specifications) && count($specifications) > 0;

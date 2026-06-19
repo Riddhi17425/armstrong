@@ -23,8 +23,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{!! $metatitle ?? 'Armstrong' !!}</title>
     <meta name="description" content="{!! $metadescription ?? ''!!}">
-    <link rel="icon" type="image/x-icon" href="{{asset('public/front/images/favicon.png')}}">
-    <link rel="icon" type="image/x-icon" href="{{ asset('public/front/img/favicon.png')}}">
+    <link rel="icon" type="image/x-icon" href="{{asset('public/front/images/favicon.webp')}}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('public/front/img/favicon.webp')}}">
     
     <!--og tags-->
      <meta property="og:title" content="{!! $metatitle ?? 'Armstrong' !!}">
@@ -66,6 +66,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('public/front/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('public/front/css/responsive.css')}}">
+    {{-- <link rel="canonical" href="{{ $_SERVER['SCRIPT_URI'] }}" /> --}}
+
      <style>
         .custom-placeholder {
             color: #666;
@@ -186,7 +188,7 @@
     </style>
     
     <meta name="google-site-verification" content="TlYf45dh6qXvTaP3Fa7Rfs8LCcGkuluXggXlj4TXlZQ" />
-
+    
     <script type="application/ld+json">
     {!! $localSchema !!}
     </script>
@@ -224,47 +226,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0  navbar-nav-scroll">
-                        <li class="nav-item d-none">
-                            <a class="nav-link">About Us2
-                                <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
-                                    class="img-fluid setting-icon">
-                            </a>
-                            <div class="mega_menu">
-                                <div class="container">
-                                    <div class="mega_menu_wrapper">
-                                        <div class="icons">
-                                            <a class="icon" href="{{route('about')}}">
-                                                <img src="{{asset('public/front/img/Company Profile.png')}}" alt="cp"
-                                                    class="img-fluid d-none d-md-block">
-                                                <div class="pagename">
-                                                    <span>Company Profile</span>
-                                                </div>
-                                            </a>
-                                            <a class="icon icon2" href="{{route('our.infrastructure')}}">
-                                                <img src="{{asset('public/front/img/Our Infrastructure.png')}}" alt="cp"
-                                                    class="img-fluid d-none d-md-block">
-                                                <div class="pagename">
-                                                    <span>Our Infrastructure</span>
-                                                </div>
-                                            </a>
-                                            <a class="icon mb-0 icon3" href="{{route('certificates')}}">
-                                                <img src="{{asset('public/front/img/Certificates.png')}}" alt="cp"
-                                                    class="img-fluid d-none d-md-block">
-                                                <div class="pagename">
-                                                    <span>Certificates</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="icons_bg">
-                                            <img src="{{asset('public/front/img/Career.jpg')}}" alt="cp"
-                                                class=" img-fluid main-bg">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('about')}}">About Us
+                            <a class="nav-link" href="javascript:void(0)">About Us
                                 <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
                                     class="img-fluid setting-icon">
                             </a>
@@ -273,21 +236,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                     <div class="mega_menu_wrapper">
                                         <div class="icons">
                                             <a class="icon  icon1" href="{{route('about')}}">
-                                                <img src="{{asset('public/front/img/Company Profile.png')}}" alt="cp"
+                                                <img src="{{asset('public/front/img/Company Profile.webp')}}" alt="cp"
                                                     class="img-fluid d-none d-md-block">
                                                 <div class="pagename">
                                                     <span>Company Profile</span>
                                                 </div>
                                             </a>
                                             <a class="icon  icon2" href="{{route('our.infrastructure')}}">
-                                                <img src="{{asset('public/front/img/Our Infrastructure.png')}}" alt="cp"
+                                                <img src="{{asset('public/front/img/Our Infrastructure.webp')}}" alt="cp"
                                                     class="img-fluid d-none d-md-block">
                                                 <div class="pagename">
                                                     <span>Our Infrastructure</span>
                                                 </div>
                                             </a>
                                             <a class="icon mb-0  icon3" href="{{route('certificates')}}">
-                                                <img src="{{asset('public/front/img/Certificates.png')}}" alt="cp"
+                                                <img src="{{asset('public/front/img/Certificates.webp')}}" alt="cp"
                                                     class="img-fluid d-none d-md-block">
                                                 <div class="pagename">
                                                     <span>Certificates</span>
@@ -295,13 +258,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                             </a>
                                         </div>
                                         <div class="icons_bg">
-                                            <img src="{{asset('public/front/img/ABOUT.jpg')}}" alt="cp"
+                                            <img src="{{asset('public/front/img/ABOUT.webp')}}" alt="cp"
                                                 class=" img-fluid main-bg bd_10">
-                                            <img src="{{asset('public/front/img/company-profile-banner.jpg')}}" alt="cp"
+                                            <img src="{{asset('public/front/img/company-profile-banner.webp')}}" alt="cp"
                                                 class=" img-fluid main-bg1 bd_10">
-                                            <img src="{{asset('public/front/img/ABOUT.jpg')}}" alt="cp"
+                                            <img src="{{asset('public/front/img/ABOUT.webp')}}" alt="cp"
                                                 class=" img-fluid main-bg2 bd_10">
-                                            <img src="{{asset('public/front/img/certificates-banner.jpg')}}" alt="cp"
+                                            <img src="{{asset('public/front/img/certificates-banner.webp')}}" alt="cp"
                                                 class=" img-fluid main-bg3 bd_10">
                                         </div>
                                     </div>
@@ -546,8 +509,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('research.development')}}">R&D</a>
+                            <a class="nav-link" href="{{route('front.application')}}">Applications</a>
                         </li>
+                        <!--<li class="nav-item">-->
+                        <!--    <a class="nav-link" href="{{route('research.development')}}">R&D</a>-->
+                        <!--</li>-->
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('front.video')}}">Media
                                 <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
@@ -558,14 +524,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                     <div class="mega_menu_wrapper">
                                         <div class="icons">
                                             <a class="icon icon1" href="{{route('front.event')}}">
-                                                <img src="{{asset('public/front/img/Events.png')}}" alt="cp"
+                                                <img src="{{asset('public/front/img/Events.webp')}}" alt="cp"
                                                     class="img-fluid d-none d-md-block">
                                                 <div class="pagename">
                                                     <span>Events</span>
                                                 </div>
                                             </a>
                                             <a class="icon icon3 mb-0" href="{{route('front.video')}}">
-                                                <img src="{{asset('public/front/img/Videos.png')}}" alt="cp"
+                                                <img src="{{asset('public/front/img/Videos.webp')}}" alt="cp"
                                                     class="img-fluid d-none d-md-block">
                                                 <div class="pagename">
                                                     <span>Videos</span>
@@ -573,54 +539,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                             </a>
                                         </div>
                                         <div class="icons_bg">
-                                            <img src="{{asset('public/front/img/Media.jpg')}}" alt="cp"
+                                            <img src="{{asset('public/front/img/Media.webp')}}" alt="cp"
                                                 class=" img-fluid main-bg bd_10">
-                                            <img src="{{asset('public/front/img/event-banner.jpg')}}" alt="cp"
+                                            <img src="{{asset('public/front/img/event-banner.webp')}}" alt="cp"
                                                 class=" img-fluid main-bg1 bd_10">
                                             <!--<img src="{{asset('public/front/img/gallery-banner.jpg')}}" alt="cp" class=" img-fluid main-bg2 bd_10">-->
-                                            <img src="{{asset('public/front/img/Media.jpg')}}" alt="cp"
+                                            <img src="{{asset('public/front/img/Media.webp')}}" alt="cp"
                                                 class=" img-fluid main-bg3 bd_10">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('career')}}">Careers
-                                <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
-                                    class="img-fluid setting-icon">
-                            </a>
-                            <div class="mega_menu">
-                                <div class="container">
-                                    <div class="mega_menu_wrapper">
-                                        <div class="icons">
-                                            <a class="icon icon1" href="{{route('career')}}">
-                                                <img src="{{asset('public/front/img/Open Positions.png')}}" alt="cp"
-                                                    class="img-fluid d-none d-md-block">
-                                                <div class="pagename">
-                                                    <span>Open Positions</span>
-                                                </div>
-                                            </a>
-                                            <a class="icon icon2" href="{{route('front.lifearmstrong')}}">
-                                                <img src="{{asset('public/front/img/Life at Armstrong.png')}}" alt="cp"
-                                                    class="img-fluid d-none d-md-block">
-                                                <div class="pagename">
-                                                    <span>Life at Armstrong</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="icons_bg">
-                                            <img src="{{asset('public/front/img/Career.jpg')}}" alt="cp"
-                                                class=" img-fluid main-bg bd_10">
-                                            <img src="{{asset('public/front/img/open-positions-banner.jpg')}}" alt="cp"
-                                                class=" img-fluid main-bg1 bd_10">
-                                            <img src="{{asset('public/front/img/life-at-armstrong-banner.jpg')}}"
-                                                alt="cp" class=" img-fluid main-bg2 bd_10">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                        <!--<li class="nav-item">-->
+                        <!--    <a class="nav-link" href="{{route('career')}}">Careers-->
+                        <!--        <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"-->
+                        <!--            class="img-fluid setting-icon">-->
+                        <!--    </a>-->
+                        <!--    <div class="mega_menu">-->
+                        <!--        <div class="container">-->
+                        <!--            <div class="mega_menu_wrapper">-->
+                        <!--                <div class="icons">-->
+                        <!--                    <a class="icon icon1" href="{{route('career')}}">-->
+                        <!--                        <img src="{{asset('public/front/img/Open Positions.webp')}}" alt="cp"-->
+                        <!--                            class="img-fluid d-none d-md-block">-->
+                        <!--                        <div class="pagename">-->
+                        <!--                            <span>Open Positions</span>-->
+                        <!--                        </div>-->
+                        <!--                    </a>-->
+                        <!--                    <a class="icon icon2" href="{{route('front.lifearmstrong')}}">-->
+                        <!--                        <img src="{{asset('public/front/img/Life at Armstrong.webp')}}" alt="cp"-->
+                        <!--                            class="img-fluid d-none d-md-block">-->
+                        <!--                        <div class="pagename">-->
+                        <!--                            <span>Life at Armstrong</span>-->
+                        <!--                        </div>-->
+                        <!--                    </a>-->
+                        <!--                </div>-->
+                        <!--                <div class="icons_bg">-->
+                        <!--                    <img src="{{asset('public/front/img/Career.webp')}}" alt="cp"-->
+                        <!--                        class=" img-fluid main-bg bd_10">-->
+                        <!--                    <img src="{{asset('public/front/img/open-positions-banner.webp')}}" alt="cp"-->
+                        <!--                        class=" img-fluid main-bg1 bd_10">-->
+                        <!--                    <img src="{{asset('public/front/img/life-at-armstrong-banner.webp')}}"-->
+                        <!--                        alt="cp" class=" img-fluid main-bg2 bd_10">-->
+                        <!--                </div>-->
+                        <!--            </div>-->
+                        <!--        </div>-->
+                        <!--    </div>-->
+                        <!--</li>-->
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('blog')}}">Blogs</a>
                         </li>
@@ -660,7 +626,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 </div>
 
-                <a class="request_btn" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <a class="request_btn mt-3 mt-lg-0" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 31" fill="none">
                         <!-- Your SVG paths -->
                         <path

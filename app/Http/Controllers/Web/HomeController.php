@@ -113,38 +113,28 @@ class HomeController extends Controller
         // } else {
         //     \Log::warning('LinkedIn Access Token missing');
         // }
-
+   
         $response = Http::withHeaders([
             'Authorization' => 'Bearer '.env('LINKEDIN_ACCESS_TOKEN'),
-            'LinkedIn-Version' => '202506',
+            'LinkedIn-Version' => '202606',
             'X-Restli-Protocol-Version' => '2.0.0',
         ])->get('https://api.linkedin.com/rest/posts', [
             'q' => 'author',
-            'author' => 'urn:li:organization:13233489',
+        'author' => 'urn:li:organization:13233489',
             'count' => 6
         ]);
-        $accessToken = env('LINKEDIN_ACCESS_TOKEN');
 
-        $response = Http::withHeaders([
-            'Authorization' => "Bearer {$accessToken}",
-            'LinkedIn-Version' => '202506',
-            'X-Restli-Protocol-Version' => '2.0.0'
-        ])->get('https://api.linkedin.com/rest/posts', [
-            'q' => 'author',
-            'author' => 'urn:li:organization:13233489',
-            'count' => 6
-        ]);
-        //dd($response->status(), $response->body());
-    
-        //echo "<pre>"; print_r($linkedinPosts); die;
+        //dd($response->json());
+     
+        //echo "<pre>"; print_r($response->body()); die;
         return view('front.dashboard',compact('metatitle','metadescription','steps','homesliders','clientsays','blogs','category'/*,'linkedinPosts'*/));
     }
     
     public function application()
     {
         $applications = Application::where('status' , 'Active')->orderBy('created_at' , 'desc')->get();
-        $metatitle=  "application| Armstrong";
-        $metadescription=  "With over 43 years of experience, Armstrong is a trusted manufacturer and exporter of finishing machinery & spare parts for PP/FIBC and woven-sack industries.";
+        $metatitle=  "From Machines to Spare Parts - Complete Application Solutions";
+        $metadescription=  "From machines to spare parts, Armstrong provides end-to-end solutions for packaging, woven sacks, FIBC bags, and BCS machines for industrial applications.";
         return view('front.application',compact('metatitle','metadescription','applications'));
     }
 

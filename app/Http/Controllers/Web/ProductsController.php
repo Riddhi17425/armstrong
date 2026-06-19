@@ -21,7 +21,7 @@ class ProductsController extends Controller
         }])->where('url', $url)->firstOrFail();
         $products = $category->products;
 
-        if ($category->id == 18 || $url == 'flexographic-printing') {
+        if (isset($category) && ($category->id == 18 || $url == 'flexographic-printing')) {
             $products = ProductMaster::whereIn('id', [
                 90, // Woven Sack Flexographic Printing Machine
                 116, // Wide Width Flexo Printing Machine
