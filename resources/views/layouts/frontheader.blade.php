@@ -35,9 +35,9 @@
    
     <meta property="og:type" content="website">
     
-    @if (Request::is('woven-bag-lamination-machine'))
+    {{-- @if (Request::is('woven-bag-lamination-machine')) --}}
         <meta name="robots" content="noindex, nofollow">
-    @endif
+    {{-- @endif --}}
 
     
     <!-- bootstrap -->
@@ -185,6 +185,30 @@
     .category-btn:hover .pagename span {
         color: #E41E29 !important;
     }
+    
+    .application_header_link img
+    {
+        width: 80px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 4px;
+    }
+    
+    @media (max-width: 1537px) {
+        .application_header_link img {
+    width: 70px;
+
+}
+
+    @media (max-width: 1441px) {
+        .application_header_link img {
+    width: 60px;
+
+}
+
+        
+    }
+    
     </style>
     
     <meta name="google-site-verification" content="TlYf45dh6qXvTaP3Fa7Rfs8LCcGkuluXggXlj4TXlZQ" />
@@ -226,51 +250,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0  navbar-nav-scroll">
-                        <li class="nav-item">
-                            <a class="nav-link" href="javascript:void(0)">About Us
-                                <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
-                                    class="img-fluid setting-icon">
-                            </a>
-                            <div class="mega_menu">
-                                <div class="container">
-                                    <div class="mega_menu_wrapper">
-                                        <div class="icons">
-                                            <a class="icon  icon1" href="{{route('about')}}">
-                                                <img src="{{asset('public/front/img/Company Profile.webp')}}" alt="cp"
-                                                    class="img-fluid d-none d-md-block">
-                                                <div class="pagename">
-                                                    <span>Company Profile</span>
-                                                </div>
-                                            </a>
-                                            <a class="icon  icon2" href="{{route('our.infrastructure')}}">
-                                                <img src="{{asset('public/front/img/Our Infrastructure.webp')}}" alt="cp"
-                                                    class="img-fluid d-none d-md-block">
-                                                <div class="pagename">
-                                                    <span>Our Infrastructure</span>
-                                                </div>
-                                            </a>
-                                            <a class="icon mb-0  icon3" href="{{route('certificates')}}">
-                                                <img src="{{asset('public/front/img/Certificates.webp')}}" alt="cp"
-                                                    class="img-fluid d-none d-md-block">
-                                                <div class="pagename">
-                                                    <span>Certificates</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="icons_bg">
-                                            <img src="{{asset('public/front/img/ABOUT.webp')}}" alt="cp"
-                                                class=" img-fluid main-bg bd_10">
-                                            <img src="{{asset('public/front/img/company-profile-banner.webp')}}" alt="cp"
-                                                class=" img-fluid main-bg1 bd_10">
-                                            <img src="{{asset('public/front/img/ABOUT.webp')}}" alt="cp"
-                                                class=" img-fluid main-bg2 bd_10">
-                                            <img src="{{asset('public/front/img/certificates-banner.webp')}}" alt="cp"
-                                                class=" img-fluid main-bg3 bd_10">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('productlist')}}">Products
                                 <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
@@ -281,6 +261,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             @php
                             use App\Models\ProductCategory;
                             use App\Models\ProductMaster;
+                            use App\Models\Application;
 
                             // Fetch active categories
                             $product_categories = ProductCategory::where('status', 'Active')->get();
@@ -292,6 +273,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             'active')->get();
                             $juki_products = ProductMaster::where('subcategory_id', 3)->where('product_status',
                             'active')->get();
+                            $applications = Application::where('status' , 'Active')->orderBy('created_at' , 'desc')->get();
                             @endphp
 
                             <div class="mega_menu">
@@ -508,9 +490,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 </div>
                             </div>
                         </li>
+                        @if(isset($applications) && is_countable($applications) && count($applications) > 0)
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('front.application')}}">Applications</a>
+                            <a class="nav-link" href="{{route('front.application')}}">Applications
+                            <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
+                                    class="img-fluid setting-icon">
+                            </a>
+                            <div class="mega_menu">
+                                <div class="container">
+
+                                    <div class="nav nav-pills row " id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                        @foreach($applications as $key => $application)
+                                         <div class="col-md-3">
+                                            <button class="d-none d-md-block nav-link category-btn w-100" data-id="1" type="button">
+                                            <a class="icon application_header_link" href="{{ route('front.application.details',['url' => $application->url ]) }}">
+                                                <img src="{{ asset($application->application_image)}}" alt="" class="img-fluid">
+                                                <div class="pagename">
+                                                    <span>
+                                                    {{ $application->name }}
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </button>
+                                        <a class="icon d-block d-md-none" href="https://www.testintelliworkz.tech/armstrong/category/fibc-machine">
+                                            <div class="pagename">
+                                                <span>
+                                                {{ $application->name }}
+                                                </span>
+                                            </div>
+                                        </a>
+                                       </div>
+                                       @endforeach
+                                    </div>
+                
+                                </div>
+                            </div>
                         </li>
+                        @endif
                         <!--<li class="nav-item">-->
                         <!--    <a class="nav-link" href="{{route('research.development')}}">R&D</a>-->
                         <!--</li>-->
@@ -587,6 +603,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <!--        </div>-->
                         <!--    </div>-->
                         <!--</li>-->
+                        
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0)">About Us
+                                <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
+                                    class="img-fluid setting-icon">
+                            </a>
+                            <div class="mega_menu">
+                                <div class="container">
+                                    <div class="mega_menu_wrapper">
+                                        <div class="icons">
+                                            <a class="icon  icon1" href="{{route('about')}}">
+                                                <img src="{{asset('public/front/img/Company Profile.webp')}}" alt="cp"
+                                                    class="img-fluid d-none d-md-block">
+                                                <div class="pagename">
+                                                    <span>Company Profile</span>
+                                                </div>
+                                            </a>
+                                            <a class="icon  icon2" href="{{route('our.infrastructure')}}">
+                                                <img src="{{asset('public/front/img/Our Infrastructure.webp')}}" alt="cp"
+                                                    class="img-fluid d-none d-md-block">
+                                                <div class="pagename">
+                                                    <span>Our Infrastructure</span>
+                                                </div>
+                                            </a>
+                                            <a class="icon mb-0  icon3" href="{{route('certificates')}}">
+                                                <img src="{{asset('public/front/img/Certificates.webp')}}" alt="cp"
+                                                    class="img-fluid d-none d-md-block">
+                                                <div class="pagename">
+                                                    <span>Certificates</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="icons_bg">
+                                            <img src="{{asset('public/front/img/ABOUT.webp')}}" alt="cp"
+                                                class=" img-fluid main-bg bd_10">
+                                            <img src="{{asset('public/front/img/company-profile-banner.webp')}}" alt="cp"
+                                                class=" img-fluid main-bg1 bd_10">
+                                            <img src="{{asset('public/front/img/ABOUT.webp')}}" alt="cp"
+                                                class=" img-fluid main-bg2 bd_10">
+                                            <img src="{{asset('public/front/img/certificates-banner.webp')}}" alt="cp"
+                                                class=" img-fluid main-bg3 bd_10">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('blog')}}">Blogs</a>
                         </li>
