@@ -56,9 +56,9 @@
                     <div class="tab-content" id="filledTabsContent">
                         {{-- All Tab Content --}}
                         <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
-                            <div class="row gy-4 g-lg-5 gallery-container">
+                            <div class="row gy-4 gallery-container">
                                 @foreach ($gallery as $item)
-                                    <div class="col-lg-6 gallery-item" data-type-id="{{ $item->gallery_type_id }}">
+                                    <div class="col-lg-4 gallery-item" data-type-id="{{ $item->gallery_type_id }}">
                                         <a data-fancybox="Gallery" href="{{ asset('/' . $item->image) }}">
                                             <img src="{{ asset('/' . $item->image) }}" alt="gallery" class="img-fluid">
                                         </a>
@@ -73,11 +73,11 @@
                                 id="tab-content-{{ $type->id }}" 
                                 role="tabpanel" 
                                 aria-labelledby="tab-{{ $type->id }}">
-                                <div class="row gy-4 g-lg-5 gallery-container">
+                                <div class="row gy-4 gallery-container">
                                     {{-- Images will be shown here dynamically --}}
                                     @foreach ($gallery as $item)
                                         @if ($item->types == $type->id)
-                                            <div class="col-lg-6 gallery-item" data-type-id="{{ $item->types }}">
+                                            <div class="col-lg-4 gallery-item" data-type-id="{{ $item->types }}">
                                                 <a data-fancybox="Gallery" href="{{ asset('/' . $item->image) }}">
                                                     <img src="{{ asset('/' . $item->image) }}" alt="gallery" class="img-fluid">
                                                 </a>

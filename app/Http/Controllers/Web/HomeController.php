@@ -36,98 +36,18 @@ use App\Models\Application;
 class HomeController extends Controller
 {
     public function index()
-    {   
-        $metatitle = "Manufacturer - FIBC, Woven Sack & Mulch Film Punching Machine";
+    {    
+        // $metatitle = "Machinery and spare parts Manufacturer for PP industry";
+        // $metadescription = "From advanced weaving and needle loom machines to high-speed finishing equipment & spare parts, Armstrong delivers high-quality industrial machinery.";
+        
+        $metatitle = "Manufacturer – FIBC, Woven Sack & Mulch Film Punching Machine";
         $metadescription = "Armstrong is a leading manufacturer of FIBC machines (Jumbo), woven sack, PP/HDPE bag making machines, heavy-duty bag closers, etc., with 40+ years of expertise.";
         $steps = HowItWork::orderBy('id','desc')->where('status','Active')->get();
         $homesliders = HomeSlider::orderBy('id','asc')->where('status','Active')->select('id','image')->get();
         $clientsays = Client::orderBy('id','asc')->where('status','Active')->get();
         $blogs = Blogs::orderBy('id','desc')->where('status','Active')->get();
         $category = ProductCategory::with('products')->where('status', 'Active')->get();
-
-        // $linkedinPosts = \Illuminate\Support\Facades\Cache::remember('linkedin_latest_posts', 3600, function () {
-        //     $orgId = env('LINKEDIN_ORGANIZATION_ID');
-        //     $token = env('LINKEDIN_ACCESS_TOKEN');
-            
-        //     if (!$orgId || !$token) {
-        //         return [];
-        //     }
-
-        //     try {
-        //         $response = \Illuminate\Support\Facades\Http::withToken($token)
-        //             ->withHeaders(['LinkedIn-Version' => '202506', 'X-Restli-Protocol-Version' => '2.0.0'])
-        //             ->get("https://api.linkedin.com/rest/posts?author=urn:li:organization:{$orgId}&q=author&count=6");
-                    
-        //         if ($response->successful()) {
-        //             return $response->json()['elements'] ?? [];
-        //         }
-                
-        //         \Illuminate\Support\Facades\Log::error('LinkedIn API Error: ' . $response->body());
-        //         return [];
-        //     } catch (\Exception $e) {
-        //         \Illuminate\Support\Facades\Log::error('LinkedIn API Exception: ' . $e->getMessage());
-        //         return [];
-        //     }
-        // });
-
-        // $feed = [];
-        // $accessToken = env('LINKEDIN_ACCESS_TOKEN');
-        // $orgId = '13233489';
-
-        // if ($accessToken) {
-
-        //     try {
-
-        //         $response = Http::withHeaders([
-        //             'Authorization' => "Bearer {$accessToken}",
-        //             'LinkedIn-Version' => '202506',
-        //             'X-Restli-Protocol-Version' => '2.0.0',
-        //         ])->get('https://api.linkedin.com/rest/posts', [
-        //             'q' => 'author',
-        //             'author' => "urn:li:organization:{$orgId}",
-        //             'count' => 6
-        //         ]);
-
-
-        //         if ($response->successful()) {
-
-        //             $feed = $response->json()['elements'] ?? [];
-
-        //         } else {
-
-        //             \Log::error('LinkedIn API Error', [
-        //                 'status' => $response->status(),
-        //                 'body' => $response->body()
-        //             ]);
-
-        //         }
-
-        //     } catch (\Exception $e) {
-
-        //         \Log::error('LinkedIn API Exception', [
-        //             'message' => $e->getMessage()
-        //         ]);
-
-        //     }
-
-        // } else {
-        //     \Log::warning('LinkedIn Access Token missing');
-        // }
-   
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer '.env('LINKEDIN_ACCESS_TOKEN'),
-            'LinkedIn-Version' => '202606',
-            'X-Restli-Protocol-Version' => '2.0.0',
-        ])->get('https://api.linkedin.com/rest/posts', [
-            'q' => 'author',
-        'author' => 'urn:li:organization:13233489',
-            'count' => 6
-        ]);
-
-        //dd($response->json());
-     
-        //echo "<pre>"; print_r($response->body()); die;
-        return view('front.dashboard',compact('metatitle','metadescription','steps','homesliders','clientsays','blogs','category'/*,'linkedinPosts'*/));
+        return view('front.dashboard',compact('metatitle','metadescription','steps','homesliders','clientsays','blogs','category'));
     }
     
     public function application()
@@ -168,7 +88,10 @@ class HomeController extends Controller
         Event::where('status', 'Active')->where('type', 'upcoming')->whereDate('end_date', '<', now())->update(['type' => 'past']);
         $upcomingevents = Event::where('status','Active')->orderBy('id','desc')->where('type','upcoming')->get();
         $pastevents = Event::where('status','Active')->orderBy('end_date', 'desc')->orderBy('id','desc')->where('type','past')->get();
-        return view('front.event',compact('metatitle','metadescription','upcomingevents','pastevents'));
+        $eventLatest = Event::where('status', 'Active')->whereNull('deleted_at')->latest('created_at')->first();
+        $ogImg = asset('/'.$eventLatest->image);
+        
+        return view('front.event',compact('metatitle','metadescription','upcomingevents','pastevents', 'ogImg'));
     }
     
     public function certificate()

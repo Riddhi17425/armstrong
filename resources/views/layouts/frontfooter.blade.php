@@ -1,3 +1,14 @@
+<style>
+.btn-loader{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.d-none{
+    display:none;
+}
+</style>
 <footer class="section-pt section-mt">
     <div class="container">
         <div class="row ft-mb">
@@ -294,7 +305,7 @@
       </div>
 
       <div class="modal-body">
-        <form method="POST" action="{{ route('whatsaapinquiry') }}">
+        <form id="whatsappForm" method="POST" action="{{ route('whatsaapinquiry') }}">
           @csrf
 
           <div class="mb-3">
@@ -327,7 +338,11 @@
 
 
           <div class="d-grid">
-            <button type="submit" class="btn popup-btn">Start Chat with Us</button>
+            <button type="submit" class="btn popup-btn" id="whatsappBtn"><span class="btn-text">Start Chat with Us</span>
+        <span class="btn-loader d-none">
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            Connecting to WhatsApp...
+        </span></button>
           </div>
 
         </form>
@@ -714,6 +729,19 @@ document.addEventListener("DOMContentLoaded", function () {
 } else {
   AOS.init({ duration: 1000 });
 }
+</script>
+<script>
+    $('#whatsappForm').on('submit', function (e) {
+
+    // Optional: validate your fields 
+
+    $('#whatsappBtn').prop('disabled', true);
+
+    $('.btn-text').addClass('d-none');
+    $('.btn-loader').removeClass('d-none');
+
+   
+});
 </script>
 
 </body>

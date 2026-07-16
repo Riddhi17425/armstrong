@@ -24,7 +24,7 @@
     }
 @endphp
 @include('layouts.frontheader', [
-    'og_image' => $ogImage ?? ''
+    'og_image' => $ogImage ?? '',
 ])
 
 @php

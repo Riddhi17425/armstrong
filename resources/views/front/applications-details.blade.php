@@ -67,11 +67,68 @@
 
         <div class="product_list_slider owl-theme owl-carousel ">
             @foreach ($products as $product)
+                <!--<div class="product_card">-->
+                <!--    <a href="{{ route('products.detail' , ['url' => $product->url]) }}">-->
+                <!--        <img src="{{ asset('public/admin/product/front_image/' .$product->front_image) }}" alt="images" class="img-fluid mb-4 product_card_img">-->
+                <!--        <h3 class="news-title pt-0">{{ $product->product_name }} </h3>-->
+                <!--    </a>-->
+                <!--    <div class="product-contant mt-0">-->
+                <!--        {{ \Illuminate\Support\Str::limit(strip_tags($product->product_short_desc), 150) }}-->
+                <!--         <span>-->
+                <!--           <a class="arrow_circle" href="{{ route('products.detail' , ['url' => $product->url]) }}">-->
+                <!--                 <img src="{{ asset('public/front/img/arrow.png') }}" alt="arrow" class="img-fluid arrow_icon">-->
+                <!--           </a>-->
+                <!--        </span>-->
+                <!--    </div>-->
+                    
+                <!--</div>-->
+                @php
+                    $images = [];
+                    // Decode front_image if it's JSON array
+                    if(!empty($product->front_image)) {
+                        $decoded = json_decode($product->front_image, true);
+                        if(is_array($decoded)) {
+                            $images = $decoded; // multiple images
+                        } else {
+                            $images = [$product->front_image]; // single image
+                        }
+                    }
+                    // Fallback to related images if front_image is empty
+                    elseif($product->images->isNotEmpty()) {
+                        $images = $product->images->pluck('image')->toArray();
+                    }
+                @endphp
+                
                 <div class="product_card">
-                    <a href="{{ route('products.detail' , ['url' => $product->url]) }}">
-                        <img src="{{ asset('public/admin/product/front_image/' .$product->front_image) }}" alt="images" class="img-fluid mb-4 product_card_img">
-                        <h3 class="news-title pt-0">{{ $product->product_name }} </h3>
-                    </a>
+                @if(count($images) > 1)
+                    {{-- Multiple images: slider (no link) --}}
+                    <div class="spare_par_slider owl-carousel owl-theme  product_card_img overflow-hidden">
+                        @foreach($images as $img)
+                            <img src="{{ asset('public/admin/product/front_image/' . $img) }}"
+                                 alt="{{ str_replace(['-', '_'],' ', pathinfo($img, PATHINFO_FILENAME)) }}"
+                                 class="img-fluid  mb-2">
+                            <h3 class="news-title pt-0">{{ $product->product_name }} </h3>
+                        @endforeach
+                    </div>
+                    
+                    @elseif(count($images) === 1)
+                        {{-- Single image (clickable) --}}
+                        <a href="{{ route('products.detail', $product->url) }}">
+                            <img src="{{ asset('public/admin/product/front_image/' . $images[0]) }}"
+                                 alt="{{ str_replace(['-', '_'],' ', pathinfo($images[0], PATHINFO_FILENAME)) }}"
+                                 class="img-fluid product_card_img">
+                            <h3 class="news-title pt-0">{{ $product->product_name }} </h3>
+                        </a>
+    
+                    @else
+                        {{-- No image (clickable) --}}
+                        <a href="{{ route('products.detail', $product->url) }}">
+                            <img src="{{ asset('public/front/img/no-image.png') }}"
+                                 alt="{{ $product->product_name }}"
+                                 class="img-fluid product_card_img">
+                            <h3 class="news-title pt-0">{{ $product->product_name }} </h3>
+                        </a>
+                    @endif
                     <div class="product-contant mt-0">
                         {{ \Illuminate\Support\Str::limit(strip_tags($product->product_short_desc), 150) }}
                          <span>
@@ -80,7 +137,6 @@
                            </a>
                         </span>
                     </div>
-                    
                 </div>
             @endforeach
             

@@ -20,7 +20,7 @@ class ProductsController extends Controller
             $query->where('product_status', 'active')->where('is_live', 1)->with('images')->orderBy('product_name', 'asc');
         }])->where('url', $url)->firstOrFail();
         $products = $category->products;
-
+        
         if (isset($category) && ($category->id == 18 || $url == 'flexographic-printing')) {
             $products = ProductMaster::whereIn('id', [
                 90, // Woven Sack Flexographic Printing Machine
@@ -40,6 +40,8 @@ class ProductsController extends Controller
         if (!empty($category->faqs)) {
             $faqs = $category->faqs; 
         }
+        
+        
         
         $metatitle = $category->meta_title;
         $metadescription = $category->meta_description;

@@ -11,35 +11,35 @@
 
   gtag('config', 'AW-11201625696');
 </script>
-    <!-- Google Tag Manager --> 
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': 
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], 
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 
+    <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,
-         f); 
-        })(window,document,'script','dataLayer','GTM-MF2C8CJ3');</script> 
-        <!-- End Google Tag Manager --> 
+         f);
+        })(window,document,'script','dataLayer','GTM-MF2C8CJ3');</script>
+        <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{!! $metatitle ?? 'Armstrong' !!}</title>
     <meta name="description" content="{!! $metadescription ?? ''!!}">
     <link rel="icon" type="image/x-icon" href="{{asset('public/front/images/favicon.webp')}}">
     <link rel="icon" type="image/x-icon" href="{{ asset('public/front/img/favicon.webp')}}">
-    
+
     <!--og tags-->
      <meta property="og:title" content="{!! $metatitle ?? 'Armstrong' !!}">
     <meta property="og:description" content="{!! $metadescription ?? ''!!}">
     <meta property="og:image" content="{{ $og_image ?? asset('public/admin/milestone/milestone-4-68b95fdcf2219.jpg') }}">
-   
-    <meta property="og:url" content="https://www.armstrongex.com/">
-   
-    <meta property="og:type" content="website">
-    
-    {{-- @if (Request::is('woven-bag-lamination-machine')) --}}
-        <meta name="robots" content="noindex, nofollow">
-    {{-- @endif --}}
 
-    
+    <meta property="og:url" content="{{ url()->current() }}">
+
+    <meta property="og:type" content="website">
+
+    @if (Request::is('woven-bag-lamination-machine'))
+        <meta name="robots" content="noindex, nofollow">
+    @endif
+
+
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -66,9 +66,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('public/front/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('public/front/css/responsive.css')}}">
-    {{-- <link rel="canonical" href="{{ $_SERVER['SCRIPT_URI'] }}" /> --}}
+    <link rel="canonical" href="{{ url()->current() }}" />
 
-     <style>
+    <style>
         .custom-placeholder {
             color: #666;
         }
@@ -80,9 +80,9 @@
 
 
         }
-        
 
-        
+
+
        .language-select  {
         display: flex;
         align-items: center;
@@ -91,8 +91,8 @@
         padding: .4em 0;
     }
 
-        
-        
+
+
     .dropdown-wrapper {
       position: relative;
       width: 200px;
@@ -104,13 +104,13 @@
       padding-left:10px;
       cursor: pointer;
     }
-    
-    
+
+
 
     .dropdown-input-lan:focus {
       outline: none;
       border-color: unset;
-     
+
     }
 
     .dropdown-list {
@@ -173,7 +173,7 @@
     .skiptranslate {display: none !important;}
     .modal-body .contact{border:none;padding:0;}
     .select2-container--default .select2-selection--single{border:none;}
-    
+
     /* NEW CODE FOR First category red by default, hovered category red */
     .category-btn.active .pagename span {
         color: #E41E29 !important;
@@ -185,7 +185,7 @@
     .category-btn:hover .pagename span {
         color: #E41E29 !important;
     }
-    
+
     .application_header_link img
     {
         width: 80px;
@@ -193,7 +193,7 @@
         border-radius: 10px;
         padding: 4px;
     }
-    
+
     @media (max-width: 1537px) {
         .application_header_link img {
     width: 70px;
@@ -206,13 +206,13 @@
 
 }
 
-        
+
     }
-    
+
     </style>
-    
+
     <meta name="google-site-verification" content="TlYf45dh6qXvTaP3Fa7Rfs8LCcGkuluXggXlj4TXlZQ" />
-    
+
     <script type="application/ld+json">
     {!! $localSchema !!}
     </script>
@@ -223,11 +223,10 @@
 </head>
 
 <body>
-<!-- Google Tag Manager (noscript) --> 
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM
-MF2C8CJ3" 
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> 
-<!-- End Google Tag Manager (noscript) --> 
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTMMF2C8CJ3"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
     <!-- <div id="loader">-->
     <!--     <div class="loader-logo">Armstrong</div>-->
     <!--     <div class="loader-bar"><span></span></div>-->
@@ -250,14 +249,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0  navbar-nav-scroll">
-                        
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('productlist')}}">Products
                                 <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
                                     class="img-fluid setting-icon">
                             </a>
 
- 
+
                             @php
                             use App\Models\ProductCategory;
                             use App\Models\ProductMaster;
@@ -296,9 +295,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                                             @if($category->name == 'Mulch Film Punching' ||
                                                             $category->name == 'Needle Loom')
                                                             Machine
-                                                            
+
                                                             @elseif($category->name=='Spare Parts')
-                                            
+
                                                             @else
                                                             Machines
                                                             @endif
@@ -490,7 +489,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 </div>
                             </div>
                         </li>
-                        @if(isset($applications) && is_countable($applications) && count($applications) > 0)
+                        {{-- @if(isset($applications) && is_countable($applications) && count($applications) > 0)
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('front.application')}}">Applications
                             <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
@@ -522,11 +521,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                        </div>
                                        @endforeach
                                     </div>
-                
+
                                 </div>
                             </div>
                         </li>
-                        @endif
+                        @endif --}}
                         <!--<li class="nav-item">-->
                         <!--    <a class="nav-link" href="{{route('research.development')}}">R&D</a>-->
                         <!--</li>-->
@@ -603,8 +602,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <!--        </div>-->
                         <!--    </div>-->
                         <!--</li>-->
-                        
-                        
+
+
                         <li class="nav-item">
                             <a class="nav-link" href="javascript:void(0)">About Us
                                 <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
@@ -667,7 +666,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 </path>
                             </svg>
 
-                           
+
                                 <div class="ml-4">
                                     <div class="dropdown-wrapper notranslate">
                                     <input type="text" id="dropdownInput" class="dropdown-input-lan" placeholder="Select Language" readonly>
@@ -682,7 +681,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                   <div id="google_translate_element" style="display:none;"></div
                                 </div>
                             </div>
-                          
+
 
                         </div>
 
@@ -715,7 +714,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </header>
 
     @include('layouts.quote-modal')
-    
+    <!--@include('layouts.image-modal')-->
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
@@ -725,7 +725,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             $(e).nextAll('.validation-error').first().hide();
         }
     </script>
-    
+
     <script>
 document.addEventListener("DOMContentLoaded", function () {
     const phoneCodeInput = document.getElementById("phone_code");
@@ -745,7 +745,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-    
+
 
 <!----------------------->
  <script>
@@ -820,40 +820,40 @@ document.addEventListener("DOMContentLoaded", function () {
     //     }
     //   });
     // }
-    
+
     function deleteGoogTransCookies() {
             // Get all cookies
             const cookies = document.cookie.split(';');
-            
+
             // Find and delete all googtrans cookies
             cookies.forEach(cookie => {
                 const cookieName = cookie.split('=')[0].trim();
                 // console.log("Cookie found first : " + cookieName);
                 if (cookieName === 'googtrans') {
                     // console.log('Found googtrans cookie, attempting to delete...');
-                    
+
                     // Try multiple deletion strategies to cover all cases
                     const hostname = window.location.hostname;
                     const domainParts = hostname.split('.');
-                    
+
                     // Delete with various path and domain combinations
                     document.cookie = 'googtrans=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                     document.cookie = 'googtrans=; path=/; domain=' + hostname + '; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                    
+
                     // Try with parent domain (e.g., .example.com)
                     if (domainParts.length > 2) {
                         const parentDomain = '.' + domainParts.slice(-2).join('.');
                         document.cookie = 'googtrans=; path=/; domain=' + parentDomain + '; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                     }
-                    
+
                     // Also try without domain (lets browser handle it)
                     document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                    
+
                     // console.log('Deleted googtrans cookie');
                 }
                 // console.log("Cookie found: " + cookieName);
             });
-            
+
             // Force clear by setting empty value
             document.cookie = 'googtrans=; path=/;';
         }
@@ -889,7 +889,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let headerCaptchaId, careerCaptchaId, noVacancyCaptchaId;
 
         window.onCaptchasLoad = function () {
-           
+
 
             // request form
             if (document.getElementById('headerCaptcha')) {
@@ -929,8 +929,8 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
 
-        
-        
+
+
          // -------------------- blocked domains--------------------
         const blockedDomains = [
             "mailinator.com",
@@ -984,7 +984,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return true;
         }
 
-        
+
 
 
         // -------------------- Quote FORM --------------------
@@ -1257,7 +1257,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const specialCategoryContainerspare = document.querySelector('#special-category-spare');
 
             function loadProducts(categoryId) {
-                // Skip if APP_URLS is missing or empty 
+                // Skip if APP_URLS is missing or empty
                 if (!window.APP_URLS
                     || !window.APP_URLS.categoryProducts
                     || window.APP_URLS.categoryProducts === '') {
@@ -1384,7 +1384,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }
             // NEW CODE END
-            
+
         });
         window.ORSAN_PRODUCTS = @json($orsan_products -> map(function ($product) {
             return [

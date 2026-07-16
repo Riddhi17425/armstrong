@@ -1,5 +1,5 @@
 @include('layouts.frontheader', [
-    'og_image' => asset('public/admin/events/group-103-68ea052991ff5.jpg')
+    'og_image' => $ogImg
 ])
 
 <section class="breadcrumb_wrapper">

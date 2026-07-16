@@ -12,7 +12,7 @@ class BlogController extends Controller
     {
         $metatitle="Our Blogs & Insights | Armstrong";
         $metadescription="Explore our latest blogs & articles about the woven sack, FIBC industrial machines, HDPE/PP, jumbo bag-making machines, and many more.";
-        $blogs = Blogs::orderBy('id','desc')->where('status','Active')->get();
+        $blogs = Blogs::orderBy('date','desc')->where('status','Active')->get();
         return view('front.blogs',compact('metatitle','metadescription','blogs'));
     }
     public function BlogsDetail($url)

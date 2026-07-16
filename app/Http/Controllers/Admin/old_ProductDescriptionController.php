@@ -1,12 +1,12 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\ProductDescription;
-use App\Models\ProductMaster;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Models\{ProductDescription, ProductMaster};
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class ProductDescriptionController extends Controller
 {
@@ -42,10 +42,11 @@ class ProductDescriptionController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'error' => $e->getMessage(),
+                'error' => $e->getMessage()
             ], 500);
         }
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -62,17 +63,17 @@ class ProductDescriptionController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'product'           => 'required|exists:product_masters,id',
+            'product' => 'required|exists:product_masters,id',
             'description_title' => 'required|string|max:255',
-            'description'       => 'required|string',
+            'description' => 'required|string',
         ], [
-            'product.required'           => 'Please select a product.',
-            'product.exists'             => 'The selected product does not exist.',
+            'product.required' => 'Please select a product.',
+            'product.exists' => 'The selected product does not exist.',
             'description_title.required' => 'Description title is required.',
-            'description_title.string'   => 'Description title must be a valid string.',
-            'description_title.max'      => 'Description title may not exceed 255 characters.',
-            'description.required'       => 'Description is required.',
-            'description.string'         => 'Description must be a valid string.',
+            'description_title.string' => 'Description title must be a valid string.',
+            'description_title.max' => 'Description title may not exceed 255 characters.',
+            'description.required' => 'Description is required.',
+            'description.string' => 'Description must be a valid string.',
         ]);
 
         if ($validator->fails()) {
@@ -84,8 +85,8 @@ class ProductDescriptionController extends Controller
 
         ProductDescription::create([
             'product_master_id' => $request->product,
-            'title'             => $request->description_title,
-            'description'       => $request->description,
+            'title' => $request->description_title,
+            'description' => json_encode($request->description),
         ]);
 
         return redirect()
@@ -100,7 +101,7 @@ class ProductDescriptionController extends Controller
     public function edit(string $id)
     {
         $data['productDescription'] = ProductDescription::findOrFail($id);
-        $data['products']           = ProductMaster::whereNull('deleted_at')->get();
+        $data['products'] = ProductMaster::whereNull('deleted_at')->get();
 
         return view('admin.product_description.edit', compact('data'));
     }
@@ -111,17 +112,17 @@ class ProductDescriptionController extends Controller
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), [
-            'product'           => 'required|exists:product_masters,id',
+            'product' => 'required|exists:product_masters,id',
             'description_title' => 'required|string|max:255',
-            'description'       => 'required|string',
+            'description' => 'required|string',
         ], [
-            'product.required'           => 'Please select a product.',
-            'product.exists'             => 'The selected product does not exist.',
+            'product.required' => 'Please select a product.',
+            'product.exists' => 'The selected product does not exist.',
             'description_title.required' => 'Description title is required.',
-            'description_title.string'   => 'Description title must be a valid string.',
-            'description_title.max'      => 'Description title may not exceed 255 characters.',
-            'description.required'       => 'Description is required.',
-            'description.string'         => 'Description must be a valid string.',
+            'description_title.string' => 'Description title must be a valid string.',
+            'description_title.max' => 'Description title may not exceed 255 characters.',
+            'description.required' => 'Description is required.',
+            'description.string' => 'Description must be a valid string.',
         ]);
         if ($validator->fails()) {
             return redirect()->back()
@@ -133,8 +134,8 @@ class ProductDescriptionController extends Controller
         $productDescription = ProductDescription::findOrFail($id);
         $productDescription->update([
             'product_master_id' => $request->product,
-            'title'             => $request->description_title,
-            'description'       => $request->description,
+            'title' => $request->description_title,
+            'description' => $request->description,
         ]);
 
         return redirect()
@@ -150,15 +151,15 @@ class ProductDescriptionController extends Controller
         $productDescription = ProductDescription::find($id);
         if (empty($productDescription)) {
             return response()->json([
-                'result'  => false,
-                'message' => "Product Description Not Found.",
+                'result' => false,
+                'message' => "Product Description Not Found."
             ]);
         }
         $productDescription->delete();
 
         return response()->json([
-            'result'  => true,
-            'message' => "Data Deleted.",
+            'result' => true,
+            'message' => "Data Deleted."
         ]);
     }
 }

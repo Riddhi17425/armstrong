@@ -66,7 +66,7 @@ class AppServiceProvider extends ServiceProvider
             "@context" => "https://schema.org/",
             "@type" => "Product",
             "name" => "Armstrong",
-            "image" => "https://www.armstrongex.com/wp-content/uploads/2025/07/logo.svg",
+            "image" => "https://www.armstrongex.com/public/front/img/logo.svg",
             "description" => "Armstrong is a trusted manufacturer and exporter of finishing machinery and
             spare parts for the PP/FIBC and woven sack industries.",
             "brand" => [
