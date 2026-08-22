@@ -52,11 +52,21 @@
 <section class="light-bg section-space">
     <div class="container">
         <div class="row gx-lg-5">
-            <div class="col-lg-7">
-                <div class="mb-lg-4">
+
+         <div class="col-lg-6 d-flex flex-column">
+              <div class="mb-lg-4">
                     <h2 class="main_head head_wrapper">Precision From The Core</h2>
                     <!--<p>Precision-Built at Our In-House Facility</p>-->
                 </div>
+               <div class="video_card_top flex-grow-1" style="min-height: 300px; position: relative;">
+                    <img src="{{ asset('public/front/img/Precision-From-The-Core.webp') }}" alt="FIBC Unit" loading="lazy" class="img-fluid w-100 h-100" style="object-fit: cover; border-radius: 10px;"> 
+                    <a href="https://www.youtube.com/watch?v=k4UdNdvoUGQ" data-fancybox="">
+                        <img class="play_btn" loading="lazy" src="{{ asset('public/front/img/play-btn.png') }}" alt="play">
+                    </a>
+               </div>
+            </div>
+            <div class="col-lg-6">
+              
                 <p>Our manufacturing infrastructure is equipped with state-of-the-art machinery designed to deliver precision, efficiency, and consistent quality. From advanced weaving and needle loom machines to high-speed finishing equipment, every setup is optimized for maximum productivity and minimal downtime.</p>
                 <p class="mb-4">These machines not only ensure uniform output but also reduce wastage, save energy, and enhance operational safety. With cutting-edge technology at the core of our operations, our infrastructure supports scalable production while maintaining superior standards, making us a reliable partner in industrial manufacturing.</p>
                 <a class="text-danger mb-0" href="{{ url('/our-infrastructure') }}">Explore Our Infrastructure • </a>
@@ -131,12 +141,7 @@
             <!--        <img src="{{ asset('public/front/img/paly-iocn.png') }}" alt="" class="img-fluid pay-ico2">-->
             <!--    </div>-->
             <!--</div>-->
-            <div class="col-lg-5">
-                <a href="{{ asset('https://www.youtube.com/watch?v=k4UdNdvoUGQ') }}" data-fancybox data-width="100%"
-                    data-height="100%">
-                    <img src="{{ asset('public/front/img/manufacture.webp') }}" loading="lazy" alt="Manufacturing" class="img-fluid">
-                </a>
-            </div>
+           
         </div>
     </div>
 </section>
@@ -152,30 +157,8 @@
             <!--        <img src="{{ asset('public/front/img/paly-iocn.png') }}" alt="" class="img-fluid pay-ico1">-->
             <!--    </div>-->
             <!--</div>-->
-            <div class="col-lg-5">
-                <div class="position-relative ">
-                    <a href="{{ asset('https://www.youtube.com/watch?v=hyyzInLP9tI') }}" data-fancybox data-width="100%"
-                        data-height="100%">
-                        <img src="{{ asset('public/front/img/about-new.webp') }}" loading="lazy" alt="About" class="img-fluid">
-                    </a>
-                    <div class="abt_left_counter counter_start">
-                        <h2 class="count counter"  data-count="43" data-suffix="+">43</h2>
-                        <p class="mb-0">YEARS OF <br>Experience</p>
-                    </div>
-                    
-                      <video class="about_us_video" autoplay="" muted="" playsinline="" loop="" style=""
-                            poster="{{ asset('public/front/img/about-new-poster.webp
-') }}">
-                            <!--OLD VIDEO-->
-                            <source src="{{ asset('public/front/img/abou-video.mp4') }}"
-                                type="video/mp4">
-                            <!--NEW MARKETING VIDEO-->
-                            <!--<source src="https://www.armstrongex.com/public/front/img/Armstrong_Video_Manufacturing.mp4" type="video/mp4">-->
-                            Your browser does not support the video tag.
-                        </video>
-                </div>
-            </div>
-            <div class="col-lg-6 offset-lg-1">
+
+             <div class="col-lg-7">
                 <div class="mb-4">
                     <h2 class="main_head head_wrapper text-ddd">A Bit About Us</h2>
                     <p>Engineering precision, delivering excellence.Transforming the industrial packaging industry.</p>
@@ -209,6 +192,30 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-lg-5 mt-4 mt-lg-0">
+                <div class="position-relative ">
+                    <a href="https://www.youtube.com/watch?v=k4UdNdvoUGQ" data-fancybox data-width="100%"
+                        data-height="100%">
+                        <img src="{{ asset('public/front/img/about-new.png') }}" loading="lazy" alt="About" class="img-fluid">
+                    </a>
+                    <div class="abt_left_counter counter_start">
+                        <h2 class="count counter"  data-count="43" data-suffix="+">43</h2>
+                        <p class="mb-0">YEARS OF <br>Experience</p>
+                    </div>
+                    
+                      <video class="about_us_video" autoplay="" muted="" playsinline="" loop="" style=""
+                            poster="{{ asset('public/front/img/about-new-poster.png') }}">
+                            <!--OLD VIDEO-->
+                            <source src="{{ asset('public/front/img/abou-video.mp4') }}"
+                                type="video/mp4">
+                            <!--NEW MARKETING VIDEO-->
+                            <!--<source src="https://www.armstrongex.com/public/front/img/Armstrong_Video_Manufacturing.mp4" type="video/mp4">-->
+                            Your browser does not support the video tag.
+                        </video>
+                </div>
+            </div>
+           
         </div>
     </div>
 </section>
@@ -250,7 +257,7 @@
                                <img src="{{ asset('public/front/images/marketing_images/unit-1.webp') }}" 
                                 alt="FIBC Unit" loading="lazy" class="img-fluid"> 
                                 <a href="https://www.youtube.com/watch?v=s6EGImtiRD4" data-fancybox="">
-                                <img class="play_btn" loading="lazy" src="{{asset('public/front/img/play-btn.webp')}}" alt="play">
+                                <img class="play_btn" loading="lazy" src="{{asset('public/front/img/play-btn.png')}}" alt="play">
                                 </a>
                         </div>
                         <h5 class="text-center mt-2">Raffia Woven & FIBC Machinery Unit</h5>
@@ -266,7 +273,7 @@
                                <img src="{{ asset('public/front/images/marketing_images/unit-3.webp') }}" 
                                 alt="FIBC Unit" loading="lazy" class="img-fluid"> 
                                 <a href="https://www.youtube.com/watch?v=KPL5ACWmJNw" data-fancybox="">
-                                <img class="play_btn" src="{{asset('public/front/img/play-btn.webp')}}" loading="lazy" alt="play">
+                                <img class="play_btn" src="{{asset('public/front/img/play-btn.png')}}" loading="lazy" alt="play">
                                 </a>
                         </div>
                         <h5 class="text-center mt-2">Sewing Machines & Spares Unit</h5>
