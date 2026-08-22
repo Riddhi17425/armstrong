@@ -510,7 +510,7 @@
                         <!--    <a class="nav-link" href="{{route('research.development')}}">R&D</a>-->
                         <!--</li>-->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('front.video')}}">Media
+                            <a class="nav-link" onclick="avoid(0);" href="javascript:avoid(0);">Media
                                 <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
                                     class="img-fluid setting-icon">
                             </a>
