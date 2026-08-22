@@ -65,7 +65,7 @@
                     </a>
                </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 mt-4 mt-lg-0">
               
                 <p>Our manufacturing infrastructure is equipped with state-of-the-art machinery designed to deliver precision, efficiency, and consistent quality. From advanced weaving and needle loom machines to high-speed finishing equipment, every setup is optimized for maximum productivity and minimal downtime.</p>
                 <p class="mb-4">These machines not only ensure uniform output but also reduce wastage, save energy, and enhance operational safety. With cutting-edge technology at the core of our operations, our infrastructure supports scalable production while maintaining superior standards, making us a reliable partner in industrial manufacturing.</p>
