@@ -147,6 +147,94 @@
     font-weight: bold;
   }
 
+  .blog_detail_wrapper {
+width: 100%;
+margin: 25px 0;
+}
+
+.blog_detail_wrapper table {
+width: 100%;
+border-collapse: collapse;
+table-layout: fixed;
+background: #fff;
+border: 1px solid #ddd;
+font-size: 16px;
+line-height: 1.5;
+}
+
+.blog_detail_wrapper th,
+.blog_detail_wrapper td {
+padding: 14px 18px;
+border: 1px solid #ddd;
+text-align: left;
+vertical-align: middle;
+
+/* Wrap text */
+white-space: normal;
+overflow-wrap: break-word;
+word-wrap: break-word;
+word-break: normal;
+}
+
+.blog_detail_wrapper th {
+background: #F5F5F5;
+color: #222;
+font-weight: 600;
+}
+
+.blog_detail_wrapper td {
+color: #555;
+}
+
+/* Alternate row */
+.blog_detail_wrapper tbody tr:nth-child(even) {
+background: #FAFAFA;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+.blog_detail_wrapper {
+width: 100%;
+}
+
+.blog_detail_wrapper table {
+width: 100%;
+min-width: 0;
+table-layout: fixed;
+font-size: 14px;
+}
+
+.blog_detail_wrapper th,
+.blog_detail_wrapper td {
+padding: 10px;
+white-space: normal;
+overflow-wrap: break-word;
+word-break: normal;
+}
+
+.blog_detail_wrapper th:first-child,
+.blog_detail_wrapper td:first-child {
+width: 35%;
+}
+
+.blog_detail_wrapper th:last-child,
+.blog_detail_wrapper td:last-child {
+width: 65%;
+}
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+.blog_detail_wrapper table {
+font-size: 13px;
+}
+
+.blog_detail_wrapper th,
+.blog_detail_wrapper td {
+padding: 8px;
+}
+}
+
 </style>
 <section class="breadcrumb_wrapper">
     <div class="container">

@@ -195,7 +195,7 @@
 
             <div class="col-lg-5 mt-4 mt-lg-0">
                 <div class="position-relative ">
-                    <a href="https://www.youtube.com/watch?v=k4UdNdvoUGQ" data-fancybox data-width="100%"
+                    <a href="https://www.youtube.com/watch?v=hyyzInLP9tI" data-fancybox data-width="100%"
                         data-height="100%">
                         <img src="{{ asset('public/front/img/about-new.png') }}" loading="lazy" alt="About" class="img-fluid">
                     </a>
@@ -584,7 +584,7 @@
 
 
 <!--Modal -->
-<div class="modal fade" id="exampleModal_new" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal_new" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
   
     <div class="modal-content">
@@ -598,7 +598,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 @include('layouts.frontfooter')
 <script>
    var isAnyModalOpen = false;
