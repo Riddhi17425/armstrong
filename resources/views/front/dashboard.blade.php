@@ -406,6 +406,128 @@
     </div>
 </section>
 
+{{-- DEDICATED BAG CLOSING MACHINES SECTION --}}
+<section class="bag_closing_section section-mt">
+    <div class="container">
+        <div class="text-center" data-aos="fade-up" data-aos-duration="1000">
+            <div>
+                <h2 class="main_head head_wrapper position-relative d-inline-block">Bag Closing Machines</h2>
+            </div>
+            <p class="sec_desc">
+                Industrial bag closing machines built for speed, strength, and consistency in high-volume packaging operations. Trusted across cement, fertilizer, food, and chemical industries for reliable, heavy-duty bag sealing.
+            </p>
+        </div>
+
+        <div class="position-relative px-4 px-md-5">
+            <!-- Custom Arrows Positioned on Sides -->
+            <img src="{{ asset('public/front/img/arrow_left.svg') }}" loading="lazy" alt="Previous" class="img-fluid custom-prev-bag position-absolute d-none d-md-block" style="left: 0; top: 50%; transform: translateY(-50%); cursor: pointer; z-index: 10; width: 45px;">
+            <img src="{{ asset('public/front/img/arrow_right.svg') }}" loading="lazy" alt="Next" class="img-fluid custom-next-bag position-absolute d-none d-md-block" style="right: 0; top: 50%; transform: translateY(-50%); cursor: pointer; z-index: 10; width: 45px;">
+
+            <div class="owl-carousel owl-theme bag_closing_slider" data-aos="fade-up" data-aos-duration="1100">
+            {{-- Product 1 --}}
+            <div class="item">
+                <div class="bcm_card">
+                    <div class="bcm_img_box">
+                        <span class="bcm_model_badge"><span>Model:</span> AS 800 BC-ATC</span>
+                        <a href="{{ url('/product/bag-closer-stitching-machine') }}">
+                            <img src="{{ asset('public/admin/uploads/products/product_1757419032_68c016185e8fe.png') }}"
+                                 alt="Heavy-Duty Bag Closer Stitching Machine"
+                                 loading="lazy"
+                                 class="img-fluid">
+                        </a>
+                    </div>
+                    <div class="bcm_body">
+                        <a href="{{ url('/product/bag-closer-stitching-machine') }}">
+                            <h3 class="bcm_title">Heavy-Duty Bag Closer Stitching Machine</h3>
+                        </a>
+                        <p class="bcm_text">
+                            Engineered for high-speed performance in industrial bag closing with single/double needle chain stitch and auto-cutter.
+                        </p>
+                        <div class="bcm_footer">
+                            <a href="{{ url('/product/bag-closer-stitching-machine') }}" class="bcm_link">
+                                View Details
+                            </a>
+                            <a href="{{ url('/product/bag-closer-stitching-machine') }}" class="bcm_arrow" aria-label="View Heavy-Duty Bag Closer Stitching Machine">
+                                <img src="{{ asset('public/front/img/arrow.png') }}" alt="arrow" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Product 2 --}}
+            <div class="item">
+                <div class="bcm_card">
+                    <div class="bcm_img_box">
+                        <span class="bcm_model_badge"><span>Model:</span> AS 802 BC-ATC</span>
+                        <a href="{{ url('/product/heavy-duty-bag-closing-machine-as-802bc-atc') }}">
+                            <img src="https://www.armstrongex.com/public/admin/uploads/products/product_1781331531_6a2cf64bd6a57.webp"
+                                 alt="Heavy Duty Bag Closing Machine AS-802BC-ATC"
+                                 loading="lazy"
+                                 class="img-fluid">
+                        </a>
+                    </div>
+                    <div class="bcm_body">
+                        <a href="{{ url('/product/heavy-duty-bag-closing-machine-as-802bc-atc') }}">
+                            <h3 class="bcm_title">Heavy Duty Bag Closing Machine AS-802BC-ATC</h3>
+                        </a>
+                        <p class="bcm_text">
+                            High-speed double needle four-thread machine with capacity of 800–900 bags/hour for rugged industrial packaging.
+                        </p>
+                        <div class="bcm_footer">
+                            <a href="{{ url('/product/heavy-duty-bag-closing-machine-as-802bc-atc') }}" class="bcm_link">
+                                View Details
+                            </a>
+                            <a href="{{ url('/product/heavy-duty-bag-closing-machine-as-802bc-atc') }}" class="bcm_arrow" aria-label="View Heavy Duty Bag Closing Machine AS-802BC-ATC">
+                                <img src="{{ asset('public/front/img/arrow.png') }}" alt="arrow" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Product 3 --}}
+            <div class="item">
+                <div class="bcm_card">
+                    <div class="bcm_img_box">
+                        <span class="bcm_model_badge"><span>Model:</span> Portable Series</span>
+                        <a href="{{ url('/product/portable-bag-closer-machine') }}">
+                            <img src="{{ asset('public/admin/uploads/products/product_1763450904_691c201847766.png') }}"
+                                 alt="Portable Bag Closer Machine"
+                                 loading="lazy"
+                                 class="img-fluid">
+                        </a>
+                    </div>
+                    <div class="bcm_body">
+                        <a href="{{ url('/product/portable-bag-closer-machine') }}">
+                            <h3 class="bcm_title">Portable Bag Closer Machine</h3>
+                        </a>
+                        <p class="bcm_text">
+                            Compact, handheld stitching system engineered with a durable steel cam mechanism for fast and reliable bag sealing.
+                        </p>
+                        <div class="bcm_footer">
+                            <a href="{{ url('/product/portable-bag-closer-machine') }}" class="bcm_link">
+                                View Details
+                            </a>
+                            <a href="{{ url('/product/portable-bag-closer-machine') }}" class="bcm_arrow" aria-label="View Portable Bag Closer Machine">
+                                <img src="{{ asset('public/front/img/arrow.png') }}" alt="arrow" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- CTA Button --}}
+        <div class="bcm_cta_wrapper" data-aos="fade-up" data-aos-duration="1400">
+            <a href="{{ url('/category/bag-closing-machine') }}" class="bcm_cta_btn">
+                <span>Explore Bag Closing Machines</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
 <section class="section-pt">
     <div class="container">
         <div class="why-choose-us ">
@@ -620,4 +742,26 @@
   $('.Home_slider_new_sec').on('initialized.owl.carousel', function() {
         $('.Home_slider_new_sec, .custom_arrow').fadeIn();
     });
+
+  var bagSlider = $('.bag_closing_slider').owlCarousel({
+      loop: true,
+      margin: 24,
+      nav: false,
+      dots: false,
+      autoplay: true,
+      autoplayTimeout: 4000,
+      autoplayHoverPause: true,
+      responsive: {
+          0: { items: 1 },
+          768: { items: 2 },
+          992: { items: 3 }
+      }
+  });
+
+  $('.custom-prev-bag').click(function() {
+      bagSlider.trigger('prev.owl.carousel');
+  });
+  $('.custom-next-bag').click(function() {
+      bagSlider.trigger('next.owl.carousel');
+  });
 </script>

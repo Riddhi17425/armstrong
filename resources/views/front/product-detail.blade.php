@@ -4,7 +4,20 @@
 
 ])
 
+@if(in_array($product->url, ['wide-width-flexo-printing-machine', 'mulch-film-punching-machine']))
+<!--     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    
+-->
 
+<style> 
+        .installation-video-slider video {
+            display: block;
+            width: 85% !important;
+            margin: 0 auto;
+        }
+    </style>
+@endif
 
 @php
 
@@ -378,6 +391,90 @@
 </section>
 
 
+
+@if($product->url === 'wide-width-flexo-printing-machine')
+    <!--<section class="section-mt">-->
+    <!--    <div class="container">-->
+    <!--        <div class="text-center">-->
+    <!--        <h2 class="main_head_48 head_wrapper mb-5">Wide Width Flexo Printing Machine Installation & Setup</h2>-->
+    <!--    </div>-->
+    <!--        <div class="installation-video-slider">-->
+    <!--            <div class="px-2">-->
+    <!--                <video class="w-100" controls playsinline preload="metadata">-->
+    <!--                    <source src="{{ asset('public/front/images/reel-1.mp4') }}" type="video/mp4">-->
+    <!--                    Your browser does not support the video tag.-->
+    <!--                </video>-->
+    <!--            </div>-->
+    <!--            <div class="px-2">-->
+    <!--                <video class="w-100" controls playsinline preload="metadata">-->
+    <!--                    <source src="{{ asset('public/front/images/reel-2.mp4') }}" type="video/mp4">-->
+    <!--                    Your browser does not support the video tag.-->
+    <!--                </video>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--</section>-->
+    <section class="product-reels-section">
+      <div class="container">
+        <h2 class="reels-title">Wide Width Flexo Printing Machine Installation &amp; Setup</h2>
+        <div class="product-reels-wrap">
+
+          <div class="reel-card">
+            <video
+              src="{{ asset('public/front/images/armstrong-reel-1.mp4') }}"
+              controls
+              muted
+              playsinline
+              preload="metadata">
+            </video>
+          </div>
+
+          <div class="reel-card">
+            <video
+              src="{{ asset('public/front/images/armstrong-reel-2.mp4') }}"
+              controls
+              muted
+              playsinline
+              preload="metadata">
+            </video>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+@endif
+
+@if($product->url === 'mulch-film-punching-machine')
+ <section class="product-reels-section">
+      <div class="container">
+        <h2 class="reels-title">Mulch Film Punching Machine Installation &amp; Setup</h2>
+        <div class="product-reels-wrap">
+
+          <div class="reel-card">
+            <video
+              src="{{ asset('public/front/images/mulch-film-installation-video-1.mp4') }}"
+              controls
+              muted
+              playsinline
+              preload="metadata">
+            </video>
+          </div>
+
+          <div class="reel-card">
+            <video
+              src="{{ asset('public/front/images/mulch-film-installation-video-2.mp4') }}"
+              controls
+              muted
+              playsinline
+              preload="metadata">
+            </video>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    @endif
 
 {{-- @if ($applications)
 
