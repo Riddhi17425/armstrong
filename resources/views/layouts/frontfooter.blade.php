@@ -107,6 +107,51 @@
                     <a href="https://play.google.com/store/apps/details?id=com.iw.armstrong" target="_blank"><img src="{{ asset('public/front/img/Google-play.svg') }}" alt="Google play" class="img-fluid me-2" width="90px"></a>
                     
                     <a href="https://apps.apple.com/us/app/armstrong-machinery-india/id6752468619" target="_blank"><img src="{{ asset('public/front/img/App-Store.svg') }}" alt="App Store" class="img-fluid" width="90px"></a>
+
+                    <div class="better-living-box mt-3">
+                        <div class="better-living-left" style="align-items: flex-start;">
+                            <div class="leaf-icon" style="margin-top: 2px;">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 40 40">
+                                <rect width="40" height="40" fill="#111111"/>
+                                <g fill="#ff1f1f">
+                                    <!-- Left leaf -->
+                                    <path d="M19.7 19.2
+                                            C17.2 13.6 12.4 10.4 5.7 9.0
+                                            C5.6 15.8 7.6 21.0 11.5 24.1
+                                            C13.8 25.9 16.4 26.8 19.7 27.0
+                                            L19.7 19.2 Z"/>
+                                    <!-- Right leaf -->
+                                    <path d="M20.3 19.2
+                                            C22.8 13.6 27.6 10.4 34.3 9.0
+                                            C34.4 15.8 32.4 21.0 28.5 24.1
+                                            C26.2 25.9 23.6 26.8 20.3 27.0
+                                            L20.3 19.2 Z"/>
+                                    <!-- Stem -->
+                                    <path d="M18.8 25.0 H21.2 V34.8
+                                            C21.2 35.6 20.7 36.1 20 36.1
+                                            C19.3 36.1 18.8 35.6 18.8 34.8 Z"/>
+                                </g>
+                                <!-- Inner leaf veins / negative-space curves -->
+                                <g fill="#111111">
+                                    <path d="M19.8 25.2
+                                            C18.7 20.4 15.8 16.0 11.0 12.8
+                                            C15.2 13.8 18.4 16.7 20.0 21.1 Z"/>
+                                    <path d="M20.2 25.2
+                                            C21.3 20.4 24.2 16.0 29.0 12.8
+                                            C24.8 13.8 21.6 16.7 20.0 21.1 Z"/>
+                                </g>
+                             </svg>
+                            </div>
+                            <div class="better-living-text" style="gap: 2px;">
+                                <span class="text-red" style="line-height: 1;">Packaging for</span>
+                                <span class="text-white" style="line-height: 1;">Better Living</span>
+                            </div>
+                        </div>
+                        <div class="better-living-divider"></div>
+                        <div class="better-living-right">
+                            <img src="https://www.armstrongex.com/public/front/images/IIP%20logo.png" alt="IPMA Logo" class="img-fluid">
+                        </div>
+                    </div>
                     
                    <!-- <h3 class="address_title mt-3">Factory Address:</h3>-->
                    <!-- <p class="mb-0"><b>Unit 1</b></p>-->
@@ -746,3 +791,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </body>
 </html>
+
+
+
+
+
