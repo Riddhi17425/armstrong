@@ -1,6 +1,5 @@
 @include('layouts.frontheader')
 
-
 <section class="breadcrumb_wrapper">
     <div class="container">
         <nav aria-label="breadcrumb">
@@ -10,7 +9,7 @@
             </ol>
         </nav>
         <div class="setting_vector_icon">
-            <h1 class="heading mb-4">From Machines to Spare Parts <br /> We Complete You</h1>
+            <h1 class="heading mb-4">Industrial Packaging Machinery Applications</h1>
             <img src="{{asset('public/front/img/setting_vector.svg')}}" alt="setting vector"
                 class="img-fluid setting-wrapper" style="top:10%">
             <div class="col-lg-12 m-auto text-center">
@@ -235,6 +234,191 @@
 </section>
 
 
+<section class="section-pt">
+    <div class="container">
+
+        <div class="text-center mb-4">
+            <h2 class="main_head head_wrapper">Frequently asked questions</h2>
+            <!--<p>Frequently asked questions</p>-->
+        </div>
+
+        <div class="accordion" id="accordionExample">
+
+            <!-- FAQ 1 -->
+            <div class="mb-4">
+                <h5 class="according_head"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne"
+                    aria-expanded="true"
+                    aria-controls="collapseOne">
+                    What industries use Armstrong industrial packaging machinery?
+                </h5>
+
+                <div id="collapseOne"
+                    class="accordion-collapse collapse show"
+                    data-bs-parent="#accordionExample">
+
+                    <div>
+                        Armstrong machines serve agriculture, food processing, fertilizers, chemicals, animal feed, construction, minerals, plastics, FIBC and other industrial packaging applications.
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="mb-4">
+                <h5 class="according_head"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo"
+                    aria-expanded="false"
+                    aria-controls="collapseTwo">
+                    Which machines are suitable for fertilizer packaging?
+                </h5>
+
+                <div id="collapseTwo"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample">
+
+                    <div>
+                       Armstrong heavy-duty and automatic bag closing machines are suitable for high-volume fertilizer bag closing and continuous packaging operations.
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="mb-4">
+                <h5 class="according_head"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree"
+                    aria-expanded="false"
+                    aria-controls="collapseThree">
+                    Which Armstrong machines are used for FIBC manufacturing?
+                </h5>
+
+                <div id="collapseThree"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample">
+
+                    <div>
+                       Armstrong offers FIBC machinery for cutting, sewing, testing, printing, cleaning and finishing jumbo bags.
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- FAQ 4 -->
+            <div class="mb-4">
+                <h5 class="according_head"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseFour"
+                    aria-expanded="false"
+                    aria-controls="collapseFour">
+                    Which machines are suitable for PP woven bags?
+                </h5>
+
+                <div id="collapseFour"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample">
+
+                    <div>
+                      Armstrong offers bag closing, sewing and PP woven bag-making machines designed for PP woven and laminated bags.
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- FAQ 5 -->
+            <div class="mb-4">
+                <h5 class="according_head"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseFive"
+                    aria-expanded="false"
+                    aria-controls="collapseFive">
+                    Can Armstrong machinery be customized for specific applications?
+                </h5>
+
+                <div id="collapseFive"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample">
+
+                    <div>
+                      Yes. Armstrong provides application-specific customization, including machine configurations, conveyor setups and FIBC bag sizes or designs.
+                    </div>
+
+                </div>
+            </div>
+            
+            
+            <!-- FAQ 6 -->
+            <div class="mb-4">
+                <h5 class="according_head"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseSix"
+                    aria-expanded="false"
+                    aria-controls="collapseSix">
+                    Which machine is suitable for high-volume bag closing?
+                </h5>
+
+                <div id="collapseSix"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample">
+
+                    <div>
+                       The AS 800/802 heavy-duty bag closing machines are suitable for high-volume production, with configurations offering up to 900–1000 bags per hour.
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- FAQ 7 -->
+            <div class="mb-4">
+                <h5 class="according_head"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseSeven"
+                    aria-expanded="false"
+                    aria-controls="collapseSeven">
+                    What industries use industrial bag closing machines?
+                </h5>
+
+                <div id="collapseSeven"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample">
+
+                    <div>
+                       Industrial bag closing machines are commonly used in fertilizer, agriculture, food processing, chemicals, cement, animal feed, minerals and construction-material industries.
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- FAQ 8 -->
+            <div class="mb-4">
+                <h5 class="according_head"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseEight"
+                    aria-expanded="false"
+                    aria-controls="collapseEight">
+                    How do I choose the right packaging machine for my application?
+                </h5>
+
+                <div id="collapseEight"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample">
+
+                    <div>
+                       Choose based on your product, bag material and size, required production volume, closure type and level of automation. Armstrong can recommend a suitable machine based on these requirements.
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
 
 <section class="section-pt">
     <div class="container">
@@ -248,8 +432,7 @@
                     <div class=" mt-5">
                         <a class="need-request" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"> Get a
                             Quote </a>
-                        <a class="need-request ms-3" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal-4"
- >Send Inquiry on WhatsApp</a>
+                        <a class="need-request ms-3" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal-4" >Send Inquiry on WhatsApp</a>
                     </div>
                 </div>
             </div>
@@ -257,6 +440,68 @@
     </div>
 </section>
 
-
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "What industries use Armstrong industrial packaging machinery?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Armstrong machines serve agriculture, food processing, fertilizers, chemicals, animal feed, construction, minerals, plastics, FIBC and other industrial packaging applications."
+    }
+  },{
+    "@type": "Question",
+    "name": "Which machines are suitable for fertilizer packaging?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Armstrong heavy-duty and automatic bag closing machines are suitable for high-volume fertilizer bag closing and continuous packaging operations."
+    }
+  },{
+    "@type": "Question",
+    "name": "Which Armstrong machines are used for FIBC manufacturing?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Armstrong offers FIBC machinery for cutting, sewing, testing, printing, cleaning and finishing jumbo bags."
+    }
+  },{
+    "@type": "Question",
+    "name": "Which machines are suitable for PP woven bags?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Armstrong offers bag closing, sewing and PP woven bag-making machines designed for PP woven and laminated bags."
+    }
+  },{
+    "@type": "Question",
+    "name": "Can Armstrong machinery be customized for specific applications?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. Armstrong provides application-specific customization, including machine configurations, conveyor setups and FIBC bag sizes or designs."
+    }
+  },{
+    "@type": "Question",
+    "name": "Which machine is suitable for high-volume bag closing?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The AS 800/802 heavy-duty bag closing machines are suitable for high-volume production, with configurations offering up to 900–1000 bags per hour."
+    }
+  },{
+    "@type": "Question",
+    "name": "What industries use industrial bag closing machines?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Industrial bag closing machines are commonly used in fertilizer, agriculture, food processing, chemicals, cement, animal feed, minerals and construction-material industries."
+    }
+  },{
+    "@type": "Question",
+    "name": "How do I choose the right packaging machine for my application?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Choose based on your product, bag material and size, required production volume, closure type and level of automation. Armstrong can recommend a suitable machine based on these requirements."
+    }
+  }]
+}
+</script>
 
 @include('layouts.frontfooter')
