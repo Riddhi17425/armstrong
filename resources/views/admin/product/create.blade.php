@@ -741,6 +741,17 @@
 
                             </div>
 
+                            {{-- Product Installation Videos --}}
+                            <div class="card mb-4 border">
+                                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                                    <strong>Product Installation Videos</strong>
+                                    <button type="button" class="btn btn-success btn-sm" id="addInstallationVideo">+ Add Video</button>
+                                </div>
+                                <div class="card-body" id="installationVideosWrapper" data-existing="[]">
+                                    {{-- rows JS se yaha inject honge --}}
+                                </div>
+                            </div>
+
                             {{-- Status --}}
 
                             <div class="card mb-4 border">
@@ -897,7 +908,7 @@
 
 {{-- JS Section --}}
 
-<script>
+{{-- <script>
 
     window.APP_URLS = {
 
@@ -905,7 +916,15 @@
 
     };
 
+</script> --}}
+
+<script>
+    window.APP_URLS = {
+        productvideoUploadChunk: "{{ route('admin.Productvideo.chunkUpload') }}",
+        image_path: "{{ asset('/') }}"
+    };
 </script>
+
 
 <script src="{{ asset('public/admin/js/product/product.js') }}" defer></script>
 

@@ -81,6 +81,8 @@ class ProductMaster extends Model
 
         'hero_thumbnail_image',
 
+        'installation_videos',
+
     ];
 
     protected $casts = [
@@ -92,6 +94,8 @@ class ProductMaster extends Model
         'product_usp'        => 'array',
 
         'product_technical'  => 'array',
+
+        'installation_videos' => 'array',
 
     ];
 

@@ -3,21 +3,58 @@
     'og_image' => asset($product->images->first()->image ?? '')
 
 ])
+<style>
+  .product-reels-section {
+    padding: 40px 0;
+  }
+  .reels-title {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  .product-reels-wrap {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .reel-card {
+    width: 240px;               /* small reel size — adjust if needed */
+    aspect-ratio: 9 / 16;       /* vertical reel format */
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  }
+  .reel-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Mobile: two reels side by side, smaller */
+  @media (max-width: 575px) {
+    .product-reels-wrap {
+      gap: 12px;
+    }
+    .reel-card {
+      width: calc(50% - 12px);
+      max-width: 180px;
+    }
+  }
+</style>
 
 @if(in_array($product->url, ['wide-width-flexo-printing-machine', 'mulch-film-punching-machine']))
-<!--     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
-    
--->
-
-<style> 
-        .installation-video-slider video {
-            display: block;
-            width: 85% !important;
-            margin: 0 auto;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    <style>
+        .installation-video-slider video {
+            display: block;
+            width: 85% !important;
+            margin: 0 auto;
+        }
+    </style>
 @endif
+
 
 @php
 
@@ -391,92 +428,113 @@
 </section>
 
 
-
-@if($product->url === 'wide-width-flexo-printing-machine')
-    <!--<section class="section-mt">-->
-    <!--    <div class="container">-->
-    <!--        <div class="text-center">-->
-    <!--        <h2 class="main_head_48 head_wrapper mb-5">Wide Width Flexo Printing Machine Installation & Setup</h2>-->
-    <!--    </div>-->
-    <!--        <div class="installation-video-slider">-->
-    <!--            <div class="px-2">-->
-    <!--                <video class="w-100" controls playsinline preload="metadata">-->
-    <!--                    <source src="{{ asset('public/front/images/reel-1.mp4') }}" type="video/mp4">-->
-    <!--                    Your browser does not support the video tag.-->
-    <!--                </video>-->
-    <!--            </div>-->
-    <!--            <div class="px-2">-->
-    <!--                <video class="w-100" controls playsinline preload="metadata">-->
-    <!--                    <source src="{{ asset('public/front/images/reel-2.mp4') }}" type="video/mp4">-->
-    <!--                    Your browser does not support the video tag.-->
-    <!--                </video>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <!--</section>-->
-    <section class="product-reels-section">
-      <div class="container">
-        <h2 class="reels-title">Wide Width Flexo Printing Machine Installation &amp; Setup</h2>
-        <div class="product-reels-wrap">
-
-          <div class="reel-card">
-            <video
-              src="{{ asset('public/front/images/armstrong-reel-1.mp4') }}"
-              controls
-              muted
-              playsinline
-              preload="metadata">
-            </video>
-          </div>
-
-          <div class="reel-card">
-            <video
-              src="{{ asset('public/front/images/armstrong-reel-2.mp4') }}"
-              controls
-              muted
-              playsinline
-              preload="metadata">
-            </video>
-          </div>
-
-        </div>
-      </div>
-    </section>
+{{-- @if($product->url === 'wide-width-flexo-printing-machine')
+    <!--<section class="section-mt">-->
+    <!--    <div class="container">-->
+    <!--        <div class="text-center">-->
+    <!--        <h2 class="main_head_48 head_wrapper mb-5">Wide Width Flexo Printing Machine Installation & Setup</h2>-->
+    <!--    </div>-->
+    <!--        <div class="installation-video-slider">-->
+    <!--            <div class="px-2">-->
+    <!--                <video class="w-100" controls playsinline preload="metadata">-->
+    <!--                    <source src="{{ asset('public/front/images/reel-1.mp4') }}" type="video/mp4">-->
+    <!--                    Your browser does not support the video tag.-->
+    <!--                </video>-->
+    <!--            </div>-->
+    <!--            <div class="px-2">-->
+    <!--                <video class="w-100" controls playsinline preload="metadata">-->
+    <!--                    <source src="{{ asset('public/front/images/reel-2.mp4') }}" type="video/mp4">-->
+    <!--                    Your browser does not support the video tag.-->
+    <!--                </video>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--</section>-->
+    <section class="product-reels-section">
+      <div class="container">
+        <h2 class="reels-title">Wide Width Flexo Printing Machine Installation &amp; Setup</h2>
+        <div class="product-reels-wrap">
+    
+          <div class="reel-card">
+            <video
+              src="{{ asset('public/front/images/armstrong-reel-1.mp4') }}"
+              controls
+              muted
+              playsinline
+              preload="metadata">
+            </video>
+          </div>
+    
+          <div class="reel-card">
+            <video
+              src="{{ asset('public/front/images/armstrong-reel-2.mp4') }}"
+              controls
+              muted
+              playsinline
+              preload="metadata">
+            </video>
+          </div>
+    
+        </div>
+      </div>
+    </section>
 
 @endif
 
 @if($product->url === 'mulch-film-punching-machine')
- <section class="product-reels-section">
-      <div class="container">
-        <h2 class="reels-title">Mulch Film Punching Machine Installation &amp; Setup</h2>
-        <div class="product-reels-wrap">
+ <section class="product-reels-section">
+      <div class="container">
+        <h2 class="reels-title">Mulch Film Punching Machine Installation &amp; Setup</h2>
+        <div class="product-reels-wrap">
+    
+          <div class="reel-card">
+            <video
+              src="{{ asset('public/front/images/mulch-film-installation-video-1.mp4') }}"
+              controls
+              muted
+              playsinline
+              preload="metadata">
+            </video>
+          </div>
+    
+          <div class="reel-card">
+            <video
+              src="{{ asset('public/front/images/mulch-film-installation-video-2.mp4') }}"
+              controls
+              muted
+              playsinline
+              preload="metadata">
+            </video>
+          </div>
+    
+        </div>
+      </div>
+    </section>
+    @endif --}}
 
-          <div class="reel-card">
-            <video
-              src="{{ asset('public/front/images/mulch-film-installation-video-1.mp4') }}"
-              controls
-              muted
-              playsinline
-              preload="metadata">
-            </video>
-          </div>
+@if(!empty($installationVideos))
+<section class="product-reels-section">
+  <div class="container">
+    <h2 class="reels-title">{{ $product->product_name }} Installation &amp; Setup</h2>
+    <div class="product-reels-wrap">
+      @foreach($installationVideos as $ivideo)
+        <div class="reel-card">
+          <video
+            src="{{ asset('/' . $ivideo['video']) }}"
+            controls
+            muted
+            playsinline
+            preload="metadata">
+          </video>
+        </div>
+      @endforeach
+    </div>
+  </div>
+</section>
+@endif
 
-          <div class="reel-card">
-            <video
-              src="{{ asset('public/front/images/mulch-film-installation-video-2.mp4') }}"
-              controls
-              muted
-              playsinline
-              preload="metadata">
-            </video>
-          </div>
 
-        </div>
-      </div>
-    </section>
-    @endif
-
-{{-- @if ($applications)
+@if ($applications)
 
     <section class="how-it-works section-pt">
 
@@ -540,7 +598,7 @@
 
 </section>
 
-@endif --}}
+@endif
 
 
 
@@ -942,3 +1000,21 @@
 
 
 @include('layouts.frontfooter')
+@if($product->url === 'wide-width-flexo-printing-machine')
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script>
+        $(function () {
+            $('.installation-video-slider').slick({
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                arrows: false,
+                dots: false,
+                infinite: false,
+                autoplay: false,
+                draggable: false,
+                swipe: false,
+                touchMove: false
+            });
+        });
+    </script>
+@endif

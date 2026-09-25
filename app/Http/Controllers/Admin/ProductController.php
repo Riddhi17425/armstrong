@@ -224,6 +224,20 @@ class ProductController extends Controller
 
             }, $request->product_technical ?? []);
 
+            // 👇 NAYA BLOCK — Installation Videos
+            $installation_videos = [];
+            if ($request->has('installation_video_title')) {
+                foreach ($request->installation_video_title as $i => $title) {
+                    $path = $request->installation_video_path[$i] ?? null;
+                    if (!empty($path)) {
+                        $installation_videos[] = [
+                            'title' => $title,
+                            'video' => $path,
+                        ];
+                    }
+                }
+            }
+
             $pdfPath = null;
 
             if ($request->hasFile('product_pdf') && $request->file('product_pdf')->isValid()) {
@@ -335,6 +349,8 @@ class ProductController extends Controller
 
                 'product_technical'    => json_encode($technical_specifications),
 
+                'installation_videos'  => $installation_videos, // 👈 NAYA — array hi rahega, json_encode nahi (cast handle karega)
+
                 'product_pdf'          => $pdfPath,
 
                 'front_image'          => json_encode($front_images),
@@ -435,6 +451,10 @@ class ProductController extends Controller
         $data['product_details']->product_usp = json_decode($data['product_details']->product_usp, true) ?? [[]];
 
         $data['product_details']->product_technical = json_decode($data['product_details']->product_technical, true) ?? [[]];
+
+        // 👇 NAYA — installation_videos manual decode NAHI karna, ye already array hai (cast ki wajah se)
+        // Agar null hai to empty array fallback de do
+        $data['product_details']->installation_videos = $data['product_details']->installation_videos ?? [];
 
         return view('admin.product.edit', compact('data'));
 
@@ -617,6 +637,20 @@ class ProductController extends Controller
 
             }, array_filter($request->product_technical ?? [], fn($tech) => ! empty($tech['name']) && ! empty($tech['description'])));
 
+            // 👇 NAYA BLOCK — Installation Videos
+            $installation_videos = [];
+            if ($request->has('installation_video_title')) {
+                foreach ($request->installation_video_title as $i => $title) {
+                    $path = $request->installation_video_path[$i] ?? null;
+                    if (!empty($path)) {
+                        $installation_videos[] = [
+                            'title' => $title,
+                            'video' => $path,
+                        ];
+                    }
+                }
+            }
+
             $pdfPath = $product->product_pdf;
 
             if ($request->hasFile('product_pdf') && $request->file('product_pdf')->isValid()) {
@@ -713,6 +747,8 @@ class ProductController extends Controller
                 'product_usp'          => json_encode($usps),
 
                 'product_technical'    => json_encode($technical_specifications),
+
+                'installation_videos'  => $installation_videos, // 👈 NAYA — array hi rahega, json_encode nahi
 
                 'product_pdf'          => $pdfPath,
 

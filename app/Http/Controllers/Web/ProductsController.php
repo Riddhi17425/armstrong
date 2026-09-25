@@ -138,6 +138,9 @@ class ProductsController extends Controller
                 return !empty($spec['name']) || !empty($spec['description']);
             });
         }
+
+        // Installation Videos — cast ki wajah se already array milega, json_decode NAHI karna
+$installationVideos = $product->installation_videos ?? [];
     
         $category_url = ProductCategory::where('status','Active')
                         ->where('id', $product->category_id)
@@ -157,7 +160,8 @@ class ProductsController extends Controller
             'specifications',
             'category_url',
             'faqs',
-            'keyFeature'
+            'keyFeature',
+            'installationVideos'
         ));
     }
 
