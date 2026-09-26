@@ -40,7 +40,9 @@
                     <a href="#" class="hn-btn hn-btn--ghost" data-bs-toggle="modal" data-bs-target="#exampleModal">Request a Quote <img src="{{ $hn }}/icons/arrow-sm-white.svg" alt=""></a>
                 </div>
             </div>
-            <button type="button" class="hn-play" data-hn-video aria-label="Play video"><img src="{{ $hn }}/icons/play.svg" alt=""></button>
+            <a href="{{ asset('public/front/img/Armstrong_home_vid3.mp4') }}" class="hn-play" data-fancybox data-type="video" aria-label="Play video">
+                <img src="{{ $hn }}/icons/play.svg" alt="">
+            </a>
         </div>
     </section>
 
@@ -52,7 +54,7 @@ Team</span></div>
             <i class="hn-stats__sep"></i>
             <div class="hn-stat"><strong data-count="80">80+</strong><span>Innovative<br>Products</span></div>
             <i class="hn-stats__sep"></i>
-            <img class="hn-stats__img" src="{{ $hn }}/images/stats-center.png" alt="Armstrong">
+            <img class="hn-stats__img" src="{{ $hn }}/images/stats-center.webp" alt="Armstrong">
             <i class="hn-stats__sep"></i>
             <div class="hn-stat"><strong data-count="70">70+</strong><span>Export Countries</span></div>
             <i class="hn-stats__sep"></i>
@@ -64,7 +66,7 @@ Team</span></div>
     <section class="hn-about hn-after-stats">
         <div class="hn-about__text">
             <div class="hn-about__top">
-                <h2 class="hn-title">About 11 <span>Armstrong</span></h2>
+                <h2 class="hn-title">About <span>Armstrong</span></h2>
                 <div class="hn-about__paras">
                     <p>Engineering precision, delivering excellence.Transforming the industrial packaging industry.</p>
                     <p>With over 40 years of experience in working for the industrial packaging industry, we are now a leading name as the top FIBC machine manufacturers in India. From FIBC machines and woven sack machinery to HDPE sack sewing solutions. Our FIBC machines are built for durability, precision, and efficiency.</p>
@@ -76,7 +78,7 @@ Team</span></div>
             <div class="hn-about__bar"></div>
             <div class="hn-about__tag">Quality &nbsp;|&nbsp; Innovation &nbsp;|&nbsp; Reliability</div>
         </div>
-        <img class="hn-about__img" src="{{ $hn }}/images/about.png" alt="About Armstrong" loading="lazy">
+        <img class="hn-about__img" src="{{ $hn }}/images/about.webp" alt="About Armstrong" loading="lazy">
     </section>
 
     {{-- ================= PRODUCT RANGE ================= --}}
@@ -120,7 +122,9 @@ With modern technology, we deliver reliable and scalable manufacturing solutions
             <div class="hn-units">
                 <div class="hn-unit">
                     <div class="hn-unit__img" style="background-image:url('{{ $hn }}/images/infra-unit1.png')">
-                        <button type="button" class="hn-play" data-hn-video="{{ asset('public/front/img/video-factory.mp4') }}" aria-label="Play video"><img src="{{ $hn }}/icons/play.svg" alt=""></button>
+                        <a href="https://www.youtube.com/watch?v=s6EGImtiRD4" class="hn-play" data-fancybox data-type="video" aria-label="Play video">
+                            <img src="{{ $hn }}/icons/play.svg" alt="">
+                        </a>
                     </div>
                     <a href="{{ route('our.infrastructure') }}" class="hn-unit__bar">
                         <div class="hn-unit__left"><img src="{{ $hn }}/icons/infra-1.svg" alt=""><h3>Raffia Woven &amp; FIBC Machinery Unit-1</h3></div>
@@ -129,7 +133,9 @@ With modern technology, we deliver reliable and scalable manufacturing solutions
 </div>
                 <div class="hn-unit">
                     <div class="hn-unit__img" style="background-image:url('{{ $hn }}/images/infra-unit2.png')">
-                        <button type="button" class="hn-play" data-hn-video="{{ asset('public/front/img/Armstrong_Video_Manufacturing.mp4') }}" aria-label="Play video"><img src="{{ $hn }}/icons/play.svg" alt=""></button>
+                        <a href="https://www.youtube.com/watch?v=KPL5ACWmJNw" class="hn-play" data-fancybox data-type="video" aria-label="Play video">
+                            <img src="{{ $hn }}/icons/play.svg" alt="">
+                        </a>
                     </div>
                     <a href="{{ route('our.infrastructure') }}" class="hn-unit__bar">
                         <div class="hn-unit__left"><img src="{{ $hn }}/icons/infra-2.svg" alt=""><h3>Sewing Machines &amp; Spares Unit-2</h3></div>
@@ -180,37 +186,38 @@ With modern technology, we deliver reliable and scalable manufacturing solutions
                     ['spec-3', 'Lorem ipsum', 'Lorem ipsum dolor sit'],
                 ];
             @endphp
-            <div class="swiper hn-feat__slider">
-                <div class="swiper-wrapper">
-                    @foreach($featured as [$w1, $w2, $img, $alt])
-                    <div class="swiper-slide">
-                        <div class="hn-feat">
-                            <div class="hn-feat__text">
-                                <h2 class="hn-title"><span>{{ $w1 }}</span> {{ $w2 }}</h2>
-                                <p>Lorem ipsum dolor sit amet consectetur. Morbi tempor vitae quis est amet viverra quis amet. In euismod ultrices nulla sed enim fames proin. Lectus ante metus imperdiet lectus eget.</p>
-                                <a href="{{ route('productlist') }}" class="hn-btn hn-btn--red">Explore all machines <img src="{{ $hn }}/icons/arrow-sm-white.svg" alt=""></a>
-                            </div>
-                            <div class="hn-feat__stage">
-                                <div class="hn-feat__frame">
-                                    <img class="hn-feat__pic" src="{{ $hn }}/images/{{ $img }}.png" alt="{{ $alt }}" loading="lazy">
-                                    <div class="hn-feat__badge"><img src="{{ $hn }}/icons/featured-badge.svg" alt=""></div>
-                                </div>
-                            </div>
-                            <ul class="hn-feat__specs">
-                                @foreach($specs as [$ic, $t, $d])
-                                    <li class="hn-spec">
-                                        <span class="hn-spec__ic"><img src="{{ $hn }}/icons/{{ $ic }}.svg" alt=""></span>
-                                        <span class="hn-spec__line"></span>
-                                        <span class="hn-spec__txt"><b>{{ $t }}</b><span>{{ $d }}</span></span>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                    @endforeach
+            <div class="hn-feat">
+                @php [$w1, $w2] = $featured[0]; @endphp
+                <div class="hn-feat__text">
+                    <h2 class="hn-title"><span>{{ $w1 }}</span> {{ $w2 }}</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur. Morbi tempor vitae quis est amet viverra quis amet. In euismod ultrices nulla sed enim fames proin. Lectus ante metus imperdiet lectus eget.</p>
+                    <a href="{{ route('productlist') }}" class="hn-btn hn-btn--red">Explore all machines <img src="{{ $hn }}/icons/arrow-sm-white.svg" alt=""></a>
                 </div>
+                <div class="hn-feat__stage">
+                    <div class="hn-feat__frame">
+                        <div class="swiper hn-feat__slider">
+                            <div class="swiper-wrapper">
+                                @foreach($featured as [$w1, $w2, $img, $alt])
+                                    <div class="swiper-slide">
+                                        <img class="hn-feat__pic" src="{{ $hn }}/images/{{ $img }}.png" alt="{{ $alt }}" loading="lazy">
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <!-- <div class="hn-feat__badge"><img src="{{ $hn }}/icons/featured-badge.svg" alt=""></div> -->
+                    </div>
+                    <div class="hn-dots hn-feat__dots"></div>
+                </div>
+                <ul class="hn-feat__specs">
+                    @foreach($specs as [$ic, $t, $d])
+                        <li class="hn-spec">
+                            <span class="hn-spec__ic"><img src="{{ $hn }}/icons/{{ $ic }}.svg" alt=""></span>
+                            <span class="hn-spec__line"></span>
+                            <span class="hn-spec__txt"><b>{{ $t }}</b><span>{{ $d }}</span></span>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
-            <div class="hn-feat hn-feat--dots"><div class="hn-dots hn-feat__dots"></div></div>
         </div>
     </section>
 
@@ -363,14 +370,6 @@ With modern technology, we deliver reliable and scalable manufacturing solutions
     </section>
 
 </main>
-
-{{-- hero video popup --}}
-<div class="hn-video" id="hnVideo">
-    <div class="hn-video__box">
-        <button type="button" class="hn-video__close" aria-label="Close">&times;</button>
-        <video controls playsinline preload="none" poster="{{ asset('public/front/img/Armstrong_home_thumb.jpg') }}" data-src="{{ asset('public/front/img/Armstrong_home_vid3.mp4') }}"></video>
-    </div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="{{ $hn }}/js/home.js"></script>
