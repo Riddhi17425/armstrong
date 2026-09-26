@@ -183,32 +183,22 @@ Team</span></div>
             @php
                 $featuredTitle = ['Bag', 'Closing Machines'];
                 $bagClosingCategory = $category->first(function ($item) {
-                    return \Illuminate\Support\Str::contains(strtolower($item->name ?? ''), 'bag closing');
+                    $name = strtolower($item->name ?? '');
+                    $url = strtolower($item->url ?? '');
+                    return str_contains($name, 'bag closing') || str_contains($url, 'bag-closing');
                 });
 
                 $featuredImages = collect();
-
                 if ($bagClosingCategory) {
-                    $featuredImages = $bagClosingCategory->products()
-                        ->with('images')
+                    $productIds = $bagClosingCategory->products()
                         ->where('product_status', 'Active')
-                        ->get()
-                        ->flatMap(function ($product) {
-                            $images = [];
+                        ->pluck('id');
 
-                            if (!empty($product->front_image)) {
-                                $decoded = json_decode($product->front_image, true);
-                                $images = is_array($decoded) ? $decoded : [$product->front_image];
-                            }
-
-                            foreach ($product->images as $image) {
-                                if (!empty($image->image)) {
-                                    $images[] = $image->image;
-                                }
-                            }
-
-                            return array_values(array_unique(array_filter($images)));
-                        })
+                    $featuredImages = \App\Models\ProductImages::whereIn('product_master_id', $productIds)
+                        ->whereNotNull('image')
+                        ->pluck('image')
+                        ->filter()
+                        ->unique()
                         ->values();
                 }
 
