@@ -1,0 +1,80 @@
+/* Armstrong – FOOTER + floating side tabs (Figma), used on every page */
+
+/* =========================================================
+   FOOTER (home page only, first pass): Figma background, red line under headings, "›" before links
+   ========================================================= */
+footer { /* Figma: image stretched to 1920 x 559 at the top of a #111 footer */
+    background: linear-gradient(rgba(0,0,0,.5) 0%, rgba(0,0,0,.6) 75%, #111 100%) top center / 100% 559px no-repeat, url('../images/footer-bg.png') top center / 100% 559px no-repeat, #111;
+}
+footer .ft_title { position: relative; margin-bottom: 24px; padding-bottom: 8px; }
+footer .ft_title::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px; background: #c0392b; }
+footer .ft_list li a::before { content: '\203A'; margin-right: 8px; color: #c0392b; font-size: 18px; line-height: 1; }
+
+@media (max-width: 991px) { footer { background-size: 100% 100%, cover, auto; } }
+
+/* footer links: arrow stays on its own, wrapped text lines up under the text (hanging indent) */
+footer .ft_list li a { display: flex; align-items: baseline; gap: 8px; }
+footer .ft_list li a::before { flex: none; margin-right: 0; }
+
+/* =========================================================
+   FOOTER – tablet / mobile polish (home page only)
+   ========================================================= */
+@media (max-width: 991px) {
+    footer { padding: 44px 0 0; background-size: 100% 100%, cover, auto; }
+    footer .container { padding-left: 20px; padding-right: 20px; }
+    footer .ft-mb { margin-bottom: 30px; }
+    footer .ft_items { margin: 0; padding: 0; row-gap: 8px; }
+    footer .ft_menu { margin-bottom: 26px !important; }
+    footer .ft_menu h3.ft_title.mt-4 { margin-top: 26px !important; }
+    footer .ft_list li:not(:last-child) { margin-bottom: 12px; }
+    footer .ft_list li a { font-size: 15px; line-height: 21px; }
+}
+@media (max-width: 767px) {
+    /* brand block */
+    footer .col-md-3:first-child { text-align: left; margin-bottom: 30px; }
+    footer .col-md-3:first-child img.img-fluid { width: 150px; height: auto; margin-bottom: 18px !important; }
+    footer .ft_contact { margin-top: 4px; padding: 16px 0 0; border-top: 1px solid rgba(255, 255, 255, .12); }
+    footer .ft_contact > div { margin-bottom: 8px !important; }
+    /* link columns: 2 per row, equal gutters */
+    footer .ft_items.row > .ft_menu { padding-left: 12px; padding-right: 12px; }
+    footer .ft_items.row { margin-left: -12px; margin-right: -12px; }
+    /* locate us / app block spans the full row */
+    footer .ft_menu.col-xxl-3 { flex: 0 0 100%; max-width: 100%; margin-top: 6px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, .12); }
+    footer .address_title { margin-top: 14px; }
+    footer .ft_menu img[alt="Google play"], footer .ft_menu img[alt="App Store"] { max-width: 140px; height: auto; }
+    /* bottom bar: stacked + centered */
+    footer hr { margin: 6px 0 0; border-color: rgba(255, 255, 255, .14); opacity: 1; }
+    footer .copyrigt_text { flex-direction: column; gap: 14px; padding: 22px 0 26px; text-align: center; }
+    footer .copyrigt_text .social_items { display: flex; justify-content: center; gap: 14px; }
+    footer .copyrigt_text > div { justify-content: center; }
+}
+
+
+/* =========================================================
+   FLOATING SIDE TABS  (re-style of the site's existing footer buttons – home page only)
+   "inquiry now" (red, vertical) + WhatsApp (green) stuck flush to the right edge
+   ========================================================= */
+a.Brochurs_btn_side.request_btn {
+    position: fixed; right: 0; bottom: auto; top: calc(50% - 90px); z-index: 1000;
+    transform: none; width: 47px; height: 130px; padding: 10px 15px; margin: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--hn-red, #e41e29); color: #fff !important; border-radius: 5px 0 0 5px;
+    writing-mode: vertical-rl; text-orientation: mixed; font-family: 'Quattrocento Sans', sans-serif;
+    font-size: 18px; line-height: 27px; font-weight: 700; text-transform: capitalize; white-space: nowrap;
+    overflow: visible; box-shadow: -2px 2px 10px rgba(0,0,0,.18); transition: width .25s, background .25s;
+}
+a.Brochurs_btn_side.request_btn:hover { width: 54px; background: #b8141e; }
+
+.float-buttons { top: calc(50% + 98px); right: 0; z-index: 1000; animation: 1.8s ease-in-out infinite alternate button-updown; }
+.float-buttons:hover { animation-play-state: paused; }
+.float-buttons .WhatsAppButton { transform: none; width: 55px; height: 55px; border-radius: 10px 0 0 10px; overflow: visible; box-shadow: -2px 2px 10px rgba(0,0,0,.18); transition: width .25s, background .25s; }
+.float-buttons .WhatsAppButton a { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; cursor: pointer; }
+.float-buttons .WhatsAppButton i { margin: 0; padding: 0; font-size: 36px; line-height: 40px; }
+.float-buttons .WhatsAppButton:hover { width: 60px; background: #1ebe5a; }
+
+@media (max-width: 767px) {
+    a.Brochurs_btn_side.request_btn { width: 40px; height: 112px; font-size: 15px; top: calc(50% - 80px); }
+    .float-buttons { top: calc(50% + 46px); }
+    .float-buttons .WhatsAppButton { width: 52px; height: 52px; border-radius: 10px 0 0 10px; }
+    .float-buttons .WhatsAppButton i { font-size: 30px; line-height: 30px; }
+}

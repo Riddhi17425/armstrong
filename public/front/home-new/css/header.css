@@ -1,0 +1,223 @@
+/* =========================================================
+   Armstrong – HEADER restyle for the NEW home page (Figma, 1920px)
+   Loaded only when the page includes layouts.frontheader with 'home_new' => true.
+   It re-styles the EXISTING header markup (no new header component).
+   Total height 180px = top bar 79px + nav row 101px (logo 65px).
+   ========================================================= */
+
+body:has(> header.hn-header) { padding-top: 180px; }
+
+header.hn-header {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    background: #fff !important;
+    box-shadow: none;
+    z-index: 999;
+    font-family: 'Quattrocento Sans', sans-serif;
+}
+header.hn-header .container { max-width: 1640px; padding-left: 20px; padding-right: 20px; }
+
+/* ---------- top bar ---------- */
+.hn-topbar { height: 79px; border-bottom: 1.5px solid rgba(221, 221, 221, .5); }
+.hn-topbar .container, .hn-topbar__in { height: 100%; }
+.hn-topbar__in { display: flex; align-items: center; justify-content: flex-end; gap: 24px; padding: 0 10px; }
+.hn-topbar a { text-decoration: none; }
+.hn-topbar__mail { display: flex; align-items: center; gap: 12px; padding: 3px 1px; color: #333; font-size: 16px; line-height: 20px; font-weight: 700; }
+.hn-topbar__mail img { width: 24px; height: 19px; }
+.hn-topbar__mail:hover { color: #e41e29; }
+.hn-topbar__sep { width: 1px; height: 24px; background: #525252; opacity: .8; }
+.hn-topbar__btn { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 16px; border: 1px solid #333; border-radius: 3px; color: #333; font-size: 18px; transition: .3s; }
+.hn-topbar__btn img { width: 16px; height: 16px; }
+.hn-topbar__btn:hover { background: #333; color: #fff; }
+.hn-topbar__btn:hover img { filter: brightness(0) invert(1); }
+.hn-topbar__social { display: flex; align-items: center; gap: 5.83px; }
+.hn-topbar__social a { display: block; width: 28px; height: 28px; }
+.hn-topbar__social img { width: 100%; height: 100%; object-fit: contain; }
+
+/* ---------- nav row ---------- */
+header.hn-header .navbar { padding: 20px 0 16px; background: #fff !important; }
+header.hn-header .navbar > .container { display: flex; align-items: center; justify-content: space-between; }
+header.hn-header .navbar-brand { display: flex; align-items: center; gap: 11px; margin: 0; padding: 0; }
+header.hn-header .hn-logo-i { width: 64.4px; height: 65px; }
+header.hn-header .hn-logo-t { width: 177px; height: 51px; }
+header.hn-header .navbar-collapse { flex: 1; align-items: center; justify-content: space-between; }
+header.hn-header .navbar-nav { gap: 30px; align-items: center; }
+header.hn-header .nav-link { white-space: nowrap; font-size: 18px; line-height: 65px; font-weight: 400; color: #333; padding: 0; display: flex; align-items: center; gap: 6px; }
+header.hn-header .nav-item:hover > .nav-link { color: #e41e29; }
+header.hn-header .nav-link .setting-icon { display: none; }
+header.hn-header .nav-link:has(.setting-icon)::after { content: ''; width: 11px; height: 6px; background: url('../icons/hdr-chevron.svg') center / contain no-repeat; transition: transform .3s; }
+header.hn-header .nav-item:hover > .nav-link:has(.setting-icon)::after { transform: rotate(180deg); }
+
+/* language + quote buttons */
+header.hn-header form.d-flex { align-items: center; gap: 20px; margin: 0 !important; }
+header.hn-header .language-select { margin: 0 !important; display: flex; align-items: center; gap: 10px; height: 58px; padding: 0 20px; border: 1px solid #333; border-radius: 5px; background: transparent; width: auto; flex: none; }
+header.hn-header .language-select svg { width: 28px; height: 28px; flex: none; }
+header.hn-header .language-select .dropdown-input-lan { border: 0; background: transparent; outline: 0; font-size: 18px; color: #333; width: 7.7em; min-width: 0; text-overflow: ellipsis; text-align: left; padding: 0; cursor: pointer; font-family: inherit; }
+header.hn-header .language-select .dropdown-input-lan::placeholder { color: #333; opacity: 1; }
+header.hn-header .request_btn { margin: 0 0 0 20px !important; height: 60px; flex: none; padding: 0 20px 0 60px; background: #e41e29; border-radius: 5px; font-size: 18px; font-weight: 700; }
+header.hn-header .request_btn svg { left: 20px; width: 30px; height: 30px; }
+header.hn-header .request_btn:hover svg { left: calc(100% - 50px); }
+
+/* ---------- mega menu keeps working under the new nav row ---------- */
+header.hn-header .mega_menu { top: 100%; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1699px) {
+    header.hn-header .navbar-nav { gap: 22px; }
+    header.hn-header .nav-link { font-size: 16px; }
+    header.hn-header .hn-logo-i { width: 52px; height: auto; }
+    header.hn-header .hn-logo-t { width: 142px; height: auto; }
+    header.hn-header .language-select, header.hn-header .request_btn { height: 48px; }
+    header.hn-header .language-select .dropdown-wrapper, header.hn-header .language-select .ml-4 { width: auto; }
+    header.hn-header .language-select { padding: 0 14px; }
+    header.hn-header .language-select svg { width: 24px; height: 24px; }
+    header.hn-header .language-select .dropdown-input-lan { font-size: 16px; }
+    header.hn-header .request_btn { font-size: 16px; padding-left: 52px; }
+    header.hn-header .request_btn svg { width: 26px; height: 26px; left: 16px; }
+}
+@media (max-width: 1399px) {
+    header.hn-header .navbar-nav { gap: 14px; }
+    header.hn-header .nav-link { font-size: 15px; }
+    header.hn-header .hn-logo-i { width: 44px; }
+    header.hn-header .hn-logo-t { width: 118px; }
+    header.hn-header .language-select .dropdown-input-lan { font-size: 15px; }
+    header.hn-header .request_btn { font-size: 15px; }
+    header.hn-header .request_btn { margin-left: 12px !important; }
+}
+@media (max-width: 991px) {
+    body:has(> header.hn-header) { padding-top: 96px; }
+    .hn-topbar { display: none; }
+    header.hn-header .navbar { padding: 12px 0; }
+    header.hn-header .hn-logo-i { width: 44px; }
+    header.hn-header .hn-logo-t { width: 118px; }
+    header.hn-header .nav-link { line-height: 44px; }
+    header.hn-header .navbar-collapse > form { flex-direction: column; align-items: stretch; margin-top: 12px; }
+    header.hn-header .language-select { justify-content: flex-start; }
+}
+
+/* =========================================================
+   MEGA MENU – open on hover, stay open while the pointer moves from the link into the panel
+   (desktop only; on mobile the existing click behaviour is untouched)
+   ========================================================= */
+@media (min-width: 992px) {
+    /* the hover area of each item covers the whole nav row, so there is no dead gap above the panel */
+    header.hn-header .navbar-nav .nav-item { padding: 20px 0 16px; margin: -20px 0 -16px; }
+
+    header.hn-header .mega_menu {
+        display: block !important;
+        top: 100%;
+        max-height: calc(100vh - 180px);
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(8px);
+        z-index: 5;
+        /* short delay before closing = forgiving when the mouse briefly leaves the panel */
+        transition: opacity .2s ease, transform .2s ease, visibility 0s linear .25s;
+    }
+    header.hn-header .nav-item:hover > .mega_menu,
+    header.hn-header .nav-item:focus-within > .mega_menu,
+    header.hn-header .mega_menu:hover {
+        visibility: visible !important;
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+        transition-delay: 0s;
+    }
+}
+
+/* language box: never let the site's inline 200px / 100% widths clip the text */
+header.hn-header .language-select .dropdown-wrapper { width: auto !important; }
+header.hn-header .language-select .ml-4 { margin: 0 !important; }
+
+/* =========================================================
+   SCROLL – the top bar slides away smoothly, the nav row (links) stays fixed
+   ========================================================= */
+header.hn-header { transition: transform .35s ease, box-shadow .35s ease; will-change: transform; }
+@media (min-width: 992px) {
+    header.hn-header.hn-scrolled { transform: translateY(-79px); box-shadow: 0 4px 14px rgba(0, 0, 0, .1); }
+}
+
+/* small screens: logo | quote button | hamburger stay on ONE row */
+@media (max-width: 991px) {
+    header.hn-header .navbar > .container { flex-wrap: wrap; }
+    header.hn-header .request_btn { height: 44px; padding: 0 14px 0 46px; font-size: 14px; margin: 0 !important; }
+    header.hn-header .request_btn svg { width: 22px; height: 22px; left: 12px; }
+    header.hn-header .request_btn:hover svg { left: 12px; }
+    header.hn-header .request_btn:hover .old-text { transform: none; }
+    header.hn-header .request_btn .new-text { display: none; }
+}
+@media (max-width: 479px) {
+    header.hn-header .request_btn { width: 44px; padding: 0; justify-content: center; }
+    header.hn-header .request_btn svg { position: static; transform: none; }
+    header.hn-header .request_btn .old-text { display: none; }
+}
+
+/* mobile / tablet: the quote button lives INSIDE the opened menu, not in the top row */
+.hn-quote-m { display: none; }
+@media (max-width: 991px) {
+    header.hn-header .request_btn { display: none !important; }
+    .hn-quote-m { display: flex; align-items: center; justify-content: center; height: 50px; margin: 14px 0 6px; border-radius: 5px; background: #e41e29; color: #fff !important; font-size: 17px; font-weight: 700; text-decoration: none; }
+}
+
+/* hamburger -> X : exact geometry, driven by aria-expanded (Bootstrap sets it), so the bars never drift/glitch while opening or closing */
+header.hn-header .hamburger { height: 22px; width: 30px; }
+header.hn-header .hamburger .hamburger-line {
+    height: 3px; transform-origin: 50% 50%;
+    transition: transform .3s ease, opacity .2s ease;
+}
+header.hn-header .hamburger.active .hamburger-line:nth-child(1),
+header.hn-header .hamburger.active .hamburger-line:nth-child(3) { transform: none; opacity: 1; } /* ignore the old .active rules */
+header.hn-header .hamburger.active .hamburger-line:nth-child(2) { opacity: 1; }
+header.hn-header .hamburger[aria-expanded="true"] .hamburger-line:nth-child(1) { transform: translateY(9.5px) rotate(45deg); }
+header.hn-header .hamburger[aria-expanded="true"] .hamburger-line:nth-child(2) { opacity: 0; }
+header.hn-header .hamburger[aria-expanded="true"] .hamburger-line:nth-child(3) { transform: translateY(-9.5px) rotate(-45deg); }
+
+/* mobile / tablet: logo + hamburger stay pinned on the first row; the opened menu drops in a full-width row below.
+   (nothing in the first row is allowed to move when the menu opens / closes) */
+@media (max-width: 991px) {
+    header.hn-header .navbar > .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+    header.hn-header .navbar-brand { flex: 0 0 auto; }
+    header.hn-header .hamburger { flex: 0 0 30px; margin: 0 0 0 auto; position: relative; }
+    header.hn-header .hamburger .hamburger-line { flex: none; }
+    header.hn-header .navbar-collapse { order: 3; flex: 0 0 100%; width: 100%; margin-top: 12px; }
+    header.hn-header .navbar-collapse.collapsing { transition: height .3s ease; }
+    header.hn-header .hamburger { transform: none !important; }
+}
+
+/* mobile / tablet menu: sub-links (About Us, Media ...) and their bottom borders use the FULL width */
+@media (max-width: 991px) {
+    header.hn-header .mega_menu .mega_menu_wrapper { display: block; }
+    header.hn-header .mega_menu .icons { width: 100% !important; }
+    header.hn-header .mega_menu .icon { width: 100%; display: flex; }
+    header.hn-header .mega_menu .pagename { width: 100%; margin-right: 0 !important; flex: 1 1 auto; }
+    header.hn-header .mega_menu .icons_bg { display: none; }
+}
+
+/* mobile / tablet: "Download Brochure" sits in the opened menu (the top bar is hidden on small screens) */
+.hn-brochure-m { display: none; }
+@media (max-width: 991px) {
+    .hn-brochure-m { display: flex; align-items: center; justify-content: center; gap: 10px; height: 50px; margin: 14px 0 0; border: 1px solid #333; border-radius: 5px; color: #333 !important; font-size: 17px; text-decoration: none; }
+    .hn-brochure-m img { width: 16px; height: 16px; }
+    .hn-brochure-m + .hn-quote-m { margin-top: 12px; }
+}
+
+/* mobile / tablet: every sub-link row (Events, Videos, Company Profile ...) and its bottom border = FULL width */
+@media (max-width: 991px) {
+    header.hn-header .navbar .mega_menu { padding: 6px 0 0; width: 100%; box-shadow: none; }
+    header.hn-header .navbar .mega_menu .container { width: 100%; max-width: none; padding: 0; margin: 0; }
+    header.hn-header .navbar .mega_menu .mega_menu_wrapper { display: block; width: 100%; }
+    header.hn-header .navbar .mega_menu .icons { display: block; width: 100% !important; max-width: none; }
+    header.hn-header .navbar .mega_menu a.icon { display: block; width: 100%; margin: 0 !important; }
+    header.hn-header .navbar .mega_menu .pagename { display: block; width: 100% !important; max-width: none; margin: 0 !important; padding: 12px 0; border-bottom: 1px solid #ddd; }
+    header.hn-header .navbar .mega_menu .pagename span { display: block; width: 100%; }
+}
+
+/* mobile / tablet: the menu list itself must be full width (its "mx-auto" made it shrink to the widest text,
+   which is why the borders under the sub-links stopped at the longest label) */
+@media (max-width: 991px) {
+    header.hn-header .navbar-nav { width: 100%; margin-left: 0 !important; margin-right: 0 !important; align-items: stretch; }
+    header.hn-header .navbar-nav .nav-item { width: 100%; }
+    header.hn-header .navbar-nav .nav-item > .mega_menu { width: 100%; position: static; }
+}
