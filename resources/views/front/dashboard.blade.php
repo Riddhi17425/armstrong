@@ -32,7 +32,7 @@
         <div class="hn-wrap">
             <div class="hn-hero__content">
                 <div class="hn-hero__text">
-                    <h1>India’s Leading Manufacturer of FIBC &amp; Woven Sack Machinery</h1>
+                    <h1>India's Leading Manufacturer of FIBC &amp; Woven Sack Machinery</h1>
                     <p>Four decades of engineering. Machinery built for precision, <br>productivity and lasting performance.</p>
                 </div>
                 <div class="hn-hero__btns">
@@ -47,7 +47,8 @@
     {{-- ================= STATS ================= --}}
     <div class="hn-wrap">
         <div class="hn-stats">
-            <div class="hn-stat"><strong data-count="43">43+</strong><span>Years of Experience</span></div>
+            <div class="hn-stat"><strong data-count="120">120+</strong><span>Talented
+Team</span></div>
             <i class="hn-stats__sep"></i>
             <div class="hn-stat"><strong data-count="80">80+</strong><span>Innovative<br>Products</span></div>
             <i class="hn-stats__sep"></i>
@@ -65,8 +66,11 @@
             <div class="hn-about__top">
                 <h2 class="hn-title">About <span>Armstrong</span></h2>
                 <div class="hn-about__paras">
+                    <p>Engineering precision, delivering excellence.Transforming the industrial packaging industry.</p>
                     <p>With over 40 years of experience in working for the industrial packaging industry, we are now a leading name as the top FIBC machine manufacturers in India. From FIBC machines and woven sack machinery to HDPE sack sewing solutions. Our FIBC machines are built for durability, precision, and efficiency.</p>
-                    <p>Every machine we deliver is designed, assembled, and tested in-house in our state-of-the-art workplace, meeting industrial standards for high-quality and powerful performance. Today we serve across 30+ countries, not just with our machines, but even additional technical expertise through customization and after-sales support.</p>
+                    <p>Every machine we deliver is designed, assembled, and tested in-house in our state-of-the-art workplace, meeting industrial standards for high-quality and powerful performance. Today we serve across 30 countries, not just with our machines, but even additional technical expertise through customization and after-sales support.</p>
+                    <!-- <p>With over 40 years of experience in working for the industrial packaging industry, we are now a leading name as the top FIBC machine manufacturers in India. From FIBC machines and woven sack machinery to HDPE sack sewing solutions. Our FIBC machines are built for durability, precision, and efficiency.</p>
+                    <p>Every machine we deliver is designed, assembled, and tested in-house in our state-of-the-art workplace, meeting industrial standards for high-quality and powerful performance. Today we serve across 30+ countries, not just with our machines, but even additional technical expertise through customization and after-sales support.</p> -->
                 </div>
             </div>
             <div class="hn-about__bar"></div>
@@ -364,7 +368,7 @@ With modern technology, we deliver reliable and scalable manufacturing solutions
 <div class="hn-video" id="hnVideo">
     <div class="hn-video__box">
         <button type="button" class="hn-video__close" aria-label="Close">&times;</button>
-        <video controls playsinline preload="none" poster="{{ asset('public/front/img/Armstrong_home_thumb.jpg') }}" data-src="{{ asset('public/front/img/Armstrong_home_vid.mp4') }}"></video>
+        <video controls playsinline preload="none" poster="{{ asset('public/front/img/Armstrong_home_thumb.jpg') }}" data-src="{{ asset('public/front/img/Armstrong_home_vid3.mp4') }}"></video>
     </div>
 </div>
 
