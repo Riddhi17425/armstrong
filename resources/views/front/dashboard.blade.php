@@ -86,16 +86,23 @@ Team</span></div>
         <div class="hn-wrap">
             <div class="hn-head">
                 <h2 class="hn-title"><span>Our</span> Product Range</h2>
-                <p class="hn-lead">Our advanced machinery ensures precision, efficiency, and consistent quality.
-It reduces wastage, energy use, and downtime while maintaining safety.
-With modern technology, we deliver reliable and scalable manufacturing solutions.</p>
+                <p class="hn-lead">We build the machines that turn raw material into finished bags: FIBC machines, woven sack machines, sewing machines, mulch film punching machines, bag closing machines, and more. Each one is made to run reliably for years, so you spend less time on downtime and more time on production.</p>
             </div>
             <div class="hn-btnrow">
                 <a href="{{ route('productlist') }}" class="hn-btn hn-btn--red">Explore all machines <img src="{{ $hn }}/icons/arrow-sm-white.svg" alt=""></a>
                 <a href="#" class="hn-btn hn-btn--line" data-bs-toggle="modal" data-bs-target="#exampleModal">Get A Quote <img src="{{ $hn }}/icons/arrow-sm-red.svg" alt=""></a>
             </div>
             <div class="hn-pgrid">
-                @foreach($products as [$name, $img, $kw, $x, $y, $w, $h, $base])
+                @foreach($category as $index => $cat)
+                    <a href="{{ route('products.listing', $cat->url) }}" class="hn-pcard">
+                        <span class="hn-pcard__media">
+                            <img src="{{ asset('/' . $cat->category_image) }}" alt="{{ $cat->name }}" loading="lazy">
+                        </span>
+                        <span class="hn-pcard__bar"><b>{{ $cat->name }}</b><img src="{{ $hn }}/icons/card-arrow.svg" alt=""></span>
+                    </a>
+                @endforeach
+
+                {{--@foreach($products as [$name, $img, $kw, $x, $y, $w, $h, $base])
                     @php
                         $cat = $category->first(fn($c) => \Illuminate\Support\Str::contains(strtolower($c->name ?? ''), $kw));
                         $link = $cat ? route('products.listing', $cat->url) : route('productlist');
@@ -107,7 +114,7 @@ With modern technology, we deliver reliable and scalable manufacturing solutions
                         </span>
                         <span class="hn-pcard__bar"><b>{{ $name }}</b><img src="{{ $hn }}/icons/card-arrow.svg" alt=""></span>
                     </a>
-                @endforeach
+                @endforeach--}}
             </div>
         </div>
     </section>
@@ -117,7 +124,7 @@ With modern technology, we deliver reliable and scalable manufacturing solutions
         <div class="hn-wrap">
             <div class="hn-head">
                 <h2 class="hn-title"><span>Precision</span> Manufacturing Infrastructure</h2>
-                <p class="hn-lead">Our manufacturing infrastructure is equipped with state-of-the-art machinery designed to deliver precision, efficiency, and consistent quality. From advanced weaving and needle loom machines to high-speed finishing equipment, every setup is optimized for maximum productivity and minimal downtime. These machines not only ensure uniform output but also reduce wastage, save energy, and enhance operational safety. With cutting-edge technology at the core of our operations, our infrastructure supports scalable production while maintaining superior standards, making us a reliable partner in industrial manufacturing.</p>
+                <p class="hn-lead">Armstrong manufactures advanced industrial machinery, including FIBC Machines, Woven Sack Machines, Sewing Machines, Mulch Film Punching Machines, and Bag Closing Machines. Our in-house manufacturing process ensures precision engineering, strict quality control, and reliable performance from design to final testing.</p>
             </div>
             <div class="hn-units">
                 <div class="hn-unit">
@@ -151,14 +158,14 @@ With modern technology, we deliver reliable and scalable manufacturing solutions
         <div class="hn-wrap">
             <div class="hn-head">
                 <h2 class="hn-title"><span>Built</span> <span>For</span> a Stronger Tomorrow</h2>
-                <p class="hn-lead">Our advanced infrastructure enables precision manufacturing, consistent quality, and continuous innovation, helping us deliver reliable solutions for a stronger tomorrow.</p>
+                <p class="hn-lead">Good machines don't happen by accident; they come from constant refinement. Between our R&D team, our testing lab, and our fabrication units, every FIBC and woven sack machine we ship has been through real scrutiny before it ever reaches your floor.</p>
             </div>
             <div class="hn-cols">
                 @foreach([
-                    ['feat-1', 'Fully equipped testing and inspection lab', 'Ensuring superior quality and reliability at every stage.', '50x54'],
-                    ['feat-2', 'Continuous process improvement & innovation', 'Upgrading technology and processes for better performance.', '54x54'],
-                    ['feat-3', 'State-of-the-art assembly & fabrication units', 'Modern facilities with advanced machinery for precision manufacturing', '54x54'],
-                    ['feat-4', 'Dedicated R&D and prototyping zone', 'Transforming ideas into reliable solutions for tomorrow', '54x54'],
+                    ['feat-1', 'Fully equipped testing and inspection lab', 'Every machine is tested thoroughly before it leaves our facility.', '50x54'],
+                    ['feat-2', 'Continuous process improvement & innovation', 'We keep refining our processes so machines run faster and last longer.', '54x54'],
+                    ['feat-3', 'State-of-the-art assembly & fabrication units', 'Built in-house, so we control quality at every step.', '54x54'],
+                    ['feat-4', 'Dedicated R&D and prototyping zone', 'Real customer problems shape every machine we design.', '54x54'],
                 ] as $i => [$ic, $t, $d, $size])
                     @if($i) <i class="hn-vline"></i> @endif
                     <div class="hn-col">
@@ -226,16 +233,16 @@ With modern technology, we deliver reliable and scalable manufacturing solutions
         <div class="hn-wrap">
             <div class="hn-head">
                 <h2 class="hn-title"><span>Why</span> Choose Armstrong?</h2>
-                <p class="hn-lead">Lorem ipsum dolor sit amet consectetur. Morbi tempor vitae quis est amet viverra quis amet. In euismod ultrices nulla sed enim fames proin. Lectus ante metus imperdiet lectus eget. In vitae in sit imperdiet aliquam fames. Ullamcorper in turpis vestibulum dolor libero lobortis. Aliquet nibh pulvinar et volutpat. Lacinia netus sem mauris amet nunc ut eget.</p>
+                <p class="hn-lead">When you're investing in industrial packaging machinery, you need more than a supplier, you need a partner who understands your production line inside out. That's what four decades of building FIBC machines, woven sack machines, and finishing equipment have taught us. Here's what sets Armstrong apart for manufacturers across 70+ countries.</p>
             </div>
             <div class="hn-why__grid">
                 @foreach([
-                    ['why-1', 44, 'Proven Industry Expertise', 'With decades of experience, we understand the packaging industry and deliver solutions that perform in real-world conditions.'],
-                    ['why-2', 40, 'In-House Manufacturing', 'Our state-of-the-art facility ensures complete control over quality, timely delivery, and continuous improvement.'],
-                    ['why-3', 44, 'Engineering & Innovation', 'We invest in modern R&D to build machines that are smarter, more efficient, and reliable for demanding environments.'],
-                    ['why-4', 42, 'Custom-Built Solutions', 'Every business is unique. We design and manufacture machines tailored to your exact specifications and requirements.'],
-                    ['why-5', 50, 'End-to-End Support', 'From installation and training to after-sales service, we are with you at every step for uninterrupted performance.'],
-                    ['why-6', 50, 'Global Experience', 'Our machines are trusted across 30+ countries, with tailored solutions worldwide for diverse industries.'],
+                    ['why-1', 44, 'Proven Expertise', '40+ years delivering high-quality PP/PE machinery globally.'],
+                    ['why-2', 40, 'Innovative Solutions', 'Cutting-edge technology for maximum productivity and efficiency.'],
+                    ['why-3', 44, 'End-to-End Offerings', 'Comprehensive machines and spare parts!! All under one roof.'],
+                    ['why-4', 42, 'Global Reach', 'Trusted partner across 70+ countries with local support.'],
+                    ['why-5', 50, 'Customer Focused', 'Tailored solutions and dedicated service for every client.'],
+                    ['why-6', 50, 'Durable Design', 'Heavy-duty machinery built for long-lasting performance.'],
                 ] as [$ic, $s, $t, $d])
                     <div class="hn-why__card">
                         <span class="hn-why__ic"><img src="{{ $hn }}/icons/{{ $ic }}.svg" alt="" width="{{ $s }}" height="{{ $s }}"></span>
@@ -253,25 +260,19 @@ With modern technology, we deliver reliable and scalable manufacturing solutions
             <div class="hn-wrap">
                 <div class="hn-head">
                     <h2 class="hn-title"><span>Our</span> Manufacturing Process</h2>
-                    <p class="hn-lead">Lorem ipsum dolor sit amet consectetur. Morbi tempor vitae quis est amet viverra quis amet. In euismod ultrices nulla sed enim fames proin. Lectus ante metus imperdiet lectus eget. In vitae in sit imperdiet aliquam fames. Ullamcorper in turpis vestibulum dolor libero lobortis. Aliquet nibh pulvinar et volutpat. Lacinia netus sem mauris amet nunc ut eget.</p>
+                    <p class="hn-lead">Every Armstrong machine follows a structured process - from initial enquiry and market analysis to design, fabrication, quality testing, and final dispatch. This disciplined approach to <b>industrial machine manufacturing </b> ensures every FIBC, woven sack, or sewing machine we ship meets strict quality benchmarks and is ready for seamless installation at your facility. </p>
                 </div>
             </div>
             <div class="swiper hn-process__slider">
                 <div class="swiper-wrapper">
-                    @foreach([
-                        ['10', 'Market Requirement Analysis', 'Understanding trends to match your business demand.', 'proc-enquiry'],
-                        ['11', 'Enquiry', 'We listen to your needs and project goals.', 'proc-enquiry'],
-                        ['01', 'Training & Handover', 'Complete guidance for smooth machine handling.', 'proc-training'],
-                        ['02', 'Machine Installation & Commissioning', 'Seamless setup for quick operations.', 'proc-install'],
-                        ['03', 'Packing & Dispatch', 'Safe packaging and on-time delivery worldwide.', 'proc-dispatch'],
-                    ] as [$no, $t, $d, $img])
+                    @foreach($steps as $step)
                         <div class="swiper-slide">
                             <div class="hn-step">
                                 <i class="hn-step__dot"></i>
-                                <span class="hn-step__no">{{ $no }}</span>
-                                <img class="hn-step__img" src="{{ $hn }}/images/{{ $img }}.png" alt="{{ $t }}" loading="lazy">
-                                <h3>{{ $t }}</h3>
-                                <p>{{ $d }}</p>
+                                <span class="hn-step__no">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                                <img class="hn-step__img" src="{{ asset('/' . $step->image) }}" alt="{{ str_replace(['-', '_'], ' ', pathinfo($step->alt_tag ?? $step->title, PATHINFO_FILENAME)) }}" loading="lazy">
+                                <h3>{{ $step->title }}</h3>
+                                <p>{!! $step->description !!}</p>
                             </div>
                         </div>
                     @endforeach
@@ -286,7 +287,7 @@ With modern technology, we deliver reliable and scalable manufacturing solutions
         <div class="hn-wrap">
             <div class="hn-head">
                 <h2 class="hn-title"><span>Certifications</span> &amp; Quality Standards</h2>
-                <p class="hn-lead" style="max-width:1480px">Lorem ipsum dolor sit amet consectetur. Morbi tempor vitae quis est amet viverra quis amet. In euismod ultrices nulla sed enim fames proin. Lectus ante metus imperdiet lectus eget. In vitae in sit imperdiet aliquam fames. Ullamcorper in turpis vestibulum dolor libero lobortis. Aliquet nibh pulvinar et volutpat. Lacinia netus sem mauris amet nunc ut eget.</p>
+                <p class="hn-lead" style="max-width:1480px">Certifications aren't paperwork for us; they're proof. Our FIBCA membership and industry affiliations reflect the same standards we hold ourselves to: precision, safety, and machines built to last, wherever they end up.</p>
             </div>
             <div class="hn-cert__row">
                 <div class="hn-cert__item">
@@ -310,22 +311,20 @@ With modern technology, we deliver reliable and scalable manufacturing solutions
         <div class="hn-wrap">
             <div class="hn-head">
                 <h2 class="hn-title"><span>What Our</span> Customers Say?</h2>
-                <p class="hn-lead">Lorem ipsum dolor sit amet consectetur. Morbi tempor vitae quis est amet viverra quis amet. In euismod ultrices nulla sed enim fames proin. Lectus ante metus imperdiet lectus eget. In vitae in sit imperdiet aliquam fames. Ullamcorper in turpis vestibulum dolor libero lobortis. Aliquet nibh pulvinar et volutpat. Lacinia netus sem mauris amet nunc ut eget.</p>
+                <p class="hn-lead">Don't just take our word for it, hear from packaging manufacturers across 70+ countries who rely on Armstrong's machines to run their production lines efficiently, day after day.</p>
             </div>
             <div class="swiper hn-testi__slider">
                 <div class="swiper-wrapper">
-                    @php $testis = [
-                        ['harsh gajjar', 'Very responsive team. Good service and overall great experience.', 'user-1'],
-                        ['Swati Darji', 'Recommend to all.. supportive staff .. best quality product .. best in PP bag machinery and FIBC machinery.. timely delivery...', 'user-2'],
-                        ['Meet Dave', 'Faster service provider, Top class quality FIBC, Wovensack & Bag closer stitching machines manufacturer..', 'user-3'],
-                    ]; $testis = array_merge($testis, $testis); @endphp
-                    @foreach($testis as [$name, $text, $img])
+                    @foreach($clientsays as $client)
                         <div class="swiper-slide">
                             <div class="hn-tcard">
-                                <div class="hn-tcard__author"><img src="{{ $hn }}/images/{{ $img }}.png" alt="{{ $name }}"><b>{{ $name }}</b></div>
-                                <p>{{ $text }}</p>
+                                <div class="hn-tcard__author">
+                                    <img src="{{ $client->image ? asset('/' . $client->image) : $hn . '/images/user-1.png' }}" alt="{{ $client->name }}">
+                                    <b>{{ $client->name }}</b>
+                                </div>
+                                <p>{!! $client->description !!}</p>
                                 <div class="hn-tcard__foot">
-                                    <div class="hn-stars">@for($i = 0; $i < 5; $i++)<img src="{{ $hn }}/icons/star.svg" alt="">@endfor</div>
+                                    <div class="hn-stars">@for($i = 0; $i < ($client->rating ?? 5); $i++)<img src="{{ $hn }}/icons/star.svg" alt="">@endfor</div>
                                     <div class="hn-quote"><img src="{{ $hn }}/icons/quote-1.svg" alt=""><img src="{{ $hn }}/icons/quote-2.svg" alt=""></div>
                                 </div>
                             </div>
@@ -342,25 +341,17 @@ With modern technology, we deliver reliable and scalable manufacturing solutions
         <div class="hn-wrap">
             <div class="hn-head">
                 <h2 class="hn-title"><span>Latest Insights</span> &amp; Industry Guides</h2>
-                <p class="hn-lead">Lorem ipsum dolor sit amet consectetur. Morbi tempor vitae quis est amet viverra quis amet. In euismod ultrices nulla sed enim fames proin. Lectus ante metus imperdiet lectus eget. In vitae in sit imperdiet aliquam fames. Ullamcorper in turpis vestibulum dolor libero lobortis. Aliquet nibh pulvinar et volutpat. Lacinia netus sem mauris amet nunc ut eget.</p>
+                <p class="hn-lead">We're proud to serve leading brands across manufacturing, agriculture, food processing, and industrial packaging.</p>
             </div>
-            @php
-                $demoBlogs = [
-                    ['June 23, 2026', 'What Makes a Heat Sealing Machine the Right Choice for Your Packaging Industry'],
-                    ['June 19, 2026', 'Bag Closing Machines: How to Choose the Right One for Your Industry'],
-                    ['June 8, 2026',  'How to Choose the Right Industrial Heavy- Duty Bag Sealing Machine for Your Business'],
-                ];
-            @endphp
             <div class="hn-blogs__grid">
-                @foreach($demoBlogs as $i => [$date, $title])
-                    @php $item = $blogs->values()->get($i); @endphp
-                    <a class="hn-bcard" href="{{ $item ? route('blogs.detail', $item->url) : route('blog') }}">
+                @foreach($blogs->take(3) as $item)
+                    <a class="hn-bcard" href="{{ route('blogs.detail', $item->url) }}">
                         <div>
-                            <div class="hn-bcard__date"><span>Date</span><i></i><span>{{ $item && $item->created_at ? $item->created_at->format('F j, Y') : $date }}</span></div>
-                            <h3>{{ $item->title ?? $title }}</h3>
+                            <div class="hn-bcard__date"><span>Date</span><i></i><span>{{ $item->created_at ? $item->created_at->format('F j, Y') : 'N/A' }}</span></div>
+                            <h3>{{ $item->title }}</h3>
                         </div>
                         <div class="hn-bcard__img">
-                            <img src="{{ $item && $item->front_image && file_exists(base_path($item->front_image)) ? asset('/' . $item->front_image) : $hn . '/images/blog-' . ($i + 1) . '.png' }}" alt="{{ $item->title ?? $title }}" loading="lazy">
+                            <img src="{{ $item->front_image && file_exists(base_path($item->front_image)) ? asset('/' . $item->front_image) : $hn . '/images/blog-' . ($loop->iteration) . '.png' }}" alt="{{ $item->title ?? 'Latest Insights & Updates' }}" loading="lazy">
                         </div>
                         <div class="hn-bcard__more"><span>Read More</span><img src="{{ $hn }}/icons/blog-arrow.svg" alt=""></div>
                     </a>
