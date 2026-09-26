@@ -244,7 +244,10 @@ Team</span></div>
                         </div>
                         <!-- <div class="hn-feat__badge"><img src="{{ $hn }}/icons/featured-badge.svg" alt=""></div> -->
                     </div>
-                    <div class="hn-dots hn-feat__dots"></div>
+                    <div class="hn-feat__nav" aria-label="Featured machines navigation">
+                        <button type="button" class="hn-feat__arrow hn-feat__arrow--prev" aria-label="Previous machine">&larr;</button>
+                        <button type="button" class="hn-feat__arrow hn-feat__arrow--next" aria-label="Next machine">&rarr;</button>
+                    </div>
                 </div>
                 <ul class="hn-feat__specs">
                     @foreach($specs as [$ic, $t, $d])
