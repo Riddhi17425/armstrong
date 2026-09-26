@@ -135,7 +135,7 @@ Team</span></div>
                     </div>
                     <a href="{{ route('our.infrastructure') }}" class="hn-unit__bar">
                         <div class="hn-unit__left"><img src="{{ $hn }}/icons/infra-1.svg" alt=""><h3>Raffia Woven &amp; FIBC Machinery Unit-1</h3></div>
-                        <p>Advanced machinery for high-performance FIBC and woven sack production.</p>
+                        <p>High-performance machinery built for FIBC and woven sack production.</p>
                     </a>
 </div>
                 <div class="hn-unit">
@@ -146,7 +146,7 @@ Team</span></div>
                     </div>
                     <a href="{{ route('our.infrastructure') }}" class="hn-unit__bar">
                         <div class="hn-unit__left"><img src="{{ $hn }}/icons/infra-2.svg" alt=""><h3>Sewing Machines &amp; Spares Unit-2</h3></div>
-                        <p>Precision solutions for sewing machines and spares manufacturing.</p>
+                        <p>Precision-engineered sewing machines and spares, built to last.</p>
                     </a>
 </div>
             </div>
@@ -181,32 +181,63 @@ Team</span></div>
     <section class="hn-block hn-featured">
         <div class="hn-wrap">
             @php
-                $featured = [
-                    ['Bag', 'Closing Machines', 'featured-machine', 'Bag Closing Machines'],
-                    ['FIBC', 'Machines', 'prod-fibc', 'FIBC Machines'],
-                    ['Woven Sack', 'Machines', 'prod-woven', 'Woven Sack Machines'],
-                    ['Sewing', 'Machines', 'prod-sewing', 'Sewing Machines'],
-                ];
+                $featuredTitle = ['Bag', 'Closing Machines'];
+                $bagClosingCategory = $category->first(function ($item) {
+                    return \Illuminate\Support\Str::contains(strtolower($item->name ?? ''), 'bag closing');
+                });
+
+                $featuredImages = collect();
+
+                if ($bagClosingCategory) {
+                    $featuredImages = $bagClosingCategory->products()
+                        ->with('images')
+                        ->where('product_status', 'Active')
+                        ->get()
+                        ->flatMap(function ($product) {
+                            $images = [];
+
+                            if (!empty($product->front_image)) {
+                                $decoded = json_decode($product->front_image, true);
+                                $images = is_array($decoded) ? $decoded : [$product->front_image];
+                            }
+
+                            foreach ($product->images as $image) {
+                                if (!empty($image->image)) {
+                                    $images[] = $image->image;
+                                }
+                            }
+
+                            return array_values(array_unique(array_filter($images)));
+                        })
+                        ->values();
+                }
+
+                if ($featuredImages->isEmpty()) {
+                    $featuredImages = collect([
+                        'public/front/home-new/images/prod-bagclosing.png',
+                        'public/front/home-new/images/prod-bagclosing.png',
+                    ]);
+                }
+
                 $specs = [
-                    ['spec-1', 'Global Experience', 'Upto 2000 SPM'],
-                    ['spec-2', 'Lorem ipsum', 'Lorem ipsum dolor sit'],
-                    ['spec-3', 'Lorem ipsum', 'Lorem ipsum dolor sit'],
+                    ['spec-1', 'Reliable Performance', 'Consistent and secure bag closing.'],
+                    ['spec-2', 'High-Speed Operation', 'Faster and more efficient packaging.'],
+                    ['spec-3', 'Versatile Applications', 'Suitable for diverse industrial packaging needs.'],
                 ];
             @endphp
             <div class="hn-feat">
-                @php [$w1, $w2] = $featured[0]; @endphp
                 <div class="hn-feat__text">
-                    <h2 class="hn-title"><span>{{ $w1 }}</span> {{ $w2 }}</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur. Morbi tempor vitae quis est amet viverra quis amet. In euismod ultrices nulla sed enim fames proin. Lectus ante metus imperdiet lectus eget.</p>
+                    <h2 class="hn-title"><span>{{ $featuredTitle[0] }}</span> {{ $featuredTitle[1] }}</h2>
+                    <p>Armstrong Bag Closing Machines are engineered for reliable, high-speed, and consistent bag sealing across diverse industrial packaging applications. Designed for durability and efficiency, our machines deliver secure bag closures for industries handling food grains, fertilizers, chemicals, animal feed, and more.</p>
                     <a href="{{ route('productlist') }}" class="hn-btn hn-btn--red">Explore all machines <img src="{{ $hn }}/icons/arrow-sm-white.svg" alt=""></a>
                 </div>
                 <div class="hn-feat__stage">
                     <div class="hn-feat__frame">
                         <div class="swiper hn-feat__slider">
                             <div class="swiper-wrapper">
-                                @foreach($featured as [$w1, $w2, $img, $alt])
+                                @foreach($featuredImages as $image)
                                     <div class="swiper-slide">
-                                        <img class="hn-feat__pic" src="{{ $hn }}/images/{{ $img }}.png" alt="{{ $alt }}" loading="lazy">
+                                        <img class="hn-feat__pic" src="{{ asset('/' . $image) }}" alt="Bag Closing Machine" loading="lazy">
                                     </div>
                                 @endforeach
                             </div>
