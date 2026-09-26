@@ -64,7 +64,7 @@ Team</span></div>
     <section class="hn-about hn-after-stats">
         <div class="hn-about__text">
             <div class="hn-about__top">
-                <h2 class="hn-title">About <span>Armstrong</span></h2>
+                <h2 class="hn-title">About 11 <span>Armstrong</span></h2>
                 <div class="hn-about__paras">
                     <p>Engineering precision, delivering excellence.Transforming the industrial packaging industry.</p>
                     <p>With over 40 years of experience in working for the industrial packaging industry, we are now a leading name as the top FIBC machine manufacturers in India. From FIBC machines and woven sack machinery to HDPE sack sewing solutions. Our FIBC machines are built for durability, precision, and efficiency.</p>
