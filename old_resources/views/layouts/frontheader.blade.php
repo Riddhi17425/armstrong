@@ -1,4 +1,3 @@
-@php $home_new = true; /* new Figma header is used on EVERY page */ @endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -101,8 +100,8 @@
     .dropdown-list {
       position: absolute;
       top: 136%;
-      left: -50px;
-      right: -15px;
+      left: -30px;
+      right: 0;
       max-height: 250px;
       overflow-y: auto;
       background: #fff;
@@ -205,10 +204,6 @@
     <script type="application/ld+json">
     {!! $productSchema !!}
     </script>
-    @if(!empty($home_new))
-    <link rel="stylesheet" href="{{ asset('public/front/home-new/css/header.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/front/home-new/css/footer.css') }}">
-    @endif
 </head>
 
 <body>
@@ -217,31 +212,13 @@
     <!--     <div class="loader-bar"><span></span></div>-->
     <!--</div>-->
 
-    <header @if(!empty($home_new)) class="hn-header" @endif>
-        @if(!empty($home_new))
-        <div class="hn-topbar">
-            <div class="container">
-                <div class="hn-topbar__in">
-                    <a class="hn-topbar__mail" href="mailto:inquiry@armstrongex.com"><img src="{{ asset('public/front/home-new/icons/hdr-mail.svg') }}" alt=""><span>inquiry@armstrongex.com</span></a>
-                    <i class="hn-topbar__sep"></i>
-                    <a class="hn-topbar__btn" href="{{ asset('public/Armstrong_Brochure_2025.pdf') }}" target="_blank"><img src="{{ asset('public/front/home-new/icons/hdr-download.svg') }}" alt=""><span>Download Brochure</span></a>
-                    <i class="hn-topbar__sep"></i>
-                    <div class="hn-topbar__social">
-                        <a href="https://www.facebook.com/armstrong.stitchman" target="_blank" aria-label="Facebook"><img src="{{ asset('public/front/home-new/icons/soc-facebook.png') }}" alt="facebook"></a>
-                        <a href="https://www.linkedin.com/company/armstrong-india/" target="_blank" aria-label="LinkedIn"><img src="{{ asset('public/front/home-new/icons/soc-linkedin.png') }}" alt="linkedin"></a>
-                        <a href="https://www.youtube.com/@armstrongmachineryllp1330" target="_blank" aria-label="YouTube"><img src="{{ asset('public/front/home-new/icons/soc-youtube.png') }}" alt="youtube"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endif
+    <header>
         <nav class="navbar navbar-expand-lg navbar-white bg-white">
             <div class="container">
                 <a class="navbar-brand" href="{{url('/')}}">
-                    @if(!empty($home_new))<img src="{{ asset('public/front/home-new/icons/hdr-logo-icon.svg') }}" alt="Armstrong" class="hn-logo-i"><img src="{{ asset('public/front/home-new/icons/hdr-logo-text.svg') }}" alt="Armstrong" class="hn-logo-t">@else<img src="{{asset('public/front/img/logo.svg')}}" alt="logo" class="img-fluid hed-logo1">
+                    <img src="{{asset('public/front/img/logo.svg')}}" alt="logo" class="img-fluid hed-logo1">
                     <img src="{{asset('public/front/img/armstrong_logo_header.svg')}}" alt="logo"
                         class="img-fluid hed-logo2">
-                    @endif
                 </a>
                 <div class="hamburger" id="hamburger" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
                     aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -492,7 +469,7 @@
                                 </div>
                             </div>
                         </li>
-                         @if(isset($applications) && is_countable($applications) && count($applications) > 0)
+                        {{-- @if(isset($applications) && is_countable($applications) && count($applications) > 0)
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('front.application')}}">Applications
                             <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
@@ -528,7 +505,7 @@
                                 </div>
                             </div>
                         </li>
-                        @endif 
+                        @endif --}}
                         <!--<li class="nav-item">-->
                         <!--    <a class="nav-link" href="{{route('research.development')}}">R&D</a>-->
                         <!--</li>-->
@@ -689,10 +666,6 @@
                         </div>
 
 
-                @if(!empty($home_new))
-                    <a class="hn-brochure-m" href="{{ asset('public/Armstrong_Brochure_2025.pdf') }}" target="_blank"><img src="{{ asset('public/front/home-new/icons/hdr-download.svg') }}" alt=""><span>Download Brochure</span></a>
-                    <a class="hn-quote-m" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#exampleModal">Request a Quote</a>
-                    @endif
                 </div>
 
                 <a class="request_btn mt-3 mt-lg-0" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#exampleModal">
