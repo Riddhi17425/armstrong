@@ -40,9 +40,10 @@
                     <a href="#" class="hn-btn hn-btn--ghost" data-bs-toggle="modal" data-bs-target="#exampleModal">Request a Quote <img src="{{ $hn }}/icons/arrow-sm-white.svg" alt=""></a>
                 </div>
             </div>
-            <a href="{{ asset('public/front/img/Armstrong_home_vid3.mp4') }}" class="hn-play" data-fancybox data-type="video" aria-label="Play video">
-                <img src="{{ $hn }}/icons/play.svg" alt="">
-            </a>
+            <!--<a href="{{ asset('public/front/img/Armstrong_home_vid3.mp4') }}" class="hn-play" data-fancybox data-type="video" aria-label="Play video">-->
+            <!--    <img src="{{ $hn }}/icons/play.svg" alt="">-->
+            <a href="https://www.youtube.com/watch?v=YPjFZcE4aSU" class="hn-play" data-fancybox data-type="video" aria-label="Play video">
+                <img src="{{ $hn }}/icons/play.svg" alt="Armstrong | Global Manufacturer of FIBC, Woven Sack & Industrial Packaging Machinery">
         </div>
     </section>
 
