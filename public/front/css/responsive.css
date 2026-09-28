@@ -510,9 +510,9 @@
     line-height: 60px;
   }
 
-  .breadcrumb_wrapper {
+  /* .breadcrumb_wrapper {
     padding-top: 130px;
-  }
+  } */
 
   .request_btn {
     font-size: 14px;
@@ -1482,5 +1482,9 @@
     margin-top: 20px;
     justify-content: flex-start;
     gap: 0;
+  }
+
+    .breadcrumb_wrapper {
+    padding-top: 24px;
   }
 }

@@ -5,7 +5,7 @@
    Total height 180px = top bar 79px + nav row 101px (logo 65px).
    ========================================================= */
 
-body:has(> header.hn-header) { padding-top: 180px; }
+body:has(> header.hn-header) { padding-top: 150px; }
 
 header.hn-header {
     position: fixed;
@@ -19,7 +19,7 @@ header.hn-header {
 header.hn-header .container { max-width: 1640px; padding-left: 20px; padding-right: 20px; }
 
 /* ---------- top bar ---------- */
-.hn-topbar { height: 79px; border-bottom: 1.5px solid rgba(221, 221, 221, .5); }
+.hn-topbar { height: 50px; border-bottom: 1.5px solid rgba(221, 221, 221, .5); }
 .hn-topbar .container, .hn-topbar__in { height: 100%; }
 .hn-topbar__in { display: flex; align-items: center; justify-content: flex-end; gap: 24px; padding: 0 10px; }
 .hn-topbar a { text-decoration: none; }
@@ -27,10 +27,10 @@ header.hn-header .container { max-width: 1640px; padding-left: 20px; padding-rig
 .hn-topbar__mail img { width: 24px; height: 19px; }
 .hn-topbar__mail:hover { color: #e41e29; }
 .hn-topbar__sep { width: 1px; height: 24px; background: #525252; opacity: .8; }
-.hn-topbar__btn { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 16px; border: 1px solid #333; border-radius: 3px; color: #333; font-size: 18px; transition: .3s; }
+.hn-topbar__btn { display: flex; align-items: center; gap: 10px; padding: 0 16px; border-radius: 3px; color: #333; font-size: 18px; transition: .3s; }
 .hn-topbar__btn img { width: 16px; height: 16px; }
-.hn-topbar__btn:hover { background: #333; color: #fff; }
-.hn-topbar__btn:hover img { filter: brightness(0) invert(1); }
+.hn-topbar__btn:hover { border-color: #e41e29; color: #e41e29; background: rgba(228, 30, 41, .1); }
+/* .hn-topbar__btn:hover img { filter: brightness(0) invert(1); } */
 .hn-topbar__social { display: flex; align-items: center; gap: 5.83px; }
 .hn-topbar__social a { display: block; width: 28px; height: 28px; }
 .hn-topbar__social img { width: 100%; height: 100%; object-fit: contain; }
@@ -76,6 +76,13 @@ header.hn-header .mega_menu { top: 100%; }
     header.hn-header .request_btn { font-size: 16px; padding-left: 52px; }
     header.hn-header .request_btn svg { width: 26px; height: 26px; left: 16px; }
 }
+
+@media (max-width: 1442px) {
+    header.hn-header .language-select, header.hn-header .request_btn {
+        height: 40px;
+    }
+}
+
 @media (max-width: 1399px) {
     header.hn-header .navbar-nav { gap: 14px; }
     header.hn-header .nav-link { font-size: 15px; }
@@ -107,7 +114,7 @@ header.hn-header .mega_menu { top: 100%; }
     header.hn-header .mega_menu {
         display: block !important;
         top: 100%;
-        max-height: calc(100vh - 180px);
+        max-height: calc(100vh - 151px);
         visibility: hidden;
         opacity: 0;
         pointer-events: none;
@@ -136,7 +143,7 @@ header.hn-header .language-select .ml-4 { margin: 0 !important; }
    ========================================================= */
 header.hn-header { transition: transform .35s ease, box-shadow .35s ease; will-change: transform; }
 @media (min-width: 992px) {
-    header.hn-header.hn-scrolled { transform: translateY(-79px); box-shadow: 0 4px 14px rgba(0, 0, 0, .1); }
+    header.hn-header.hn-scrolled { transform: translateY(-50px); box-shadow: 0 4px 14px rgba(0, 0, 0, .1); }
 }
 
 /* small screens: logo | quote button | hamburger stay on ONE row */

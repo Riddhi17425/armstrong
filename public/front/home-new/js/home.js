@@ -28,7 +28,7 @@
                 slidesPerView: 'auto',
                 centeredSlides: true,
                 spaceBetween: 30,
-                initialSlide: 2,
+                initialSlide: 1,
                 grabCursor: true,
                 pagination: { el: '.hn-process__dots', clickable: true }
             });
@@ -37,10 +37,16 @@
         /* ---- Featured machine slider ---- */
         var feat = document.querySelector(".hn-feat__slider");
         if (feat && typeof Swiper !== "undefined") {
-            var featSw = new Swiper(feat, { slidesPerView: 1, loop: true, autoplay: { delay: 5000, disableOnInteraction: false }, pagination: { el: ".hn-feat__dots", clickable: true } });
+            var featSw = new Swiper(feat, {
+                slidesPerView: 1,
+                loop: true,
+                autoplay: { delay: 5000, disableOnInteraction: false },
+                navigation: {
+                    nextEl: ".hn-feat__arrow--next",
+                    prevEl: ".hn-feat__arrow--prev"
+                }
+            });
         }
-
-        bindDots(featSw, ".hn-feat__dots", true);
 
         /* ---- Testimonials ---- */
         var testi = document.querySelector('.hn-testi__slider');
@@ -93,24 +99,5 @@
             }
         }
 
-        /* ---- Hero video popup ---- */
-        var pop = document.getElementById('hnVideo');
-        if (pop) {
-            var video = pop.querySelector('video');
-            var open = function (e) {
-                var src = (e && e.currentTarget && e.currentTarget.getAttribute('data-hn-video')) || video.dataset.src;
-                if (video.getAttribute('src') !== src) video.setAttribute('src', src);
-                pop.classList.add('open');
-                video.play().catch(function () {});
-            };
-            var close = function () {
-                pop.classList.remove('open');
-                video.pause();
-            };
-            document.querySelectorAll('[data-hn-video]').forEach(function (b) { b.addEventListener('click', open); });
-            pop.addEventListener('click', function (e) { if (e.target === pop) close(); });
-            pop.querySelector('.hn-video__close').addEventListener('click', close);
-            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-        }
     });
 })();
