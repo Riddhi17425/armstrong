@@ -224,7 +224,7 @@
                 <div class="hn-topbar__in">
                     <a class="hn-topbar__mail" href="mailto:inquiry@armstrongex.com"><img src="{{ asset('public/front/home-new/icons/hdr-mail.svg') }}" alt=""><span>inquiry@armstrongex.com</span></a>
                     <i class="hn-topbar__sep"></i>
-                    <a class="hn-topbar__btn" href="{{ asset('public/Armstrong_Brochure_2025.pdf') }}" target="_blank"><img src="{{ asset('public/front/home-new/icons/hdr-download.svg') }}" alt=""><span>Download Brochure</span></a>
+                    <a class="hn-topbar__btn" href="{{ asset('public/Armstrong_Brochure_2025.pdf') }}" target="_blank"><img src="{{ asset('public/front/home-new/icons/hdr-download.svg') }}" alt=""><span>Brochure</span></a>
                     <i class="hn-topbar__sep"></i>
                     <div class="hn-topbar__social">
                         <a href="https://www.facebook.com/armstrong.stitchman" target="_blank" aria-label="Facebook"><img src="{{ asset('public/front/home-new/icons/soc-facebook.png') }}" alt="facebook"></a>

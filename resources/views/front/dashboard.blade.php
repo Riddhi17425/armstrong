@@ -371,7 +371,7 @@ Team</span></div>
                 @foreach($blogs->take(3) as $item)
                     <a class="hn-bcard" href="{{ route('blogs.detail', $item->url) }}">
                         <div>
-                            <div class="hn-bcard__date"><span>Date</span><i></i><span>{{ $item->created_at ? $item->created_at->format('F j, Y') : 'N/A' }}</span></div>
+                            <div class="hn-bcard__date"><span>{{ $item->date ? date('F j, Y', strtotime($item->date)) : 'N/A' }}</span></div>
                             <h3>{{ $item->title }}</h3>
                         </div>
                         <div class="hn-bcard__img">

@@ -79,7 +79,7 @@
 .hn-stat { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; text-align: center; color: #202020; }
 .hn-stat strong { font-size: 60px; line-height: 40px; font-weight: 700; }
 .hn-stat span { font-size: 18px; font-weight: 700; line-height: 1.2; }
-.hn-stats__sep { width: 1px; height: 80px; background: #525252; opacity: .8; flex: none; }
+.hn-stats__sep { width: .5px; height: 80px; background: #525252; opacity: .8; flex: none; }
 .hn-stats__img { width: 135px; height: 131px; object-fit: fill; flex: none; }
 .hn-after-stats { margin-top: 112px; }
 
