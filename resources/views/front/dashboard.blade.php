@@ -325,7 +325,7 @@ Team</span></div>
                 <i class="hn-cert__line"></i>
                 <div class="hn-cert__item"><img src="{{ $hn }}/images/cert-4.png" alt="Certification" width="107" height="134"></div>
                 <i class="hn-cert__line"></i>
-                <div class="hn-cert__item"><img src="{{ $hn }}/images/cert-5.png" alt="Certification" width="127" height="141" style="object-fit:cover"></div>
+                <div class="hn-cert__item"><img src="{{ $hn }}/images/cert-5.webp" alt="Certification" width="127" height="141" style="object-fit:cover"></div>
             </div>
         </div>
     </section>
