@@ -343,7 +343,12 @@ Team</span></div>
                         <div class="swiper-slide">
                             <div class="hn-tcard">
                                 <div class="hn-tcard__author">
-                                    <img src="{{ $client->image ? asset('/' . $client->image) : $hn . '/images/user-1.png' }}" alt="{{ $client->name }}">
+                                    @if($client->profile_image)
+                                        <img src="{{ asset('public/front/images/clients/' . $client->profile_image) }}"
+                                             alt="{{ $client->alt }}">
+                                    @else
+                                        <img src="{{asset('front/home-new/images/default.png')}}" alt="{{ $client->name }}">
+                                    @endif
                                     <b>{{ $client->name }}</b>
                                 </div>
                                 <p>{!! $client->description !!}</p>
