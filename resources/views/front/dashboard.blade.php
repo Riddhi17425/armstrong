@@ -40,9 +40,10 @@
                     <a href="#" class="hn-btn hn-btn--ghost" data-bs-toggle="modal" data-bs-target="#exampleModal">Request a Quote <img src="{{ $hn }}/icons/arrow-sm-white.svg" alt=""></a>
                 </div>
             </div>
-            <a href="{{ asset('public/front/img/Armstrong_home_vid3.mp4') }}" class="hn-play" data-fancybox data-type="video" aria-label="Play video">
-                <img src="{{ $hn }}/icons/play.svg" alt="">
-            </a>
+            <!--<a href="{{ asset('public/front/img/Armstrong_home_vid3.mp4') }}" class="hn-play" data-fancybox data-type="video" aria-label="Play video">-->
+            <!--    <img src="{{ $hn }}/icons/play.svg" alt="">-->
+            <a href="https://www.youtube.com/watch?v=YPjFZcE4aSU" class="hn-play" data-fancybox data-type="video" aria-label="Play video">
+                <img src="{{ $hn }}/icons/play.svg" alt="Armstrong | Global Manufacturer of FIBC, Woven Sack & Industrial Packaging Machinery">
         </div>
     </section>
 
@@ -343,7 +344,12 @@ Team</span></div>
                         <div class="swiper-slide">
                             <div class="hn-tcard">
                                 <div class="hn-tcard__author">
-                                    <img src="{{ $client->image ? asset('/' . $client->image) : $hn . '/images/user-1.png' }}" alt="{{ $client->name }}">
+                                    @if(isset($client->profile_image) && $client->profile_image != '')
+                                        <img src="{{ asset('public/front/images/clients/' . $client->profile_image) }}"
+                                             alt="{{ $client->alt }}">
+                                    @else
+                                        <img src="{{asset('public/front/home-new/images/default.png')}}" alt="{{ $client->name }}">
+                                    @endif
                                     <b>{{ $client->name }}</b>
                                 </div>
                                 <p>{!! $client->description !!}</p>

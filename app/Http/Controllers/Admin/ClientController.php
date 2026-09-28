@@ -22,15 +22,15 @@ class ClientController extends Controller
 
     public function ClientStore(Request $request)
     {
-        
         $validator = Validator::make($request->all(), [
-            'name'    => 'required|string|max:255',
-            'description'    => 'required|string|max:500',
+            'name'          => 'required|string|max:255',
+            'description'   => 'required|string|max:500',
             'designation'   => 'required|string|max:255',
-            'rating'    => 'required|string|max:255',
-            'title'   => 'required|string|max:255',
-            'status'  => 'nullable|in:Active,In-Active',
-            'alt'     => 'required|string|max:255',
+            'rating'        => 'required|string|max:255',
+            'title'         => 'required|string|max:255',
+            'status'        => 'nullable|in:Active,In-Active',
+            'alt'           => 'required|string|max:255',
+            'profile_image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -41,20 +41,43 @@ class ClientController extends Controller
         }
 
         try {
-            
-            $client = Client::create([
-                'name'   => $request->name,
+
+            $imageName = null;
+
+            if ($request->hasFile('profile_image')) {
+
+                $image = $request->file('profile_image');
+
+                $imageName = time() . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension();
+
+                $image->move(
+                    public_path('front/images/clients'),
+                    $imageName
+                );
+            }
+
+            Client::create([
+                'name'          => $request->name,
                 'description'   => $request->description,
-                'designation' => $request->designation,
-                'rating' => $request->rating,
-                'status' => $request->status,
-                'title'  => $request->title,
-                 'alt' => $request->alt,
+                'designation'   => $request->designation,
+                'rating'        => $request->rating,
+                'status'        => $request->status,
+                'title'         => $request->title,
+                'alt'           => $request->alt,
+                'profile_image' => $imageName,
             ]);
-            return redirect()->route('client')->with('success', 'Client created successfully!');
+
+            return redirect()
+                ->route('client')
+                ->with('success', 'Client created successfully!');
+
         } catch (\Exception $e) {
+
             \Log::error('ClientStore error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Failed to create client: ' . $e->getMessage());
+
+            return redirect()
+                ->back()
+                ->with('error', 'Failed to create client: ' . $e->getMessage());
         }
     }
 
@@ -106,18 +129,20 @@ class ClientController extends Controller
         // 1. Validate the request
         $validator = Validator::make($request->all(), [
             'name'    => 'required|string|max:255',
-            //'description'    => 'required|string|max:500',
             'designation'   => 'required|string|max:255',
             'rating'    => 'required|string|max:255',
             'title'   => 'required|string|max:255',
             'status'  => 'nullable|in:Active,In-Active',
             'alt'     => 'required|string|max:255',
-            'description'       => [
+
+            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
+            'description' => [
                 'required',
                 'string',
                 function ($attribute, $value, $fail) {
-                    // remove all HTML tags and whitespace
                     $plainText = trim(strip_tags($value));
+
                     if ($plainText === '') {
                         $fail("Description cannot be blank.");
                     }
@@ -134,22 +159,46 @@ class ClientController extends Controller
         }
 
         try {
-            $client = Client::findOrFail($id); 
-            
-            $client->update([
-                'name'   => $request->name,
-                'description'   => $request->description,
-                'designation' => $request->designation,
-                'rating' => $request->rating,
-                'status' => $request->status,
-                'title'  => $request->title,
-                'alt' => $request->alt,
-            ]);
+            $client = Client::findOrFail($id);
 
-            return redirect()->route('client')->with('success', 'Client updated successfully!');
+            $updateData = [
+                'name'        => $request->name,
+                'description' => $request->description,
+                'designation' => $request->designation,
+                'rating'      => $request->rating,
+                'status'      => $request->status,
+                'title'       => $request->title,
+                'alt'         => $request->alt,
+            ];
+
+            // Profile Image
+            if ($request->hasFile('profile_image')) {
+
+                $image = $request->file('profile_image');
+
+                $imageName = time() . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension();
+
+                $image->move(
+                    public_path('front/images/clients'),
+                    $imageName
+                );
+
+                $updateData['profile_image'] = $imageName;
+            }
+
+            $client->update($updateData);
+
+            return redirect()
+                ->route('client')
+                ->with('success', 'Client updated successfully!');
+
         } catch (\Exception $e) {
+
             \Log::error('Client update failed: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Failed to update client: ' . $e->getMessage());
+
+            return redirect()
+                ->back()
+                ->with('error', 'Failed to update client: ' . $e->getMessage());
         }
     }
 
