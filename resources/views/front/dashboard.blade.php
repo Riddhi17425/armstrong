@@ -343,11 +343,11 @@ Team</span></div>
                         <div class="swiper-slide">
                             <div class="hn-tcard">
                                 <div class="hn-tcard__author">
-                                    @if($client->profile_image)
+                                    @if(isset($client->profile_image) && $client->profile_image != '')
                                         <img src="{{ asset('public/front/images/clients/' . $client->profile_image) }}"
                                              alt="{{ $client->alt }}">
                                     @else
-                                        <img src="{{asset('front/home-new/images/default.png')}}" alt="{{ $client->name }}">
+                                        <img src="{{asset('public/front/home-new/images/default.png')}}" alt="{{ $client->name }}">
                                     @endif
                                     <b>{{ $client->name }}</b>
                                 </div>
