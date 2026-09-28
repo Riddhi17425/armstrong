@@ -95,6 +95,28 @@
                                         @enderror
                                     </div>
 
+                                    {{-- Profile Image --}}
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Profile Image</label>
+
+                                        <input type="file"
+                                            name="profile_image"
+                                            class="form-control @error('profile_image') is-invalid @enderror"
+                                            accept="image/*">
+
+                                        @error('profile_image')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+
+                                        @if($client->profile_image)
+                                            <div class="mt-2">
+                                                <img src="{{ asset('public/front/images/clients/' . $client->profile_image) }}"
+                                                    alt="{{ $client->alt }}"
+                                                    class="preview-img">
+                                            </div>
+                                        @endif
+                                    </div>
+
                                     {{-- Description --}}
                                     <div class="col-md-12 mb-3">
                                         <label class="form-label">Description <span class="required-star">*</span></label>
