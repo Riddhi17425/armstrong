@@ -134,7 +134,7 @@ Team</span></div>
                         </a>
                     </div>
                     <a href="{{ route('our.infrastructure') }}" class="hn-unit__bar">
-                        <div class="hn-unit__left"><img src="{{ $hn }}/icons/infra-1.svg" alt=""><h3>Raffia Woven &amp; FIBC Machinery Unit-1</h3></div>
+                        <div class="hn-unit__left"><img src="{{ $hn }}/icons/infra-1.svg" alt=""><h3>Raffia Woven &amp; FIBC Machinery Unit</h3></div>
                         <p>High-performance machinery built for FIBC and woven sack production.</p>
                     </a>
 </div>
@@ -145,7 +145,7 @@ Team</span></div>
                         </a>
                     </div>
                     <a href="{{ route('our.infrastructure') }}" class="hn-unit__bar">
-                        <div class="hn-unit__left"><img src="{{ $hn }}/icons/infra-2.svg" alt=""><h3>Sewing Machines &amp; Spares Unit-2</h3></div>
+                        <div class="hn-unit__left"><img src="{{ $hn }}/icons/infra-2.svg" alt=""><h3>Sewing Machines &amp; Spares Unit</h3></div>
                         <p>Precision-engineered sewing machines and spares, built to last.</p>
                     </a>
 </div>
