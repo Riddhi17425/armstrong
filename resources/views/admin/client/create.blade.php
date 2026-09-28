@@ -102,6 +102,19 @@
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
+                                        {{-- Profile Image --}}
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Profile Image <span class="required-star">*</span></label>
+
+                                            <input type="file"
+                                                name="profile_image"
+                                                class="form-control @error('profile_image') is-invalid @enderror"
+                                                accept="image/*">
+
+                                            @error('profile_image')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                         <div class="card mb-4 border">
                                             <div class="card mb-4 border">
                                                 <div class="card-header bg-light"><strong>Description </strong><span class="required-star">*</span></div>
