@@ -440,6 +440,18 @@ header.hn-header .container {
 }
 
 @media (max-width: 767px) {
+
+    .hn-feat__text {
+    align-items: center;
+    text-align: center;
+}
+
+ .hn-about__top
+
+  {
+    text-align: center;
+  }
+
     .hn { --hn-gap: 56px; }
     .hn-lead { font-size: 16px; line-height: 24px; }
     .hn-head { gap: 16px; }
@@ -456,7 +468,7 @@ header.hn-header .container {
     .hn-stat span { font-size: 15px; }
     .hn-after-stats { margin-top: 50px; }
     .hn-about__paras { font-size: 16px; line-height: 24px; }
-    .hn-about__tag { font-size: 14px; }
+    .hn-about__tag { font-size: 13px; text-align: center; }
     .hn-btnrow { flex-direction: column; align-items: center; gap: 14px; }
     .hn-pgrid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .hn-pcard__bar { padding: 8px 10px; }
