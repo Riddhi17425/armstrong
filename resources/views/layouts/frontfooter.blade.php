@@ -393,6 +393,43 @@
   </div>
 </div>
 
+<!-- START - BROCHURE MODAL POPUP CODE -->
+<div class="modal fade" id="brochureModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Brochure Request</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ route('front.brochure.submit') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Name <span class="text-danger">*</span></label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Contact <span class="text-danger">*</span></label>
+                        <input type="text" name="contact" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-dark w-100">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END - BROCHURE MODAL POPUP CODE -->
+
 <script src="{{ asset('public/front/home-new/js/layout.js') }}"></script>
 @include('layouts.cookies')
 <!--@if(session('whatsapp_url'))-->
