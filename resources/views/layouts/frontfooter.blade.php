@@ -399,30 +399,29 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Brochure Request</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
-            <form action="{{ route('front.brochure.submit') }}" method="POST">
+            <form id="brochureForm" action="{{ route('front.brochure.submit') }}" method="POST" novalidate>
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label>Name <span class="text-danger">*</span></label>
-                        <input type="text" name="name" class="form-control" required>
+                        <label for="brochure_name">Name <span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="brochure_name" class="form-control" placeholder="Enter your name" maxlength="255">
                     </div>
 
                     <div class="mb-3">
-                        <label>Contact <span class="text-danger">*</span></label>
-                        <input type="text" name="contact" class="form-control" required>
+                        <label for="brochure_contact">Contact <span class="text-danger">*</span></label>
+                        <input type="text" name="contact" id="brochure_contact" class="form-control" placeholder="Enter contact number" inputmode="numeric" maxlength="20">
                     </div>
 
                     <div class="mb-3">
-                        <label>Email</label>
-                        <input type="email" name="email" class="form-control">
+                        <label for="brochure_email">Email</label>
+                        <input type="text" name="email" id="brochure_email" class="form-control" placeholder="Enter email address" maxlength="255">
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-dark w-100">Submit</button>
+                    <button type="submit" id="brochureSubmitBtn" class="btn btn-dark w-100">Submit</button>
                 </div>
             </form>
         </div>
@@ -453,6 +452,7 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
 </script>
@@ -472,343 +472,447 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.12.4/build/css/intlTelInput.css">
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.12.4/build/js/intlTelInput.min.js"></script>
 <!-- bootstrap -->
+
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const phoneInputField = document.querySelector("#p_phone");
-    const countryNameField = document.querySelector("#p_country_name");
-    const fullPhoneField = document.querySelector("#p_full_phone");
+    document.addEventListener("DOMContentLoaded", function () {
+        const phoneInputField = document.querySelector("#p_phone");
+        const countryNameField = document.querySelector("#p_country_name");
+        const fullPhoneField = document.querySelector("#p_full_phone");
 
-    // Initialize plugin
-    const iti = window.intlTelInput(phoneInputField, {
-        initialCountry: "auto",
-        separateDialCode: true,
-        preferredCountries: ["in", "us", "gb", "ae"],
-        geoIpLookup: function (callback) {
-            fetch("https://ipapi.co/json")
-                .then(res => res.json())
-                .then(data => callback(data.country_code))
-                .catch(() => callback("in"));
-        },
-        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@25.12.4/build/js/utils.js",
-    });
-
-    // On form submit — combine country code + number and country name
-    const form = document.getElementById("productenquiryForm");
-    form.addEventListener("submit", function (e) {
-        const countryData = iti.getSelectedCountryData();
-        const dialCode = countryData.dialCode;
-        const countryName = countryData.name;
-        const phoneNumber = phoneInputField.value.replace(/\s+/g, "");
-
-        fullPhoneField.value = `+${dialCode}${phoneNumber}`;
-        countryNameField.value = countryName;
-    });
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    // Extract product name from URL
-    const urlPath = window.location.pathname;
-    const productMatch = urlPath.match(/\/product\/([^\/]+)/);
-    // console.log('11111111111111111111111 '  + productMatch)
-    if(productMatch != null){
-        // console.log('2222222222222222222222')
-        $("#original_product_url").val(productMatch[1]);
-        const productUrlField = document.getElementById("product_url");
-        if (productMatch && productMatch[1]) {
-            let productName = productMatch[1].replace(/-/g, ' ');
-            productName = productName.replace(/\b\w/g, char => char.toUpperCase());
-    
-            const productField = document.getElementById("t_product");
-            if (productField) {
-                productField.value = productName; 
-            }
-        }
-    }else{
-        
-        var modal = document.getElementById('exampleModal2');
-    
-        modal.addEventListener('show.bs.modal', function (event) {
-            // Button that triggered the modal
-            var button = event.relatedTarget;
-            var productName = button.getAttribute('data-product');
-     
-            // Update the modal input field
-            var input = modal.querySelector('#t_product');
-            input.value = productName;
-        });
-        
-    }
-});
-</script>
-<script>
-document.querySelectorAll(".mega_menu_wrapper").forEach(wrapper => {
-    const icons = wrapper.querySelectorAll(".icon");
-    const images = wrapper.querySelectorAll(".icons_bg img");
-
-    const iconBgMap = {
-        icon1: ".main-bg1",
-        icon2: ".main-bg2",
-        icon3: ".main-bg3"
-    };
-
-    let lastHovered = ".main-bg"; // default bg
-
-    function showImage(selector) {
-        images.forEach(img => img.style.display = "none");
-        const target = wrapper.querySelector(selector);
-        if (target) target.style.display = "block";
-    }
-
-    // initial load
-    showImage(lastHovered);
-
-    // hover on icons
-    icons.forEach(icon => {
-        icon.addEventListener("mouseenter", () => {
-            const iconClass = [...icon.classList].find(c => c.startsWith("icon") && c !== "icon");
-            if (iconBgMap[iconClass]) {
-                showImage(iconBgMap[iconClass]);
-                lastHovered = iconBgMap[iconClass]; // save last hovered
-            }
-        });
-    });
-
-    // **reset bg when dropdown opens**
-    const parentNavItem = wrapper.closest(".nav-item");
-    if (parentNavItem) {
-        parentNavItem.addEventListener("mouseenter", () => {
-            lastHovered = ".main-bg"; // reset to default
-            showImage(lastHovered);
-        });
-    }
-});
-</script>
-<script>
-$(document).ready(function () {
-   
-    $('#exampleModal-4').on('shown.bs.modal', function () {
-        isAnyModalOpen = true;
-    });
-    
-    $('#exampleModal-4').on('hidden.bs.modal', function () {
-        isAnyModalOpen = false;
-    });
-
-    // Blocked disposable/spam domains
-    const blockedDomains = [
-        "mailinator.com",
-        "tempmail.com",
-        "10minutemail.com",
-        "yopmail.com",
-        "guerrillamail.com",
-        "maildrop.cc",
-        "dispostable.com",
-        "trashmail.com",
-        "spam.com",
-        "test.com",
-        "example.com"
-    ];
-
-    function getEmailDomain(email) {
-        return email.substring(email.lastIndexOf("@") + 1).toLowerCase();
-    }
-
-    // Stricter regex: no start/end dot, no consecutive dots
-    const emailRegex = /^(?!.*\.\.)(?!\.)(?!.*\.$)[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-
-    // Reload captcha
-    $('#product-reload-button').click(function() {
-        $('#product-captcha-image').attr('src', '{{ route("captcha.image") }}?' + Date.now());
-    });
-
-    // Helper function to show error after label
-    function showErrorAfterLabel($input, message) {
-        let $label = $("label[for='" + $input.attr("id") + "']");
-        $label.next(".error-msg").remove();
-        $label.after('<small class="error-msg text-danger">' + message + '</small>');
-    }
-
-    // Clear error messages while typing
-    $("#productenquiryForm input, #productenquiryForm textarea").on("input", function () {
-        $("label[for='" + $(this).attr("id") + "']").next(".error-msg").remove();
-    });
-
-    // Blur validation for required text fields
-    $("#p_fname, #p_company_name, #t_product").on("blur", function () {
-        let val = $(this).val().trim();
-        if (val === "") {
-            showErrorAfterLabel($(this), "This field is required.");
-        } else {
-            $("label[for='" + $(this).attr("id") + "']").next(".error-msg").remove();
-        }
-    });
-
-    // Phone blur validation
-    $("#p_phone").on("blur", function () {
-        let phone = $(this).val().trim();
-        if (phone === "") {
-            showErrorAfterLabel($(this), "Phone number is required.");
-        } else if (!/^\d{10,20}$/.test(phone)) {
-            showErrorAfterLabel($(this), "Enter a valid phone number (10–20 digits).");
-        } else {
-            $("label[for='p_phone']").next(".error-msg").remove();
-        }
-    });
-
-    // Email blur validation
-    $("#p_email").on("blur", function () {
-        let email = $(this).val().trim();
-        if (email === "") {
-            showErrorAfterLabel($(this), "Email is required.");
-        } else if (!emailRegex.test(email)) {
-            showErrorAfterLabel($(this), "Enter a valid email address.");
-        } else if (blockedDomains.includes(getEmailDomain(email))) {
-            showErrorAfterLabel($(this), "Invalid email addresses are not allowed.");
-        } else {
-            $("label[for='p_email']").next(".error-msg").remove();
-        }
-    });
-
-    // Main form submit
-    $("#productenquiryForm").on("submit", function (e) {
-        e.preventDefault(); // stop default submit
-        let isValid = true;
-
-        // Remove previous errors
-        $(".error-msg").remove();
-        $("#product_custom_captcha_error").hide();
-
-        // Full Name
-        if ($("#p_fname").val().trim() === "") {
-            showErrorAfterLabel($("#p_fname"), "Full name is required.");
-            isValid = false;
-        }
-
-        // Company Name
-        if ($("#p_company_name").val().trim() === "") {
-            showErrorAfterLabel($("#p_company_name"), "Company name is required.");
-            isValid = false;
-        }
-
-        // Product Name
-        if ($("#t_product").val().trim() === "") {
-            showErrorAfterLabel($("#t_product"), "Product name is required.");
-            isValid = false;
-        }
-
-        // Phone
-        let phone = $("#p_phone").val().trim();
-        if (phone === "") {
-            showErrorAfterLabel($("#p_phone"), "Phone number is required.");
-            isValid = false;
-        } else if (!/^\d{10,20}$/.test(phone)) {
-            showErrorAfterLabel($("#p_phone"), "Enter a valid phone number (10–20 digits).");
-            isValid = false;
-        }
-
-        // Email
-        let email = $("#p_email").val().trim();
-        if (email === "") {
-            showErrorAfterLabel($("#p_email"), "Email is required.");
-            isValid = false;
-        } else if (!emailRegex.test(email)) {
-            showErrorAfterLabel($("#p_email"), "Enter a valid email address.");
-            isValid = false;
-        } else if (blockedDomains.includes(getEmailDomain(email))) {
-            showErrorAfterLabel($("#p_email"), "Invalid email addresses are not allowed.");
-            isValid = false;
-        }
-
-        // Captcha
-        let captcha = $("#product_custom_captcha").val().trim();
-        if (captcha === "") {
-            $("#product_custom_captcha_error").show().text("Please enter the captcha.");
-            isValid = false;
-        }
-
-        if (!isValid) return;
-
-        // Disable button while verifying captcha
-        let $btn = $(this).find("button[type=submit]");
-        $btn.prop("disabled", true).text("Verifying captcha...");
-
-        $.ajax({
-            url: '{{ route("captcha.verify") }}',
-            type: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                custom_captcha: captcha
+        // Initialize plugin
+        const iti = window.intlTelInput(phoneInputField, {
+            initialCountry: "auto",
+            separateDialCode: true,
+            preferredCountries: ["in", "us", "gb", "ae"],
+            geoIpLookup: function (callback) {
+                fetch("https://ipapi.co/json")
+                    .then(res => res.json())
+                    .then(data => callback(data.country_code))
+                    .catch(() => callback("in"));
             },
-            success: function(response) {
-                if (response.success) {
-                    $btn.text("Submitting...");
-                    // native submit AFTER validation
-                    $("#productenquiryForm")[0].submit();
-                } else {
-                    $("#product_custom_captcha_error").show().text(response.message);
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@25.12.4/build/js/utils.js",
+        });
+
+        // On form submit — combine country code + number and country name
+        const form = document.getElementById("productenquiryForm");
+        form.addEventListener("submit", function (e) {
+            const countryData = iti.getSelectedCountryData();
+            const dialCode = countryData.dialCode;
+            const countryName = countryData.name;
+            const phoneNumber = phoneInputField.value.replace(/\s+/g, "");
+
+            fullPhoneField.value = `+${dialCode}${phoneNumber}`;
+            countryNameField.value = countryName;
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Extract product name from URL
+        const urlPath = window.location.pathname;
+        const productMatch = urlPath.match(/\/product\/([^\/]+)/);
+        // console.log('11111111111111111111111 '  + productMatch)
+        if(productMatch != null){
+            // console.log('2222222222222222222222')
+            $("#original_product_url").val(productMatch[1]);
+            const productUrlField = document.getElementById("product_url");
+            if (productMatch && productMatch[1]) {
+                let productName = productMatch[1].replace(/-/g, ' ');
+                productName = productName.replace(/\b\w/g, char => char.toUpperCase());
+        
+                const productField = document.getElementById("t_product");
+                if (productField) {
+                    productField.value = productName; 
+                }
+            }
+        }else{
+            
+            var modal = document.getElementById('exampleModal2');
+        
+            modal.addEventListener('show.bs.modal', function (event) {
+                // Button that triggered the modal
+                var button = event.relatedTarget;
+                var productName = button.getAttribute('data-product');
+        
+                // Update the modal input field
+                var input = modal.querySelector('#t_product');
+                input.value = productName;
+            });
+            
+        }
+    });
+</script>
+
+<script>
+    document.querySelectorAll(".mega_menu_wrapper").forEach(wrapper => {
+        const icons = wrapper.querySelectorAll(".icon");
+        const images = wrapper.querySelectorAll(".icons_bg img");
+
+        const iconBgMap = {
+            icon1: ".main-bg1",
+            icon2: ".main-bg2",
+            icon3: ".main-bg3"
+        };
+
+        let lastHovered = ".main-bg"; // default bg
+
+        function showImage(selector) {
+            images.forEach(img => img.style.display = "none");
+            const target = wrapper.querySelector(selector);
+            if (target) target.style.display = "block";
+        }
+
+        // initial load
+        showImage(lastHovered);
+
+        // hover on icons
+        icons.forEach(icon => {
+            icon.addEventListener("mouseenter", () => {
+                const iconClass = [...icon.classList].find(c => c.startsWith("icon") && c !== "icon");
+                if (iconBgMap[iconClass]) {
+                    showImage(iconBgMap[iconClass]);
+                    lastHovered = iconBgMap[iconClass]; // save last hovered
+                }
+            });
+        });
+
+        // **reset bg when dropdown opens**
+        const parentNavItem = wrapper.closest(".nav-item");
+        if (parentNavItem) {
+            parentNavItem.addEventListener("mouseenter", () => {
+                lastHovered = ".main-bg"; // reset to default
+                showImage(lastHovered);
+            });
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+    
+        $('#exampleModal-4').on('shown.bs.modal', function () {
+            isAnyModalOpen = true;
+        });
+        
+        $('#exampleModal-4').on('hidden.bs.modal', function () {
+            isAnyModalOpen = false;
+        });
+
+        // Blocked disposable/spam domains
+        const blockedDomains = [
+            "mailinator.com",
+            "tempmail.com",
+            "10minutemail.com",
+            "yopmail.com",
+            "guerrillamail.com",
+            "maildrop.cc",
+            "dispostable.com",
+            "trashmail.com",
+            "spam.com",
+            "test.com",
+            "example.com"
+        ];
+
+        function getEmailDomain(email) {
+            return email.substring(email.lastIndexOf("@") + 1).toLowerCase();
+        }
+
+        // Stricter regex: no start/end dot, no consecutive dots
+        const emailRegex = /^(?!.*\.\.)(?!\.)(?!.*\.$)[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+        // Reload captcha
+        $('#product-reload-button').click(function() {
+            $('#product-captcha-image').attr('src', '{{ route("captcha.image") }}?' + Date.now());
+        });
+
+        // Helper function to show error after label
+        function showErrorAfterLabel($input, message) {
+            let $label = $("label[for='" + $input.attr("id") + "']");
+            $label.next(".error-msg").remove();
+            $label.after('<small class="error-msg text-danger">' + message + '</small>');
+        }
+
+        // Clear error messages while typing
+        $("#productenquiryForm input, #productenquiryForm textarea").on("input", function () {
+            $("label[for='" + $(this).attr("id") + "']").next(".error-msg").remove();
+        });
+
+        // Blur validation for required text fields
+        $("#p_fname, #p_company_name, #t_product").on("blur", function () {
+            let val = $(this).val().trim();
+            if (val === "") {
+                showErrorAfterLabel($(this), "This field is required.");
+            } else {
+                $("label[for='" + $(this).attr("id") + "']").next(".error-msg").remove();
+            }
+        });
+
+        // Phone blur validation
+        $("#p_phone").on("blur", function () {
+            let phone = $(this).val().trim();
+            if (phone === "") {
+                showErrorAfterLabel($(this), "Phone number is required.");
+            } else if (!/^\d{10,20}$/.test(phone)) {
+                showErrorAfterLabel($(this), "Enter a valid phone number (10–20 digits).");
+            } else {
+                $("label[for='p_phone']").next(".error-msg").remove();
+            }
+        });
+
+        // Email blur validation
+        $("#p_email").on("blur", function () {
+            let email = $(this).val().trim();
+            if (email === "") {
+                showErrorAfterLabel($(this), "Email is required.");
+            } else if (!emailRegex.test(email)) {
+                showErrorAfterLabel($(this), "Enter a valid email address.");
+            } else if (blockedDomains.includes(getEmailDomain(email))) {
+                showErrorAfterLabel($(this), "Invalid email addresses are not allowed.");
+            } else {
+                $("label[for='p_email']").next(".error-msg").remove();
+            }
+        });
+
+        // Main form submit
+        $("#productenquiryForm").on("submit", function (e) {
+            e.preventDefault(); // stop default submit
+            let isValid = true;
+
+            // Remove previous errors
+            $(".error-msg").remove();
+            $("#product_custom_captcha_error").hide();
+
+            // Full Name
+            if ($("#p_fname").val().trim() === "") {
+                showErrorAfterLabel($("#p_fname"), "Full name is required.");
+                isValid = false;
+            }
+
+            // Company Name
+            if ($("#p_company_name").val().trim() === "") {
+                showErrorAfterLabel($("#p_company_name"), "Company name is required.");
+                isValid = false;
+            }
+
+            // Product Name
+            if ($("#t_product").val().trim() === "") {
+                showErrorAfterLabel($("#t_product"), "Product name is required.");
+                isValid = false;
+            }
+
+            // Phone
+            let phone = $("#p_phone").val().trim();
+            if (phone === "") {
+                showErrorAfterLabel($("#p_phone"), "Phone number is required.");
+                isValid = false;
+            } else if (!/^\d{10,20}$/.test(phone)) {
+                showErrorAfterLabel($("#p_phone"), "Enter a valid phone number (10–20 digits).");
+                isValid = false;
+            }
+
+            // Email
+            let email = $("#p_email").val().trim();
+            if (email === "") {
+                showErrorAfterLabel($("#p_email"), "Email is required.");
+                isValid = false;
+            } else if (!emailRegex.test(email)) {
+                showErrorAfterLabel($("#p_email"), "Enter a valid email address.");
+                isValid = false;
+            } else if (blockedDomains.includes(getEmailDomain(email))) {
+                showErrorAfterLabel($("#p_email"), "Invalid email addresses are not allowed.");
+                isValid = false;
+            }
+
+            // Captcha
+            let captcha = $("#product_custom_captcha").val().trim();
+            if (captcha === "") {
+                $("#product_custom_captcha_error").show().text("Please enter the captcha.");
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Disable button while verifying captcha
+            let $btn = $(this).find("button[type=submit]");
+            $btn.prop("disabled", true).text("Verifying captcha...");
+
+            $.ajax({
+                url: '{{ route("captcha.verify") }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    custom_captcha: captcha
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $btn.text("Submitting...");
+                        // native submit AFTER validation
+                        $("#productenquiryForm")[0].submit();
+                    } else {
+                        $("#product_custom_captcha_error").show().text(response.message);
+                        $btn.prop("disabled", false).text("Submit");
+                        $("#product-captcha-image").attr("src", "{{ route('captcha.image') }}?" + Date.now());
+                    }
+                },
+                error: function() {
+                    alert("Something went wrong. Please try again.");
                     $btn.prop("disabled", false).text("Submit");
                     $("#product-captcha-image").attr("src", "{{ route('captcha.image') }}?" + Date.now());
                 }
-            },
-            error: function() {
-                alert("Something went wrong. Please try again.");
-                $btn.prop("disabled", false).text("Submit");
-                $("#product-captcha-image").attr("src", "{{ route('captcha.image') }}?" + Date.now());
-            }
+            });
         });
     });
-});
 </script>
+
+<!-- START - BROCHURE REQUEST FORM VALIDATION -->
+<script>
+    $(document).ready(function () {
+        $('#brochure_name').on('input', function () {
+            this.value = this.value
+                .replace(/[^a-zA-Z\s]/g, '')
+                .replace(/\s+/g, ' ')
+                .trimStart();
+        });
+
+        $('#brochure_contact').on('input', function () {
+            this.value = this.value
+                .replace(/[^0-9]/g, '')
+                .slice(0, 20);
+        });
+
+        $('#brochureForm').on('submit', function (e) {
+            e.preventDefault();
+            $('#brochureForm .brochure-error').remove();
+            let isValid = true;
+
+            let name = $('#brochure_name').val().trim();
+            if (name === '')
+            {
+                $('#brochure_name').after(
+                    '<span class="brochure-error text-danger d-block mt-1">Please enter your name.</span>'
+                );
+                isValid = false;
+            } 
+            else if (name.length < 2)
+            {
+                $('#brochure_name').after(
+                    '<span class="brochure-error text-danger d-block mt-1">Name must be at least 2 characters.</span>'
+                );
+                isValid = false;
+            }
+            else if (!/^[A-Za-z\s]+$/.test(name))
+            {
+                $('#brochure_name').after(
+                    '<span class="brochure-error text-danger d-block mt-1">Name can contain only letters and spaces.</span>'
+                );
+                isValid = false;
+            }
+
+            let contact = $('#brochure_contact').val().trim();
+            if (contact === '')
+            {
+                $('#brochure_contact').after(
+                    '<span class="brochure-error text-danger d-block mt-1">Please enter your contact number.</span>'
+                );
+                isValid = false;
+            } 
+            else if (!/^[0-9]+$/.test(contact))
+            {
+                $('#brochure_contact').after(
+                    '<span class="brochure-error text-danger d-block mt-1">Contact number can contain only numbers.</span>'
+                );
+                isValid = false;
+
+            }
+            else if (contact.length < 10 || contact.length > 20)
+            {
+                $('#brochure_contact').after(
+                    '<span class="brochure-error text-danger d-block mt-1">Contact number must be between 10 and 20 digits.</span>'
+                );
+                isValid = false;
+            }
+
+            const email = $('#brochure_email').val().trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+            if (email !== '' && !emailRegex.test(email))
+            {
+                error(
+                    'brochure_email',
+                    'Please enter a valid email address.'
+                );
+            }
+
+            if (!isValid)
+            {
+                return false;
+            }
+
+            $('#brochureSubmitBtn')
+                .prop('disabled', true)
+                .text('Submitting...');
+            this.submit();
+        });
+
+        $('#brochureForm input').on('input', function () {
+            $(this).next('.brochure-error').remove();
+        });
+    });
+</script>
+<!-- END - BROCHURE REQUEST FORM VALIDATION -->
+
 <!--whatsapp-->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
 
-    const waPhoneInput = document.querySelector("#wa_phone");
-    const waFullPhone = document.querySelector("#wa_full_phone");
-    const waCountryName = document.querySelector("#wa_country_name");
+        const waPhoneInput = document.querySelector("#wa_phone");
+        const waFullPhone = document.querySelector("#wa_full_phone");
+        const waCountryName = document.querySelector("#wa_country_name");
 
-    if (!waPhoneInput) return;
+        if (!waPhoneInput) return;
 
-    const waIti = window.intlTelInput(waPhoneInput, {
-        initialCountry: "auto",
-        separateDialCode: true,
-        preferredCountries: ["in", "ae", "us", "gb"],
-        geoIpLookup: function (callback) {
-            fetch("https://ipapi.co/json")
-                .then(res => res.json())
-                .then(data => callback(data.country_code))
-                .catch(() => callback("in"));
-        },
-        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@25.12.4/build/js/utils.js",
+        const waIti = window.intlTelInput(waPhoneInput, {
+            initialCountry: "auto",
+            separateDialCode: true,
+            preferredCountries: ["in", "ae", "us", "gb"],
+            geoIpLookup: function (callback) {
+                fetch("https://ipapi.co/json")
+                    .then(res => res.json())
+                    .then(data => callback(data.country_code))
+                    .catch(() => callback("in"));
+            },
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@25.12.4/build/js/utils.js",
+        });
+
+        // Handle WhatsApp form submit
+        const waForm = waPhoneInput.closest("form");
+
+        waForm.addEventListener("submit", function () {
+
+            const countryData = waIti.getSelectedCountryData();
+            const dialCode = countryData.dialCode;
+            const countryName = countryData.name;
+            const phone = waPhoneInput.value.replace(/\s+/g, "");
+
+            waFullPhone.value = `+${dialCode}${phone}`;
+            waCountryName.value = countryName;
+        });
+
     });
-
-    // Handle WhatsApp form submit
-    const waForm = waPhoneInput.closest("form");
-
-    waForm.addEventListener("submit", function () {
-
-        const countryData = waIti.getSelectedCountryData();
-        const dialCode = countryData.dialCode;
-        const countryName = countryData.name;
-        const phone = waPhoneInput.value.replace(/\s+/g, "");
-
-        waFullPhone.value = `+${dialCode}${phone}`;
-        waCountryName.value = countryName;
-    });
-
-});
 </script>
 
 <!--whatsapp end-->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
 <script> if (window.innerWidth < 768) {
   AOS.init({ disable: true });
 } else {
   AOS.init({ duration: 1000 });
 }
 </script>
+
 <script>
     $('#whatsappForm').on('submit', function (e) {
 
@@ -818,15 +922,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     $('.btn-text').addClass('d-none');
     $('.btn-loader').removeClass('d-none');
-
-   
 });
 </script>
 
 </body>
 </html>
-
-
-
-
-

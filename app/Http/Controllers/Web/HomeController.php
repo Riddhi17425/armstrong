@@ -632,24 +632,37 @@ public function productenquirystore(Request $request)
     public function brochureForm(Request $request)
     {
         $request->validate([
-            'name'    => 'required|string|max:255',
-            'contact' => 'required|string|max:20',
-            'email'   => 'nullable|email|max:255',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/^[A-Za-z\s]+$/'
+            ],
+
+            'contact' => [
+                'required',
+                'digits_between:10,20'
+            ],
+
+            'email' => [
+                'nullable',
+                'email',
+                'max:255'
+            ],
         ]);
 
         $timestamp = Carbon::now()->format('Y-m-d H:i:s');
 
-        // Google Sheet Data
         $sheetsData = [
             'form_type' => 'Brochure Request',
             'name'      => $request->name,
             'contact'   => $request->contact,
-            'email'     => $request->email ?? '',
-            'date'      => $timestamp,
+            'email'     => $request->email,
+            'date'       => $timestamp,
         ];
 
-        try
-        {
+        try {
+
             $response = Http::timeout(30)
                 ->withHeaders([
                     'Content-Type' => 'application/json'
@@ -664,13 +677,14 @@ public function productenquirystore(Request $request)
                 'body'   => $response->body(),
                 'data'   => $sheetsData,
             ]);
-        } 
-        catch (\Exception $e)
-        {
+
+        } catch (\Exception $e) {
+
             Log::error('Google Sheets Exception (Brochure Form):', [
                 'message'   => $e->getMessage(),
                 'data_sent' => $sheetsData
             ]);
+
         }
 
         return redirect()->route('thankyou');

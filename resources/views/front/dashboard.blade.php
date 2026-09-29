@@ -182,40 +182,42 @@ Team</span></div>
     <section class="hn-block hn-featured">
         <div class="hn-wrap">
             @php
-                $featuredTitle = ['Bag', 'Closing Machines'];
-                $bagClosingCategory = $category->first(function ($item) {
-                    $name = strtolower($item->name ?? '');
-                    $url = strtolower($item->url ?? '');
-                    return str_contains($name, 'bag closing') || str_contains($url, 'bag-closing');
-                });
+            $featuredTitle = ['Bag', 'Closing Machines'];
 
-                $featuredImages = collect();
-                if ($bagClosingCategory) {
-                    $productIds = $bagClosingCategory->products()
-                        ->where('product_status', 'Active')
-                        ->pluck('id');
+            $bagClosingCategory = $category->first(function ($item) {
+                $name = strtolower($item->name ?? '');
+                $url = strtolower($item->url ?? '');
 
-                    $featuredImages = \App\Models\ProductImages::whereIn('product_master_id', $productIds)
-                        ->whereNotNull('image')
-                        ->pluck('image')
-                        ->filter()
-                        ->unique()
-                        ->values();
-                }
+                return str_contains($name, 'bag closing') ||
+                    str_contains($url, 'bag-closing');
+            });
 
-                if ($featuredImages->isEmpty()) {
-                    $featuredImages = collect([
-                        'public/front/home-new/images/prod-bagclosing.png',
-                        'public/front/home-new/images/prod-bagclosing.png',
-                    ]);
-                }
+            $featuredImages = collect();
 
-                $specs = [
-                    ['spec-1', 'Reliable Performance', 'Consistent and secure bag closing.'],
-                    ['spec-2', 'High-Speed Operation', 'Faster and more efficient packaging.'],
-                    ['spec-3', 'Versatile Applications', 'Suitable for diverse industrial packaging needs.'],
-                ];
-            @endphp
+            if ($bagClosingCategory) {
+
+                $productIds = $bagClosingCategory->products()
+                    ->where('product_status', 'Active')
+                    ->pluck('id');
+
+                $featuredImages = \App\Models\ProductImages::whereIn('product_master_id', $productIds)
+                    ->whereNotNull('image')
+                    ->with('product')
+                    ->get()
+                    ->filter(function ($image) {
+                        return $image->product && !empty($image->image);
+                    })
+                    ->unique('image')
+                    ->values();
+            }
+
+            $specs = [
+                ['spec-1', 'Reliable Performance', 'Consistent and secure bag closing.'],
+                ['spec-2', 'High-Speed Operation', 'Faster and more efficient packaging.'],
+                ['spec-3', 'Versatile Applications', 'Suitable for diverse industrial packaging needs.'],
+            ];
+        @endphp
+
             <div class="hn-feat">
                 <div class="hn-feat__text">
                     <h2 class="hn-title"><span>{{ $featuredTitle[0] }}</span> {{ $featuredTitle[1] }}</h2>
@@ -226,9 +228,11 @@ Team</span></div>
                     <div class="hn-feat__frame">
                         <div class="swiper hn-feat__slider">
                             <div class="swiper-wrapper">
-                                @foreach($featuredImages as $image)
+                                @foreach($featuredImages as $featuredImage)
                                     <div class="swiper-slide">
-                                        <img class="hn-feat__pic" src="{{ asset('/' . $image) }}" alt="Bag Closing Machine" loading="lazy">
+                                        <a href="{{ route('products.detail', ['url' => $featuredImage->product->url]) }}">
+                                            <img class="hn-feat__pic" src="{{ asset('/' . $featuredImage->image) }}" alt="{{ $featuredImage->product->name ?? 'Bag Closing Machine' }}" loading="lazy">
+                                        </a>            
                                     </div>
                                 @endforeach
                             </div>
