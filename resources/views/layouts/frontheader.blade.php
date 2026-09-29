@@ -262,7 +262,6 @@
                                     class="img-fluid setting-icon">
                             </a>
 
-
                             @php
                             use App\Models\ProductCategory;
                             use App\Models\ProductMaster;

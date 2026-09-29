@@ -28,6 +28,7 @@
                 slidesPerView: 'auto',
                 centeredSlides: true,
                 spaceBetween: 30,
+                loop: true,
                 initialSlide: 1,
                 grabCursor: true,
                 pagination: { el: '.hn-process__dots', clickable: true }

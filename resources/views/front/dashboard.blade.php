@@ -44,6 +44,7 @@
             <!--    <img src="{{ $hn }}/icons/play.svg" alt="">-->
             <a href="https://www.youtube.com/watch?v=YPjFZcE4aSU" class="hn-play" data-fancybox data-type="video" aria-label="Play video">
                 <img src="{{ $hn }}/icons/play.svg" alt="Armstrong | Global Manufacturer of FIBC, Woven Sack & Industrial Packaging Machinery">
+            </a>
         </div>
     </section>
 
@@ -233,7 +234,7 @@ Team</span></div>
                                 @endforeach
                             </div>
                         </div>
-                        <!-- <div class="hn-feat__badge"><img src="{{ $hn }}/icons/featured-badge.svg" alt=""></div> -->
+                        <div class="hn-feat__badge"><img src="{{ $hn }}/icons/featured-badge.svg" alt=""></div>
                     </div>
                     <div class="hn-feat__nav" aria-label="Featured machines navigation">
                         <button type="button" class="hn-feat__arrow hn-feat__arrow--prev" aria-label="Previous machine">&larr;</button>
