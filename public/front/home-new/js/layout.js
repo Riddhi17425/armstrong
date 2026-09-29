@@ -28,5 +28,28 @@
             }, { passive: true });
             update();
         }
+
+        /* ---- mobile / tablet mega-menu: single, reliable open/close ----
+           The site's own main.js attaches TWO separate click handlers to nav-links
+           (one bound only to the very first ".nav-link", one bound to every ".nav-link"
+           with a ".mega_menu"). On the first item ("Products") both fire on the same
+           click and cancel each other out, so its menu never opens on mobile.
+           We intercept the click before either old handler runs (capture phase) and
+           drive the toggle ourselves, the same way for every item. Desktop (hover-driven
+           menu) is untouched. */
+        document.addEventListener('click', function (e) {
+            if (window.innerWidth > 991) return;
+            var link = e.target.closest('.nav-item > .nav-link');
+            if (!link) return;
+            var menu = link.parentElement.querySelector(':scope > .mega_menu');
+            if (!menu) return; // plain link (e.g. Blogs, Contact Us) – let it navigate as normal
+            e.preventDefault();
+            e.stopPropagation();
+            var wasOpen = menu.classList.contains('active');
+            document.querySelectorAll('.navbar-nav > .nav-item > .mega_menu.active').forEach(function (m) {
+                m.classList.remove('active');
+            });
+            if (!wasOpen) menu.classList.add('active');
+        }, true);
     });
 })();
