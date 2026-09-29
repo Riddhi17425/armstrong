@@ -31,6 +31,7 @@
                 loop: true,
                 initialSlide: 0,
                 grabCursor: true,
+                autoplay: { delay: 3500, disableOnInteraction: false },
                 pagination: { el: '.hn-process__dots', clickable: true }
             });
         }
