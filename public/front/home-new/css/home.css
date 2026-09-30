@@ -463,10 +463,11 @@ header.hn-header .container {
     .hn-hero__btns { flex-direction: column; align-items: stretch; gap: 14px; }
     .hn-hero__btns .hn-btn { justify-content: center; }
     .hn-btn { font-size: 16px; }
-    .hn-stats { margin-top: -70px; padding: 20px 14px; row-gap: 22px; column-gap: 10px; }
+    .hn-stats { margin-top: 50px; padding: 20px 14px; row-gap: 22px; column-gap: 10px; }
     .hn-stat { flex: 1 1 40%; gap: 10px; }
     .hn-stat strong { font-size: 38px; }
     .hn-stat span { font-size: 15px; }
+    .hn .hn-stats__img { display: block; order: -1; flex: 1 1 100%; width: 90px; object-fit: contain; margin: 0 auto 6px; }
     .hn-after-stats { margin-top: 50px; }
     .hn-about__paras { font-size: 16px; line-height: 24px; }
    .hn-about__tag { font-size: 13px; text-align: center; }

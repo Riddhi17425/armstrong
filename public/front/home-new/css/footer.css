@@ -74,8 +74,8 @@ a.Brochurs_btn_side.request_btn:hover { width: 54px; background: #b8141e; }
 
 @media (max-width: 767px) {
     /* pulled further down into the body, so it sits over the page content instead of the header/hero */
-    a.Brochurs_btn_side.request_btn { width: 40px; height: 112px; font-size: 15px; top: calc(50% + 40px); }
-    .float-buttons { top: calc(50% + 175px); }
+    a.Brochurs_btn_side.request_btn { width: 40px; height: 112px; font-size: 15px; top: calc(50% + 90px); }
+    .float-buttons { top: calc(50% + 225px); }
     .float-buttons .WhatsAppButton { width: 52px; height: 52px; border-radius: 10px 0 0 10px; }
     .float-buttons .WhatsAppButton i { font-size: 30px; line-height: 30px; }
 }
