@@ -221,7 +221,7 @@ Team</span></div>
                 <div class="hn-feat__text">
                     <h2 class="hn-title"><span>{{ $featuredTitle[0] }}</span> {{ $featuredTitle[1] }}</h2>
                     <p>Armstrong Bag Closing Machines are engineered for reliable, high-speed, and consistent bag sealing across diverse industrial packaging applications. Designed for durability and efficiency, our machines deliver secure bag closures for industries handling food grains, fertilizers, chemicals, animal feed, and more.</p>
-                    <a href="{{ route('products.listing', 'bag-closing-machine') }}" class="hn-btn hn-btn--red">Explore all machines <img src="{{ $hn }}/icons/arrow-sm-white.svg" alt=""></a>
+                    <a href="{{ route('products.listing', 'bag-closing-machine') }}" class="hn-btn hn-btn--red text-white">Explore all machines <img src="{{ $hn }}/icons/arrow-sm-white.svg" alt=""></a>
                 </div>
                 <div class="hn-feat__stage">
                     <div class="hn-feat__frame">
