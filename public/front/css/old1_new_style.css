@@ -1,0 +1,384 @@
+@media screen and (max-width:1600px) {
+   .contact_icon {
+    padding: 0 120px;
+  }
+  
+  .main_head {
+    font-size: 52px;
+    line-height: 60px;
+    margin-bottom:40px;
+}
+
+.section-space {
+    padding: 80px 0px;
+}
+
+.Infrastructure_card
+{
+    padding:20px;
+}
+
+.innovations {
+   
+    padding: 35px 70px;
+}
+
+.innovations .sub__head_red {
+  
+    font-size: 32px;
+}
+
+.hero-title {
+    font-size: 62px;
+    line-height: 70px;
+}
+
+.section-mt {
+    margin-top: 70px;
+}
+
+.mt-80
+{
+    margin-top:70px;
+}
+
+.video_white {
+   
+    left: 110px;
+}
+
+
+}
+
+@media screen and (max-width:1441px) {
+       .contact_icon {
+        padding: 0 80px;
+     }
+         .section-space {
+        padding: 60px 0px;
+    }
+    
+    .Infrastructure_card p {
+   
+    font-size: 16px;
+    line-height: 22px;
+  }
+  
+      .innovations {
+        padding: 30px 40px;
+    }
+    
+        .innovations .sub__head_red {
+        font-size: 28px;
+    }
+    
+    .main_head
+    {
+        margin-bottom:30px;
+    }
+    
+    .video_card_top .play_btn {
+   
+    width: 70px;
+    height: 70px;
+}
+
+.video_card_bot {
+    padding: 25px 10px;
+}
+
+}
+
+@media screen and (max-width:1281px) {
+    
+    body
+    {
+        font-size:16px;
+    }
+    
+    .contact .floating-group {
+    
+    margin-bottom: 40px;
+        
+    }
+    
+    .contact_icon p
+    {
+        font-size:20px;
+    }
+    
+        .contact_icon {
+        padding: 0 60px;
+    }
+    
+    .contact
+    {
+        padding:45px;
+    }
+    
+        .hero-title {
+        font-size: 48px;
+        line-height: 56px;
+    }
+    
+    .news-title {
+   
+    font-size: 20px;
+    line-height: 32px;
+     padding-top: 0; 
+}
+
+    .custom-breadcrumb .breadcrumb-item {
+        font-size: 18px;
+        line-height: 20px;
+    }
+    
+    .main_head {
+        font-size: 36px;
+        line-height: 42px;
+    }
+    
+        .section-mt {
+        margin-top: 50px;
+    }
+    
+    .head_wrapper::after {
+    
+    width: 14px;
+    height: 14px;
+        top: 17px;
+    }
+    
+    .innovations .sub__head_red {
+        font-size: 24px;
+    }
+    
+        .event-wrap .event-date {
+        padding: 20px;
+       
+    }
+    
+        .event-day {
+        font-size: 54px;
+    }
+    
+    .setting-wrapper
+    {
+        width:130px;
+    }
+    
+    .modern-tabs .nav-link {
+   
+    padding: 10px 15px;
+    font-size: 16px;
+   
+}
+
+.modern-tabs .nav-link.active {
+
+    padding: 10px 15px;
+    font-size: 16px;
+}
+
+    .mt-80 {
+        margin-top: 60px;
+    }
+    
+    .heading {
+        font-size: 54px;
+        line-height: 60px;
+    }
+    
+    .careers_card {
+   
+    padding: 40px 50px;
+   
+}
+
+    
+   
+}
+
+@media screen and (max-width:1025px)
+{
+    .contact_icon {
+        padding: 0px 50px;
+    }
+}
+
+
+@media screen and (max-width:768px)
+{
+    .contact_icon_main {
+    flex-direction: column;
+    gap:40px
+   }
+    .section-mt {
+        margin-top: 40px;
+    }
+    
+        .contact {
+        padding: 20px;
+    }
+        .contact_icon {
+        padding: 0;
+        border:none;
+        border-bottom: 1px solid var(--dd-color);
+                text-align: center;
+    }
+    
+    .contact_icon:last-child
+    {
+        border-bottom: 1px solid var(--dd-color);
+    }
+    
+        .hero-title {
+        font-size: 42px;
+        line-height: 44px;
+    }
+    
+    .sub_btn 
+    {
+        padding: 10px 20px;
+    }
+    
+    
+        .custom-breadcrumb .breadcrumb-item {
+        font-size: 18px;
+        line-height: 22px;
+    }
+    
+    .hero-title {
+        font-size: 34px;
+        line-height: 38px;
+    }
+    
+        .news-title {
+        font-size: 18px;
+        line-height: 25px;
+               text-align: center;
+
+    }
+    
+        .main_head {
+        font-size: 28px;
+        line-height: 34px;
+    }
+        .main_head {
+        margin-bottom: 20px;
+    }
+    
+        .innovations {
+        padding: 20px 20px;
+    }
+    
+        .innovations .sub__head_red {
+        font-size: 20px;
+    }
+    
+        .main_head {
+        margin-bottom: 20px;
+    }
+    
+        .hero_slider .swiper::before {
+        height: 110px;
+    }
+        
+    
+    .hero_slider .swiper::after {
+   
+        left: -31%;
+        width: 159%;
+          height: 150px;
+  
+        }
+        
+        .event-wrap {
+
+            margin-bottom: 50px;
+            flex-direction: column;
+                    position: relative;
+        }
+        
+        .event-wrap img
+        {
+            width:100%;
+        }
+        
+            .heading {
+        font-size: 36px;
+        line-height: 40px;
+    }
+    
+    .setting-wrapper
+    {
+        display:none;
+    }
+    
+        .event-wrap .event-date
+        {
+           /* margin: 24px 0; */
+            transform: translate(0, 0);
+            /* width: 100%; */
+            position: absolute;
+            top: 10px;
+            left: 10px;
+                flex-direction: row;
+                     height: 10%;
+                     border-radius: 4px;
+
+        }
+        
+            .event-day,.event-day-past  {
+             font-size: 40px;
+           }
+           
+           .modern-tabs .nav-tabs
+           {
+               overflow-x: scroll;
+               justify-content: start;
+              text-wrap: nowrap;
+              padding-bottom: 10px;
+                  margin-bottom: 40px;
+           }
+           
+           
+    .modern-tabs .nav-tabs::-webkit-scrollbar
+     {
+        height: 5px;
+    }
+    
+    .modern-tabs .nav-tabs::-webkit-scrollbar-track{
+        border-radius: 10px;
+        background: #ddd;
+    }
+    
+    .modern-tabs .nav-tabs::-webkit-scrollbar-thumb
+    {
+        background: #E41E29;
+        border-radius: 10px;
+    }
+    
+        .mt-80 {
+        margin-top: 50px;
+    }
+    
+    .video_white {
+   
+    top: 10px;
+    left: 10px;
+}
+
+.play_btn_banner
+{
+    z-index: 1;
+}
+
+    .video_card_top .play_btn {
+        width: 60px;
+        height: 60px;
+    }
+           
+           
+    
+}
