@@ -3,102 +3,187 @@
     'og_image' => asset($product->images->first()->image ?? '')
 
 ])
-{{-- <style>
-  .product-reels-section {
-    padding: 40px 0;
-  }
-  .reels-title {
-    text-align: center;
-    margin-bottom: 25px;
-  }
-  .product-reels-wrap {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  .reel-card {
-    width: 240px;               /* small reel size — adjust if needed */
-    aspect-ratio: 9 / 16;       /* vertical reel format */
-    border-radius: 12px;
-    overflow: hidden;
-    background: #000;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-  }
-  .reel-card video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  /* Mobile: two reels side by side, smaller */
-  @media (max-width: 575px) {
-    .product-reels-wrap {
-      gap: 12px;
-    }
-    .reel-card {
-      width: calc(50% - 12px);
-      max-width: 180px;
-    }
-  }
-</style> --}}
 
 <style>
-  .product-reels-section {
-    padding: 40px 0;
-  }
-  .reels-title {
-    text-align: center;
-    margin-bottom: 25px;
-  }
-  .installation-video-slider .reel-card {
-    aspect-ratio: 9 / 16;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #000;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-  }
-  .installation-video-slider .reel-card video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .installation-video-slider .owl-nav {
-    display: none;
-  }
-  .installation-reels-progress-track {
-    width: 100%;
-    max-width: 250px;
-    height: 4px;
-    background: #d9d9d9;
-    border-radius: 999px;;
-    margin: 20px auto 0;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-  }
-  .installation-reels-progress-bar {
-    height: 100%;
-    width: 15%;
-    background: #E41E29;
-    border-radius: 999px;;
-    transition: margin-left 0.3s ease;
-  }
+    /* =========================================================
+       PRODUCT INSTALLATION VIDEOS
+    ========================================================= */
+
+    .product-reels-section {
+        padding: 40px 0;
+    }
+
+    .reels-title {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    /* =========================================================
+       COMMON VIDEO CARD
+    ========================================================= */
+
+    .installation-video-static .reel-card,
+    .installation-video-slider .reel-card {
+        aspect-ratio: 9 / 16;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #000;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    .installation-video-static .reel-card video,
+    .installation-video-slider .reel-card video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+
+    /* =========================================================
+       1 / 2 / 3 VIDEOS
+       NO SLIDER
+       CENTER ALIGNMENT
+    ========================================================= */
+
+    .installation-video-static {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 60px;
+        margin: 0 auto;
+    }
+
+    .installation-video-static .reel-card {
+        width: 325px;
+        flex: 0 0 325px;
+    }
+
+
+    /* =========================================================
+       4+ VIDEOS
+       OWL CAROUSEL
+    ========================================================= */
+
+    .installation-video-slider {
+        width: 100%;
+    }
+
+    .installation-video-slider .reel-card {
+        width: 100%;
+    }
+
+    .installation-video-slider .owl-nav {
+        display: none;
+    }
+
+    .installation-video-slider .owl-dots {
+        display: none;
+    }
+
+
+    /* =========================================================
+       PROGRESS BAR
+    ========================================================= */
+
+    .installation-reels-progress-track {
+        width: 100%;
+        max-width: 250px;
+        height: 4px;
+        background: #d9d9d9;
+        border-radius: 999px;
+        margin: 20px auto 0;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .installation-reels-progress-bar {
+        height: 100%;
+        width: 15%;
+        background: #E41E29;
+        border-radius: 999px;
+        margin-left: 0;
+        transition:
+            margin-left 0.3s ease,
+            width 0.3s ease;
+    }
+
+
+    /* =========================================================
+       TABLET
+    ========================================================= */
+
+    @media (max-width: 991px) {
+
+        .installation-video-static {
+            gap: 30px;
+        }
+
+        .installation-video-static .reel-card {
+            width: 280px;
+            flex: 0 0 280px;
+        }
+
+    }
+
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+
+    @media (max-width: 767px) {
+
+        .installation-video-static {
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .installation-video-static .reel-card {
+            width: 280px;
+            flex: 0 0 280px;
+        }
+
+    }
+
+
+    @media (max-width: 575px) {
+
+        .product-reels-section {
+            padding: 30px 0;
+        }
+
+        .installation-video-static {
+            gap: 15px;
+        }
+
+        .installation-video-static .reel-card {
+            width: 180px;
+            flex: 0 0 180px;
+        }
+
+    }
+
+
+    /* =========================================================
+       VERY SMALL MOBILE
+    ========================================================= */
+
+    @media (max-width: 400px) {
+
+        .installation-video-static .reel-card {
+            width: 160px;
+            flex: 0 0 160px;
+        }
+
+    }
 </style>
 
-{{-- @if(in_array($product->url, ['wide-width-flexo-printing-machine', 'mulch-film-punching-machine']))
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
-    <style>
-        .installation-video-slider video {
-            display: block;
-            width: 85% !important;
-            margin: 0 auto;
-        }
-    </style>
-@endif --}}
 
+{{-- =========================================================
+     FAQ SCHEMA
+========================================================= --}}
 
 @php
 
@@ -138,6 +223,7 @@
 
 @endphp
 
+
 @if(!empty($faqSchemaEntities))
 
     <script type="application/ld+json">
@@ -157,12 +243,9 @@
 @endif
 
 
-
-
-
 @if($product->url == 'bag-testing-machine')
 
- <script type="application/ld+json">
+<script type="application/ld+json">
 
     {
 
@@ -200,9 +283,14 @@
 
     }
 
-    </script>
+</script>
 
 @endif
+
+
+{{-- =========================================================
+     BREADCRUMB
+========================================================= --}}
 
 <section class="breadcrumb_wrapper">
 
@@ -210,23 +298,49 @@
 
         <nav aria-label="breadcrumb">
 
-           <ol class="breadcrumb custom-breadcrumb">
+            <ol class="breadcrumb custom-breadcrumb">
 
-              <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+                <li class="breadcrumb-item">
 
-              <li class="breadcrumb-item"><a href="{{ route('products.listing', $category_url->url) }}">Products</a></li>
+                    <a href="{{url('/')}}">Home</a>
 
-              <li class="breadcrumb-item active" aria-current="page">{{$product->category->name}}</li>
+                </li>
 
-           </ol>
+                <li class="breadcrumb-item">
+
+                    <a href="{{ route('products.listing', $category_url->url) }}">
+
+                        Products
+
+                    </a>
+
+                </li>
+
+                <li class="breadcrumb-item active" aria-current="page">
+
+                    {{$product->category->name}}
+
+                </li>
+
+            </ol>
 
         </nav>
 
         <div class="setting_vector_icon">
 
-           <h1 class="heading">{{$product->product_name}}</h1>
+            <h1 class="heading">
 
-           <img src="{{ asset('public/front/img/setting_vector.svg') }}" alt="setting vector" class="img-fluid setting-wrapper">
+                {{$product->product_name}}
+
+            </h1>
+
+            <img
+
+                src="{{ asset('public/front/img/setting_vector.svg') }}"
+
+                alt="setting vector"
+
+                class="img-fluid setting-wrapper">
 
         </div>
 
@@ -234,228 +348,373 @@
 
 </section>
 
+
+{{-- =========================================================
+     PRODUCT TOP SECTION
+========================================================= --}}
+
 <section class="section-pt">
 
-   <div class="container">
+    <div class="container">
 
-      <div class="row gy-4 gy-lg-0 gx-lg-5 align-items-center">
+        <div class="row gy-4 gy-lg-0 gx-lg-5 align-items-center">
 
-      <div class="col-md-7">
-    @if($product->media_type === 'video' && $product->hero_video)
-        <div class="text-center video_card_top">
-            @if($product->hero_video_source == 'youtube')
-                <img src="{{ $product->hero_thumbnail_image
-                        ? asset('/' . $product->hero_thumbnail_image)
-                        : 'https://img.youtube.com/vi/' . \Illuminate\Support\Str::afterLast($product->hero_video, 'v=') . '/hqdefault.jpg' }}"
-                    alt="{{ $product->product_name }}" class="img-fluid product_card_details_img">
-                <a href="{{ $product->hero_video }}" data-fancybox="hero-video-gallery">
-                    <img class="play_btn" src="{{asset('public/front/img/play-btn.png')}}" alt="play">
-                </a>
-            @else
-                <img src="{{ $product->hero_thumbnail_image
-                        ? asset('/' . $product->hero_thumbnail_image)
-                        : asset('default-thumbnail.jpg') }}"
-                    alt="{{ $product->product_name }}" class="img-fluid product_card_details_img">
-                <a href="{{ asset('/' . $product->hero_video) }}" data-fancybox="hero-video-gallery">
-                    <img class="play_btn" src="{{asset('public/front/img/play-btn.png')}}" alt="play">
-                </a>
-            @endif
-        </div>
-    @else
-        @if($product->images->count() > 1)
-        <div id="product_details" class="owl-carousel owl-theme">
-            @foreach($product->images->skip(1) as $image)
-            <div class="text-center">
-                <img fetchpriority="high" src="{{ asset($image->image) }}" alt="product" class="img-fluid mb-2 product_card_details_img">
+            <div class="col-md-7">
+
+                @if($product->media_type === 'video' && $product->hero_video)
+
+                    <div class="text-center video_card_top">
+
+                        @if($product->hero_video_source == 'youtube')
+
+                            <img
+
+                                src="{{ $product->hero_thumbnail_image
+
+                                    ? asset('/' . $product->hero_thumbnail_image)
+
+                                    : 'https://img.youtube.com/vi/' . \Illuminate\Support\Str::afterLast($product->hero_video, 'v=') . '/hqdefault.jpg' }}"
+
+                                alt="{{ $product->product_name }}"
+
+                                class="img-fluid product_card_details_img">
+
+                            <a
+
+                                href="{{ $product->hero_video }}"
+
+                                data-fancybox="hero-video-gallery">
+
+                                <img
+
+                                    class="play_btn"
+
+                                    src="{{asset('public/front/img/play-btn.png')}}"
+
+                                    alt="play">
+
+                            </a>
+
+                        @else
+
+                            <img
+
+                                src="{{ $product->hero_thumbnail_image
+
+                                    ? asset('/' . $product->hero_thumbnail_image)
+
+                                    : asset('default-thumbnail.jpg') }}"
+
+                                alt="{{ $product->product_name }}"
+
+                                class="img-fluid product_card_details_img">
+
+                            <a
+
+                                href="{{ asset('/' . $product->hero_video) }}"
+
+                                data-fancybox="hero-video-gallery">
+
+                                <img
+
+                                    class="play_btn"
+
+                                    src="{{asset('public/front/img/play-btn.png')}}"
+
+                                    alt="play">
+
+                            </a>
+
+                        @endif
+
+                    </div>
+
+                @else
+
+                    @if($product->images->count() > 1)
+
+                        <div id="product_details" class="owl-carousel owl-theme">
+
+                            @foreach($product->images->skip(1) as $image)
+
+                                <div class="text-center">
+
+                                    <img
+
+                                        fetchpriority="high"
+
+                                        src="{{ asset($image->image) }}"
+
+                                        alt="product"
+
+                                        class="img-fluid mb-2 product_card_details_img">
+
+                                </div>
+
+                            @endforeach
+
+                        </div>
+
+                    @else
+
+                        <div class="text-center">
+
+                            <img
+
+                                fetchpriority="high"
+
+                                src="{{ asset($product->images->first()->image ?? '') }}"
+
+                                alt="{{$product->product_name}}"
+
+                                class="img-fluid product_card_details_img">
+
+                        </div>
+
+                    @endif
+
+                @endif
+
             </div>
-            @endforeach
+
+
+            <div class="col-md-5">
+
+                @if(!empty($product->model_name))
+
+                    <p class="fw-bold">
+
+                        <span class="model_text">Model:</span>
+
+                        {{$product->model_name}}
+
+                    </p>
+
+                    @if($product->model_name == 'DN-2W' || $product->product_name == 'Twin Seam Bag Sewing Machine')
+
+                        <p class="fw-bold">
+
+                            <span class="model_text">Available Models:</span>
+
+                            DN-2W, DN-2LW, DN-2HS, DN-2LHS
+
+                        </p>
+
+                    @endif
+
+                @endif
+
+
+                {!! $product->product_short_desc !!}
+
+
+                <a
+
+                    class="request_btn"
+
+                    href="Javascript:void(0)"
+
+                    data-bs-toggle="modal"
+
+                    data-bs-target="#exampleModal2">
+
+                    <svg
+
+                        xmlns="http://www.w3.org/2000/svg"
+
+                        width="30"
+
+                        height="31"
+
+                        viewBox="0 0 30 31"
+
+                        fill="none">
+
+                        <path
+
+                            d="M6.73996 21.3126C5.9323 21.3126 5.27515 21.9696 5.27515 22.7773C5.27515 23.585 5.93224 24.2421 6.73996 24.2421C7.54763 24.2421 8.20472 23.585 8.20472 22.7773C8.20472 21.9696 7.54763 21.3126 6.73996 21.3126Z"
+
+                            fill="white" />
+
+                        <path
+
+                            d="M6.7399 16.0394C3.02457 16.0394 0.00195312 19.062 0.00195312 22.7773C0.00195312 26.4925 3.02457 29.5151 6.7399 29.5151C10.4552 29.5151 13.4778 26.4925 13.4778 22.7773C13.4778 19.062 10.4552 16.0394 6.7399 16.0394ZM6.73996 25.9998C4.96309 25.9998 3.51749 24.5542 3.51749 22.7773C3.51749 21.0004 4.96309 19.5548 6.73996 19.5548C8.51683 19.5548 9.96242 21.0004 9.96242 22.7773C9.96242 24.5542 8.51683 25.9998 6.73996 25.9998Z"
+
+                            fill="white" />
+
+                        <path
+
+                            d="M24.5515 21.3124C22.2864 21.3124 20.4502 23.1486 20.4502 25.4137C20.4502 27.6788 22.2864 29.515 24.5515 29.515C26.8166 29.515 28.6528 27.6788 28.6528 25.4137C28.6528 23.1486 26.8166 21.3124 24.5515 21.3124ZM24.5515 26.2926C24.0662 26.2926 23.6727 25.8991 23.6727 25.4137C23.6727 24.9283 24.0662 24.5348 24.5515 24.5348C25.0369 24.5348 25.4304 24.9283 25.4304 25.4137C25.4304 25.8991 24.5515 26.2926 24.5515Z"
+
+                            fill="white" />
+
+                        <path
+
+                            d="M29.1212 13.8131H26.3679V10.5387C26.3679 10.3772 26.4993 10.2458 26.6608 10.2458H27.4225C27.9078 10.2458 28.3013 9.85229 28.3013 9.36693C28.3013 8.88156 27.9078 8.48807 27.4225 8.48807H26.6608C25.5301 8.48807 24.6101 9.408 24.6101 10.5387V13.8131H19.9816L17.4982 4.02841H18.1261C18.6115 4.02841 19.005 3.63492 19.005 3.14956C19.005 2.66419 18.6115 2.2707 18.1261 2.2707H4.78694C4.30157 2.2707 3.90808 2.66419 3.90808 3.14956C3.90808 3.63492 4.30157 4.02841 4.78694 4.02841H4.97378L3.95853 12.9113C2.64312 13.2835 1.40387 13.9169 0.328506 14.7807C-0.04987 15.0846 -0.110277 15.6378 0.19369 16.0162C0.497656 16.3946 1.05075 16.4549 1.42924 16.151C2.95177 14.9281 4.78811 14.2817 6.73981 14.2817C11.4243 14.2817 15.2355 18.0928 15.2355 22.7773C15.2355 23.2106 15.2024 23.646 15.1372 24.071C15.0636 24.5508 15.3929 24.9994 15.8727 25.0729C15.9179 25.0799 15.9627 25.0832 16.007 25.0832C16.4336 25.0832 16.808 24.7721 16.8746 24.3375C16.9092 24.1123 16.9358 23.8847 16.9553 23.6561H18.9619C19.7102 21.2814 21.9329 19.5546 24.5514 19.5546C26.9628 19.5546 29.0383 21.019 29.9361 23.1051C29.977 23.0038 30 22.8933 30 22.7773V14.6919C30 14.2065 29.6066 13.8131 29.1212 13.8131ZM6.73987 12.5239C6.41411 12.5239 6.08934 12.5403 5.76651 12.5714L6.74286 4.02841H12.5404V13.8131H11.7121C10.2385 12.9924 8.54298 12.5239 6.73987 12.5239ZM14.2982 13.8131V4.02841H15.6847L18.1681 13.8131H14.2982Z"
+
+                            fill="white" />
+
+                    </svg>
+
+                    <span class="old-text">Enquire Now</span>
+
+                    <span class="new-text">Enquire Now</span>
+
+                </a>
+
+            </div>
+
         </div>
-        @else
-        <div class="text-center">
-            <img fetchpriority="high" src="{{ asset($product->images->first()->image ?? '') }}"
-                alt="{{$product->product_name}}" class="img-fluid product_card_details_img">
-        </div>
-        @endif
-    @endif
-</div>
 
-         <div class="col-md-5">
-
-            @if(!empty($product->model_name))
-
-            <p class="fw-bold">
-
-               <span class="model_text">Model:</span> {{$product->model_name}}
-
-            </p>
-
-
-
-            @if($product->model_name == 'DN-2W' || $product->product_name == 'Twin Seam Bag Sewing Machine')
-
-               <p class="fw-bold">
-
-                     <span class="model_text">Available Models:</span> DN-2W, DN-2LW, DN-2HS, DN-2LHS
-
-               </p>
-
-            @endif
-
-         @endif
-
-            {!! $product->product_short_desc !!}
-
-
-
-            <a class="request_btn" href="Javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-
-               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="31" viewBox="0 0 30 31" fill="none">
-
-                  <!-- Your SVG paths -->
-
-                  <path d="M6.73996 21.3126C5.9323 21.3126 5.27515 21.9696 5.27515 22.7773C5.27515 23.585 5.93224 24.2421 6.73996 24.2421C7.54763 24.2421 8.20472 23.585 8.20472 22.7773C8.20472 21.9696 7.54763 21.3126 6.73996 21.3126Z" fill="white" />
-
-                  <path d="M6.7399 16.0394C3.02457 16.0394 0.00195312 19.062 0.00195312 22.7773C0.00195312 26.4925 3.02457 29.5151 6.7399 29.5151C10.4552 29.5151 13.4778 26.4925 13.4778 22.7773C13.4778 19.062 10.4552 16.0394 6.7399 16.0394ZM6.73996 25.9998C4.96309 25.9998 3.51749 24.5542 3.51749 22.7773C3.51749 21.0004 4.96309 19.5548 6.73996 19.5548C8.51683 19.5548 9.96242 21.0004 9.96242 22.7773C9.96242 24.5542 8.51683 25.9998 6.73996 25.9998Z" fill="white" />
-
-                  <path d="M24.5515 21.3124C22.2864 21.3124 20.4502 23.1486 20.4502 25.4137C20.4502 27.6788 22.2864 29.515 24.5515 29.515C26.8166 29.515 28.6528 27.6788 28.6528 25.4137C28.6528 23.1486 26.8166 21.3124 24.5515 21.3124ZM24.5515 26.2926C24.0662 26.2926 23.6727 25.8991 23.6727 25.4137C23.6727 24.9283 24.0662 24.5348 24.5515 24.5348C25.0369 24.5348 25.4304 24.9283 25.4304 25.4137C25.4304 25.8991 25.0369 26.2926 24.5515 26.2926Z" fill="white" />
-
-                  <path d="M29.1212 13.8131H26.3679V10.5387C26.3679 10.3772 26.4993 10.2458 26.6608 10.2458H27.4225C27.9078 10.2458 28.3013 9.85229 28.3013 9.36693C28.3013 8.88156 27.9078 8.48807 27.4225 8.48807H26.6608C25.5301 8.48807 24.6101 9.408 24.6101 10.5387V13.8131H19.9816L17.4982 4.02841H18.1261C18.6115 4.02841 19.005 3.63492 19.005 3.14956C19.005 2.66419 18.6115 2.2707 18.1261 2.2707H4.78694C4.30157 2.2707 3.90808 2.66419 3.90808 3.14956C3.90808 3.63492 4.30157 4.02841 4.78694 4.02841H4.97378L3.95853 12.9113C2.64312 13.2835 1.40387 13.9169 0.328506 14.7807C-0.04987 15.0846 -0.110277 15.6378 0.19369 16.0162C0.497656 16.3946 1.05075 16.4549 1.42924 16.151C2.95177 14.9281 4.78811 14.2817 6.73981 14.2817C11.4243 14.2817 15.2355 18.0928 15.2355 22.7773C15.2355 23.2106 15.2024 23.646 15.1372 24.071C15.0636 24.5508 15.3929 24.9994 15.8727 25.0729C15.9179 25.0799 15.9627 25.0832 16.007 25.0832C16.4336 25.0832 16.808 24.7721 16.8746 24.3375C16.9092 24.1123 16.9358 23.8847 16.9553 23.6561H18.9619C19.7102 21.2814 21.9329 19.5546 24.5514 19.5546C26.9628 19.5546 29.0383 21.019 29.9361 23.1051C29.977 23.0038 30 22.8933 30 22.7773V14.6919C30 14.2065 29.6066 13.8131 29.1212 13.8131ZM6.73987 12.5239C6.41411 12.5239 6.08934 12.5403 5.76651 12.5714L6.74286 4.02841H12.5404V13.8131H11.7121C10.2385 12.9924 8.54298 12.5239 6.73987 12.5239ZM14.2982 13.8131V4.02841H15.6847L18.1681 13.8131H14.2982Z" fill="white" />
-
-               </svg>
-
-               <span class="old-text">Enquire Now</span>
-
-               <span class="new-text">Enquire Now</span>
-
-            </a>
-
-         </div>
-
-      </div>
-
-   </div>
+    </div>
 
 </section>
 
 
+{{-- =========================================================
+     USP SECTION
+========================================================= --}}
 
 <section class="section-pt">
 
-   <div class="container">
+    <div class="container">
 
-      <div class="row gy-4 gy-lg-0 gx-lg-5 align-items-center">
+        <div class="row gy-4 gy-lg-0 gx-lg-5 align-items-center">
 
-         <div class="col-md-6">
+            <div class="col-md-6">
 
-            @if(!empty($usps) && is_array($usps) && count($usps) > 0)
+                @if(!empty($usps) && is_array($usps) && count($usps) > 0)
 
-                {{-- Sirf agar USPs available hain --}}
+                    <h2 class="main_head_48 head_wrapper mb-4">
 
-                <h2 class="main_head_48 head_wrapper mb-4">USPs</h2>
+                        USPs
 
+                    </h2>
 
+                    @foreach($usps as $usp)
 
-                @foreach($usps as $usp)
+                        @php
 
-                    @php
+                            $name = trim($usp['name'] ?? '');
 
-                        $name = trim($usp['name'] ?? '');
+                            $description = strip_tags($usp['description'] ?? '');
 
-                        $description = strip_tags($usp['description'] ?? '');
+                            $description = trim($description);
 
-                        $description = trim($description);
+                            $displayName = (substr($name, -1) === ':')
+                                ? $name
+                                : $name . ':';
 
-                        $displayName = (substr($name, -1) === ':') ? $name : $name . ':';
+                        @endphp
 
-                    @endphp
+                        <p>
 
+                            <b>{{ $displayName }}</b>
 
+                            {{ $description }}
 
-                    <p><b>{{ $displayName }}</b> {{ $description }}</p>
+                        </p>
 
-                @endforeach
+                    @endforeach
 
+                @elseif(!empty($product->product_desc))
 
+                    {!! $product->product_desc !!}
 
-            @elseif(!empty($product->product_desc))
+                @else
 
+                    <p>No details available.</p>
 
+                @endif
 
-                {!! $product->product_desc !!}
+            </div>
 
 
+            @if ($product->video || $product->thumnail_image)
 
-            @else
+                <div class="col-md-6">
 
-                <p>No details available.</p>
+                    <div class="video_card_top">
 
-            @endif
+                        @if($product->video_source == 'youtube' && $product->video)
 
-        </div>
+                            <img
 
+                                src="{{ $product->thumnail_image
 
+                                    ? asset('/' . $product->thumnail_image)
 
-         @if ($product->video || $product->thumnail_image)
+                                    : 'https://img.youtube.com/vi/' . \Illuminate\Support\Str::afterLast($product->video, 'v=') . '/hqdefault.jpg' }}"
 
-    <div class="col-md-6">
+                                alt="{{ $product->product_name }}"
 
-        <div class="video_card_top">
+                                class="img-fluid">
 
-            @if($product->video_source == 'youtube' && $product->video)
+                            <a
 
-                {{-- ✅ YouTube Video --}}
+                                href="{{ $product->video }}"
 
-                <img src="{{ $product->thumnail_image
+                                data-fancybox="video-gallery">
 
-                    ? asset('/' . $product->thumnail_image)
+                                <img
 
-                    : 'https://img.youtube.com/vi/' . \Illuminate\Support\Str::afterLast($product->video, 'v=') . '/hqdefault.jpg' }}"
+                                    class="play_btn"
 
-                    alt="{{ $product->product_name }}"
+                                    src="{{asset('public/front/img/play-btn.png')}}"
 
-                    class="img-fluid">
+                                    alt="play">
 
-                <a href="{{ $product->video }}" data-fancybox="video-gallery">
+                            </a>
 
-                    <img class="play_btn" src="{{asset('public/front/img/play-btn.png')}}" alt="play">
+                        @elseif($product->video_source == 'upload' && $product->video)
 
-                </a>
+                            <img
 
+                                src="{{ $product->thumnail_image
 
+                                    ? asset('/' . $product->thumnail_image)
 
-            @elseif($product->video_source == 'upload' && $product->video)
+                                    : asset('default-thumbnail.jpg') }}"
 
-                {{-- ✅ Uploaded Video --}}
+                                alt="{{ $product->product_name }}"
 
-                <img src="{{ $product->thumnail_image
+                                class="img-fluid">
 
-                    ? asset('/' . $product->thumnail_image)
+                            <a
 
-                    : asset('default-thumbnail.jpg') }}"
+                                href="{{ asset('/' . $product->video) }}"
 
-                    alt="{{ $product->product_name }}"
+                                data-fancybox="video-gallery">
 
-                    class="img-fluid">
+                                <img
 
-                <a href="{{ asset('/' . $product->video) }}" data-fancybox="video-gallery">
+                                    class="play_btn"
 
-                    <img class="play_btn" src="{{asset('public/front/img/play-btn.png')}}" alt="play">
+                                    src="{{asset('public/front/img/play-btn.png')}}"
 
-                </a>
+                                    alt="play">
 
-            @else
+                            </a>
 
-                {{-- If no video exists, just show the image --}}
+                        @else
 
-                <img src="{{ $product->thumnail_image
+                            <img
 
-                    ? asset('/' . $product->thumnail_image)
+                                src="{{ $product->thumnail_image
 
-                    : asset('default-thumbnail.jpg') }}"
+                                    ? asset('/' . $product->thumnail_image)
 
-                    alt="{{ $product->product_name }}"
+                                    : asset('default-thumbnail.jpg') }}"
 
-                    class="img-fluid">
+                                alt="{{ $product->product_name }}"
+
+                                class="img-fluid">
+
+                        @endif
+
+                    </div>
+
+                </div>
 
             @endif
 
@@ -463,404 +722,233 @@
 
     </div>
 
-@endif
-
-
-
-   </div>
-
 </section>
 
 
-{{-- @if($product->url === 'wide-width-flexo-printing-machine')
-    <!--<section class="section-mt">-->
-    <!--    <div class="container">-->
-    <!--        <div class="text-center">-->
-    <!--        <h2 class="main_head_48 head_wrapper mb-5">Wide Width Flexo Printing Machine Installation & Setup</h2>-->
-    <!--    </div>-->
-    <!--        <div class="installation-video-slider">-->
-    <!--            <div class="px-2">-->
-    <!--                <video class="w-100" controls playsinline preload="metadata">-->
-    <!--                    <source src="{{ asset('public/front/images/reel-1.mp4') }}" type="video/mp4">-->
-    <!--                    Your browser does not support the video tag.-->
-    <!--                </video>-->
-    <!--            </div>-->
-    <!--            <div class="px-2">-->
-    <!--                <video class="w-100" controls playsinline preload="metadata">-->
-    <!--                    <source src="{{ asset('public/front/images/reel-2.mp4') }}" type="video/mp4">-->
-    <!--                    Your browser does not support the video tag.-->
-    <!--                </video>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <!--</section>-->
+{{-- =========================================================
+     INSTALLATION VIDEOS
+     
+     1 VIDEO  = CENTER
+     2 VIDEOS = CENTER
+     3 VIDEOS = CENTER
+     4+      = SLIDER
+========================================================= --}}
+
+@if(!empty($installationVideos) && count($installationVideos) > 0)
+
+    @php
+        $installationVideoCount = count($installationVideos);
+    @endphp
+
+
     <section class="product-reels-section">
-      <div class="container">
-        <h2 class="reels-title">Wide Width Flexo Printing Machine Installation &amp; Setup</h2>
-        <div class="product-reels-wrap">
-    
-          <div class="reel-card">
-            <video
-              src="{{ asset('public/front/images/armstrong-reel-1.mp4') }}"
-              controls
-              muted
-              playsinline
-              preload="metadata">
-            </video>
-          </div>
-    
-          <div class="reel-card">
-            <video
-              src="{{ asset('public/front/images/armstrong-reel-2.mp4') }}"
-              controls
-              muted
-              playsinline
-              preload="metadata">
-            </video>
-          </div>
-    
+
+        <div class="container position-relative">
+
+            <h2 class="reels-title">
+
+                {{ $product->product_name }} Installation &amp; Setup
+
+            </h2>
+
+
+            {{-- ================================================
+                 1 / 2 / 3 VIDEOS
+                 NO SLIDER
+            ================================================= --}}
+
+            @if($installationVideoCount <= 3)
+
+                <div class="installation-video-static">
+
+                    @foreach($installationVideos as $ivideo)
+
+                        <div class="reel-card">
+
+                            <video
+
+                                src="{{ asset('/' . $ivideo['video']) }}"
+
+                                controls
+
+                                muted
+
+                                playsinline
+
+                                preload="metadata">
+
+                            </video>
+
+                        </div>
+
+                    @endforeach
+
+                </div>
+
+
+            {{-- ================================================
+                 4+ VIDEOS
+                 SLIDER
+            ================================================= --}}
+
+            @else
+
+                <div class="installation-video-slider owl-carousel owl-theme">
+
+                    @foreach($installationVideos as $ivideo)
+
+                        <div class="reel-card">
+
+                            <video
+
+                                src="{{ asset('/' . $ivideo['video']) }}"
+
+                                controls
+
+                                muted
+
+                                playsinline
+
+                                preload="metadata">
+
+                            </video>
+
+                        </div>
+
+                    @endforeach
+
+                </div>
+
+
+                <div class="installation-reels-progress-track">
+
+                    <div class="installation-reels-progress-bar"></div>
+
+                </div>
+
+            @endif
+
         </div>
-      </div>
+
     </section>
 
 @endif
 
-@if($product->url === 'mulch-film-punching-machine')
- <section class="product-reels-section">
-      <div class="container">
-        <h2 class="reels-title">Mulch Film Punching Machine Installation &amp; Setup</h2>
-        <div class="product-reels-wrap">
-    
-          <div class="reel-card">
-            <video
-              src="{{ asset('public/front/images/mulch-film-installation-video-1.mp4') }}"
-              controls
-              muted
-              playsinline
-              preload="metadata">
-            </video>
-          </div>
-    
-          <div class="reel-card">
-            <video
-              src="{{ asset('public/front/images/mulch-film-installation-video-2.mp4') }}"
-              controls
-              muted
-              playsinline
-              preload="metadata">
-            </video>
-          </div>
-    
-        </div>
-      </div>
-    </section>
-    @endif --}}
 
-@if(!empty($installationVideos))
-<section class="product-reels-section">
-  <div class="container position-relative">
-    <h2 class="reels-title">{{ $product->product_name }} Installation &amp; Setup</h2>
-    <div class="installation-video-slider owl-carousel owl-theme">
-      @foreach($installationVideos as $ivideo)
-        <div class="reel-card">
-          <video
-            src="{{ asset('/' . $ivideo['video']) }}"
-            controls
-            muted
-            playsinline
-            preload="metadata">
-          </video>
-        </div>
-      @endforeach
-    </div>
-    <div class="installation-reels-progress-track">
-      <div class="installation-reels-progress-bar"></div>
-    </div>
-  </div>
-</section>
-
-{{-- <script>
-    $(function () {
-        var $reelsSlider = $('.installation-video-slider');
-        var $progressBar = $('.installation-reels-progress-bar');
-        var $progressTrack = $('.installation-reels-progress-track');
-
-        $reelsSlider.owlCarousel({
-            loop: false,
-            margin: 20,
-            nav: false,
-            dots: false,
-            responsive: {
-                0: { items: 2 },
-                576: { items: 2 },
-                768: { items: 3 },
-                992: { items: 4 }
-            }
-        });
-
-        function getTotals() {
-            var total = $reelsSlider.find('.owl-item').length;
-            var visible = $reelsSlider.find('.owl-item.active').length || 1;
-            return { total: total, visible: visible, maxIndex: Math.max(total - visible, 0) };
-        }
-
-        function updateReelsProgress() {
-            var $stage = $reelsSlider.find('.owl-stage');
-            var $outer = $reelsSlider.find('.owl-stage-outer');
-            if (!$stage.length || !$outer.length) return;
-
-            var stageWidth = $stage.width();
-            var outerWidth = $outer.width();
-            var maxScroll = stageWidth - outerWidth;
-
-            if (maxScroll <= 0) {
-                $progressBar.css({ width: '100%', marginLeft: '0%' });
-                return;
-            }
-
-            var transform = $stage.css('transform');
-            var translateX = 0;
-            if (transform && transform !== 'none') {
-                var match = transform.match(/matrix\(([^)]+)\)/);
-                if (match) {
-                    translateX = parseFloat(match[1].split(',')[4]) || 0;
-                }
-            }
-
-            var progress = Math.min(Math.max(Math.abs(translateX) / maxScroll, 0), 1);
-            var barWidthPercent = 8;
-            var leftPercent = progress * (100 - barWidthPercent);
-
-            $progressBar.css({
-                width: barWidthPercent + '%',
-                marginLeft: leftPercent + '%'
-            });
-        }
-
-        $reelsSlider.on(
-            'initialized.owl.carousel refreshed.owl.carousel translate.owl.carousel translated.owl.carousel',
-            updateReelsProgress
-        );
-        $(window).on('resize', updateReelsProgress);
-
-        // ----- Drag / tap on the progress track to seek (smooth, matches cursor exactly) -----
-        var isDragging = false;
-        var dragMaxScroll = 0;
-        var lastRatio = 0;
-
-        function dragToPosition(clientX) {
-            if (dragMaxScroll <= 0) return;
-
-            var trackOffset = $progressTrack.offset().left;
-            var trackWidth = $progressTrack.outerWidth();
-            var ratio = (clientX - trackOffset) / trackWidth;
-            ratio = Math.min(Math.max(ratio, 0), 1);
-            lastRatio = ratio;
-
-            var translateX = -ratio * dragMaxScroll;
-            $reelsSlider.find('.owl-stage').css('transform', 'translate3d(' + translateX + 'px, 0px, 0px)');
-
-            var barWidthPercent = 15;
-            var leftPercent = ratio * (100 - barWidthPercent);
-            $progressBar.css({
-                width: barWidthPercent + '%',
-                marginLeft: leftPercent + '%'
-            });
-        }
-
-        $progressTrack.on('mousedown touchstart', function (e) {
-            isDragging = true;
-
-            var $stage = $reelsSlider.find('.owl-stage');
-            var $outer = $reelsSlider.find('.owl-stage-outer');
-            dragMaxScroll = $stage.width() - $outer.width();
-
-            $stage.css('transition', 'none');
-
-            var clientX = e.type === 'touchstart' ? e.originalEvent.touches[0].clientX : e.clientX;
-            dragToPosition(clientX);
-        });
-
-        $(document).on('mousemove touchmove', function (e) {
-            if (!isDragging) return;
-            var clientX = e.type === 'touchmove' ? e.originalEvent.touches[0].clientX : e.clientX;
-            dragToPosition(clientX);
-        });
-
-        $(document).on('mouseup touchend', function () {
-            if (!isDragging) return;
-            isDragging = false;
-
-            $reelsSlider.find('.owl-stage').css('transition', '');
-
-            var t = getTotals();
-            var targetIndex = Math.round(lastRatio * t.maxIndex);
-
-            $reelsSlider.trigger('to.owl.carousel', [targetIndex, 200, true]);
-        });
-    });
-</script> --}}
-<script>
-    $(function () {
-        var $reelsSlider = $('.installation-video-slider');
-        var $progressBar = $('.installation-reels-progress-bar');
-        var $progressTrack = $('.installation-reels-progress-track');
-
-        var BAR_WIDTH = 15; // % — CSS wali value ke barabar
-
-        function setBar(ratio) {
-            ratio = Math.min(Math.max(ratio, 0), 1);
-            $progressBar.css({
-                width: BAR_WIDTH + '%',
-                marginLeft: (ratio * (100 - BAR_WIDTH)) + '%'
-            });
-        }
-
-        $reelsSlider.owlCarousel({
-            loop: false,
-            margin: 20,
-            nav: false,
-            dots: false,
-            responsive: {
-                0:   { items: 2 },
-                576: { items: 2 },
-                768: { items: 3 },
-                992: { items: 4 }
-            }
-        });
-
-        // Slide change hone pe bar update (index based)
-        $reelsSlider.on('initialized.owl.carousel changed.owl.carousel refreshed.owl.carousel', function (e) {
-            if (!e.item) return;
-            var total   = e.item.count;
-            var visible = e.page.size || 1;
-            var maxIndex = Math.max(total - visible, 0);
-
-            if (maxIndex === 0) {
-                setBar(0);
-                return;
-            }
-            setBar(e.item.index / maxIndex);
-        });
-
-        // ----- Track pe click / drag se seek -----
-        var isDragging = false;
-
-        function getMaxIndex() {
-            var total = $reelsSlider.find('.owl-item').length;
-            var visible = $reelsSlider.find('.owl-item.active').length || 1;
-            return Math.max(total - visible, 0);
-        }
-
-        function ratioFromX(clientX) {
-            var left = $progressTrack.offset().left;
-            var width = $progressTrack.outerWidth();
-            return Math.min(Math.max((clientX - left) / width, 0), 1);
-        }
-
-        function seek(clientX) {
-            var ratio = ratioFromX(clientX);
-            setBar(ratio);                                   // bar cursor ke saath chale
-            var targetIndex = Math.round(ratio * getMaxIndex());
-            $reelsSlider.trigger('to.owl.carousel', [targetIndex, 200, true]);
-        }
-
-        $progressTrack.on('mousedown touchstart', function (e) {
-            isDragging = true;
-            var x = e.type === 'touchstart' ? e.originalEvent.touches[0].clientX : e.clientX;
-            seek(x);
-        });
-
-        $(document).on('mousemove touchmove', function (e) {
-            if (!isDragging) return;
-            var x = e.type === 'touchmove' ? e.originalEvent.touches[0].clientX : e.clientX;
-            seek(x);
-        });
-
-        $(document).on('mouseup touchend', function () {
-            isDragging = false;
-        });
-    });
-</script>
-@endif
-
+{{-- =========================================================
+     APPLICATIONS
+========================================================= --}}
 
 @if ($applications)
 
     <section class="how-it-works section-pt">
 
-   <div class="container px-0">
+        <div class="container px-0">
 
-      <div class="text-center">
+            <div class="text-center">
 
-         <h2 class="main_head_48 head_wrapper">Applications</h2>
+                <h2 class="main_head_48 head_wrapper">
 
-      </div>
+                    Applications
 
-      <p class="text-center">
-
-            {!! !empty($product->product_app_desc)
-
-                ? $product->product_app_desc
-
-                : 'Our Process: From Idea to Installation' !!}
-
-        </p>
-
-      <div class="how-slider owl-carousel">
-
-         @foreach($applications as $application)
-
-            <div class="slide-content">
-
-               <div class="image-circle">
-
-                  <img fetchpriority="high" src="{{ asset('/' . $application->application_image) }}"
-
-                     alt="{{  str_replace(['-', '_'],' ', pathinfo($application->alt, PATHINFO_FILENAME)) }}">
-
-               </div>
-
-               <div class="slide-text">
-
-                  <h3>{{ $application->name }}</h3>
-
-                  <p>{{ $application->description }}</p>
-
-               </div>
+                </h2>
 
             </div>
 
-         @endforeach
+            <p class="text-center">
 
-      </div>
+                {!! !empty($product->product_app_desc)
 
-      <!-- Custom Arrows -->
+                    ? $product->product_app_desc
 
-        <div class="custom_arrow">
+                    : 'Our Process: From Idea to Installation' !!}
 
-            <img src="{{ asset('public/front/img/arrow_left.svg') }}" alt="Previous" class="img-fluid custom-prev">
+            </p>
 
-            <img src="{{ asset('public/front/img/arrow_right.svg') }}" alt="Next" class="img-fluid custom-next">
+
+            <div class="how-slider owl-carousel">
+
+                @foreach($applications as $application)
+
+                    <div class="slide-content">
+
+                        <div class="image-circle">
+
+                            <img
+
+                                fetchpriority="high"
+
+                                src="{{ asset('/' . $application->application_image) }}"
+
+                                alt="{{ str_replace(['-', '_'],' ', pathinfo($application->alt, PATHINFO_FILENAME)) }}">
+
+                        </div>
+
+                        <div class="slide-text">
+
+                            <h3>
+
+                                {{ $application->name }}
+
+                            </h3>
+
+                            <p>
+
+                                {{ $application->description }}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                @endforeach
+
+            </div>
+
+
+            <div class="custom_arrow">
+
+                <img
+
+                    src="{{ asset('public/front/img/arrow_left.svg') }}"
+
+                    alt="Previous"
+
+                    class="img-fluid custom-prev">
+
+                <img
+
+                    src="{{ asset('public/front/img/arrow_right.svg') }}"
+
+                    alt="Next"
+
+                    class="img-fluid custom-next">
+
+            </div>
 
         </div>
 
-   </div>
-
-</section>
+    </section>
 
 @endif
 
 
+{{-- =========================================================
+     TECHNICAL SPECIFICATIONS
+========================================================= --}}
 
-   @php
+@php
 
-    $hasSpecifications = $specifications && is_array($specifications) && count($specifications) > 0;
+    $hasSpecifications =
+        $specifications &&
+        is_array($specifications) &&
+        count($specifications) > 0;
 
-    $hasTechDesc = !empty($product->product_tech_desc);
+    $hasTechDesc =
+        !empty($product->product_tech_desc);
 
 @endphp
-
 
 
 @if($hasSpecifications || $hasTechDesc)
@@ -871,10 +959,13 @@
 
             <div class="text-center">
 
-                <h2 class="main_head_48 head_wrapper">Technical Specifications</h2>
+                <h2 class="main_head_48 head_wrapper">
+
+                    Technical Specifications
+
+                </h2>
 
             </div>
-
 
 
             @if($hasSpecifications)
@@ -888,12 +979,9 @@
                 @endphp
 
 
-
                 <div class="row mt-5 gx-md-5">
 
                     @if($count > 10)
-
-                        <!-- 2 Column Tables -->
 
                         <div class="col-md-6 mb-4 mb-lg-0">
 
@@ -905,9 +993,17 @@
 
                                         <tr>
 
-                                            <th scope="col">Parameter</th>
+                                            <th scope="col">
 
-                                            <th scope="col">Specification</th>
+                                                Parameter
+
+                                            </th>
+
+                                            <th scope="col">
+
+                                                Specification
+
+                                            </th>
 
                                         </tr>
 
@@ -919,9 +1015,17 @@
 
                                             <tr>
 
-                                                <td>{{ $spec['name'] ?? '' }}</td>
+                                                <td>
 
-                                                <td>{!! $spec['description'] ?? '' !!}</td>
+                                                    {{ $spec['name'] ?? '' }}
+
+                                                </td>
+
+                                                <td>
+
+                                                    {!! $spec['description'] ?? '' !!}
+
+                                                </td>
 
                                             </tr>
 
@@ -935,6 +1039,7 @@
 
                         </div>
 
+
                         <div class="col-md-6">
 
                             <div class="table-responsive rounded-3 overflow-hidden">
@@ -945,9 +1050,17 @@
 
                                         <tr>
 
-                                            <th scope="col">Parameter</th>
+                                            <th scope="col">
 
-                                            <th scope="col">Specification</th>
+                                                Parameter
+
+                                            </th>
+
+                                            <th scope="col">
+
+                                                Specification
+
+                                            </th>
 
                                         </tr>
 
@@ -959,9 +1072,17 @@
 
                                             <tr>
 
-                                                <td>{{ $spec['name'] ?? '' }}</td>
+                                                <td>
 
-                                                <td>{!! $spec['description'] ?? '' !!}</td>
+                                                    {{ $spec['name'] ?? '' }}
+
+                                                </td>
+
+                                                <td>
+
+                                                    {!! $spec['description'] ?? '' !!}
+
+                                                </td>
 
                                             </tr>
 
@@ -977,8 +1098,6 @@
 
                     @else
 
-                        <!-- Single Full Width Table -->
-
                         <div class="col-md-12">
 
                             <div class="table-responsive rounded-3 overflow-hidden">
@@ -989,9 +1108,17 @@
 
                                         <tr>
 
-                                            <th scope="col">Parameter</th>
+                                            <th scope="col">
 
-                                            <th scope="col">Specification</th>
+                                                Parameter
+
+                                            </th>
+
+                                            <th scope="col">
+
+                                                Specification
+
+                                            </th>
 
                                         </tr>
 
@@ -1003,9 +1130,17 @@
 
                                             <tr>
 
-                                                <td>{{ $spec['name'] ?? '' }}</td>
+                                                <td>
 
-                                                <td>{!! $spec['description'] ?? '' !!}</td>
+                                                    {{ $spec['name'] ?? '' }}
+
+                                                </td>
+
+                                                <td>
+
+                                                    {!! $spec['description'] ?? '' !!}
+
+                                                </td>
 
                                             </tr>
 
@@ -1024,9 +1159,6 @@
                 </div>
 
 
-
-                <!-- Table ke baad description dikhao agar hai -->
-
                 @if($hasTechDesc)
 
                     <div class="mt-5 text-center">
@@ -1037,11 +1169,7 @@
 
                 @endif
 
-
-
             @elseif($hasTechDesc)
-
-                <!-- Sirf description hai (specifications nahi) -->
 
                 <div class="mt-5 text-center">
 
@@ -1058,214 +1186,709 @@
 @endif
 
 
-
-
-
-
+{{-- =========================================================
+     KEY FEATURES
+========================================================= --}}
 
 @if($keyFeature?->description && trim(strip_tags($keyFeature->description)) !== '')
 
-<section class="section-mt">
+    <section class="section-mt">
 
-    <div class="container">
+        <div class="container">
 
-        <h3 class="main_head_48 head_wrapper mb-4">
+            <h3 class="main_head_48 head_wrapper mb-4">
 
-            {{ $keyFeature->title ?? 'Key Features' }}
+                {{ $keyFeature->title ?? 'Key Features' }}
 
-        </h3>
+            </h3>
 
-        {!! $keyFeature->description !!}
+            {!! $keyFeature->description !!}
 
-    </div>
+        </div>
 
-</section>
+    </section>
 
 @endif
 
 
+{{-- =========================================================
+     FAQ
+========================================================= --}}
 
 @if($faqs && $faqs->isNotEmpty())
 
-<section class="accoding section-pt">
+    <section class="accoding section-pt">
 
-    <div class="container">
+        <div class="container">
 
-        <div class="row justify-content-center">
+            <div class="row justify-content-center">
 
-            <div class="col-lg-9">
+                <div class="col-lg-9">
 
-                <div class="text-center">
+                    <div class="text-center">
 
-                    <h4 class="main_head_48 head_wrapper mb-4">
+                        <h4 class="main_head_48 head_wrapper mb-4">
 
-                        FAQs – {{ $product->product_name }}
+                            FAQs – {{ $product->product_name }}
 
-                    </h4>
+                        </h4>
 
-                </div>
-
-
-
-                <div id="accordionExample">
-
-                    @foreach($faqs as $key => $faq)
-
-                        <div class="mb-4">
-
-                            <h5 class="according_head {{ $key == 0 ? '' : 'collapsed' }}"
-
-                                data-bs-toggle="collapse"
-
-                                data-bs-target="#collapse{{ $key }}"
-
-                                aria-expanded="{{ $key == 0 ? 'true' : 'false' }}"
-
-                                aria-controls="collapse{{ $key }}">
-
-                                {{ $faq->question }}
-
-                            </h5>
+                    </div>
 
 
+                    <div id="accordionExample">
 
-                            <div id="collapse{{ $key }}"
+                        @foreach($faqs as $key => $faq)
 
-                                 class="accordion-collapse collapse {{ $key == 0 ? 'show' : '' }}"
+                            <div class="mb-4">
 
-                                 data-bs-parent="#accordionExample">
+                                <h5
 
-                                <div>
+                                    class="according_head {{ $key == 0 ? '' : 'collapsed' }}"
 
-                                    {!! $faq->answer !!}
+                                    data-bs-toggle="collapse"
+
+                                    data-bs-target="#collapse{{ $key }}"
+
+                                    aria-expanded="{{ $key == 0 ? 'true' : 'false' }}"
+
+                                    aria-controls="collapse{{ $key }}">
+
+                                    {{ $faq->question }}
+
+                                </h5>
+
+
+                                <div
+
+                                    id="collapse{{ $key }}"
+
+                                    class="accordion-collapse collapse {{ $key == 0 ? 'show' : '' }}"
+
+                                    data-bs-parent="#accordionExample">
+
+                                    <div>
+
+                                        {!! $faq->answer !!}
+
+                                    </div>
 
                                 </div>
 
                             </div>
 
-                        </div>
+                        @endforeach
 
-                    @endforeach
+                    </div>
 
                 </div>
-
-
 
             </div>
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 @endif
 
 
+{{-- =========================================================
+     RELATED PRODUCTS
+========================================================= --}}
 
- <?php
+<?php
 
-     $releted_count = $relatedProducts->count();
+    $releted_count = $relatedProducts->count();
 
- ?>
+?>
+
 
 @if($releted_count != 0)
 
     <section class="section-mt">
 
-    <div class="container">
+        <div class="container">
 
-        <div class="row justify-content-center my-lg-5">
+            <div class="row justify-content-center my-lg-5">
 
-            <div class="col-lg-8 ">
+                <div class="col-lg-8">
 
-                <h2 class="main_head_48 head_wrapper">Related Machines You May Like</h2>
+                    <h2 class="main_head_48 head_wrapper">
 
-                <p>Engineered for high-performance lamination, cutting, and recycling in heavy-duty tarpaulin production.</p>
+                        Related Machines You May Like
 
-            </div>
+                    </h2>
 
-            <div class="col-lg-4">
+                    <p>
 
-                @if($releted_count >= 3)
+                        Engineered for high-performance lamination, cutting, and recycling in heavy-duty tarpaulin production.
 
-                <div class="custom_arrow justify-content-md-end">
-
-                    <img src="{{ asset('public/front/img/arrow_left.svg') }}" alt="Previous" id="productprev" class="img-fluid product-prev">
-
-                    <img src="{{ asset('public/front/img/arrow_right.svg') }}" alt="Next" id="productnext" class="img-fluid product-next">
+                    </p>
 
                 </div>
 
-                @endif
 
-             </div>
+                <div class="col-lg-4">
+
+                    @if($releted_count >= 3)
+
+                        <div class="custom_arrow justify-content-md-end">
+
+                            <img
+
+                                src="{{ asset('public/front/img/arrow_left.svg') }}"
+
+                                alt="Previous"
+
+                                id="productprev"
+
+                                class="img-fluid product-prev">
+
+                            <img
+
+                                src="{{ asset('public/front/img/arrow_right.svg') }}"
+
+                                alt="Next"
+
+                                id="productnext"
+
+                                class="img-fluid product-next">
+
+                        </div>
+
+                    @endif
+
+                </div>
+
+            </div>
+
+
+            <div class="{{ $releted_count >= 3 ? 'product_list_slider owl-theme owl-carousel' : 'row row-cols-md-6 row-cols-lg-3' }} mt-3 mt-md-0">
+
+                @foreach($relatedProducts as $relatedProduct)
+
+                    @php
+
+                        $frontImg = $relatedProduct->front_image;
+
+                        $decoded = json_decode($frontImg, true);
+
+                        $frontImageFile =
+                            (json_last_error() === JSON_ERROR_NONE && is_array($decoded))
+                            ? ($decoded[0] ?? null)
+                            : $frontImg;
+
+                        $relatedImage =
+                            ($relatedProduct->media_type === 'video' && $relatedProduct->hero_thumbnail_image)
+
+                            ? asset($relatedProduct->hero_thumbnail_image)
+
+                            : asset('public/admin/product/front_image/' . $frontImageFile);
+
+                    @endphp
+
+
+                    <div class="product_card">
+
+                        <a href="{{ route('products.detail', $relatedProduct->url) }}">
+
+                            <img
+
+                                src="{{ $relatedImage }}"
+
+                                alt="{{ $relatedProduct->product_name }}"
+
+                                class="img-fluid product_card_img">
+
+                        </a>
+
+
+                        <div class="product-contant">
+
+                            <a href="{{ route('products.detail', $relatedProduct->url) }}">
+
+                                <h3 class="news-title">
+
+                                    {{ $relatedProduct->product_name }}
+
+                                </h3>
+
+                            </a>
+
+
+                            <span>
+
+                                <a
+
+                                    class="arrow_circle"
+
+                                    href="{{ route('products.detail', $relatedProduct->url) }}">
+
+                                    <img
+
+                                        src="{{ asset('public/front/img/arrow.png') }}"
+
+                                        alt="arrow"
+
+                                        class="img-fluid arrow_icon">
+
+                                </a>
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                @endforeach
+
+            </div>
 
         </div>
 
-         <div class="{{ $releted_count >= 3 ? 'product_list_slider owl-theme owl-carousel' : 'row row-cols-md-6 row-cols-lg-3' }} mt-3 mt-md-0">
-
-          @foreach($relatedProducts as $relatedProduct)
-            @php
-                    $frontImg = $relatedProduct->front_image;
-                    $decoded = json_decode($frontImg, true);
-                    $frontImageFile = (json_last_error() === JSON_ERROR_NONE && is_array($decoded))
-                        ? ($decoded[0] ?? null)
-                        : $frontImg;
-
-                    $relatedImage = ($relatedProduct->media_type === 'video' && $relatedProduct->hero_thumbnail_image)
-                        ? asset($relatedProduct->hero_thumbnail_image)
-                        : asset('public/admin/product/front_image/' . $frontImageFile);
-            @endphp
-            <div class="product_card">
-                    <a href="{{ route('products.detail', $relatedProduct->url) }}">
-                        <img src="{{ $relatedImage }}"
-                            alt="{{ $relatedProduct->product_name }}"
-                            class="img-fluid product_card_img">
-                    </a>
-                    <div class="product-contant">
-                        <a href="{{ route('products.detail', $relatedProduct->url) }}">
-                        <h3 class="news-title">{{ $relatedProduct->product_name }}</h3>
-                        </a>
-                        <span>
-                        <a class="arrow_circle" href="{{ route('products.detail', $relatedProduct->url) }}">
-                        <img src="{{ asset('public/front/img/arrow.png') }}" alt="arrow" class="img-fluid arrow_icon">
-                        </a>
-                        </span>
-                    </div>
-            </div>
-            @endforeach
-
-         </div>
-
-    </div>
-
-</section>
+    </section>
 
 @endif
 
 
-
-
-
-
-
 @include('layouts.frontfooter')
-{{-- @if($product->url === 'wide-width-flexo-printing-machine')
-    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script>
-        $(function () {
-            $('.installation-video-slider').slick({
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                arrows: false,
-                dots: false,
-                infinite: false,
-                autoplay: false,
-                draggable: false,
-                swipe: false,
-                touchMove: false
-            });
+
+
+{{-- =========================================================
+     INSTALLATION VIDEO SLIDER JAVASCRIPT
+     
+     IMPORTANT:
+     This JS only runs when 4+ videos exist.
+========================================================= --}}
+
+<script>
+
+$(document).ready(function () {
+
+    var $reelsSlider = $('.installation-video-slider');
+
+    /*
+    |--------------------------------------------------------------------------
+    | If there is no slider, stop here.
+    | For 1, 2 and 3 videos we don't initialize Owl Carousel.
+    |--------------------------------------------------------------------------
+    */
+
+    if (!$reelsSlider.length) {
+
+        return;
+
+    }
+
+
+    var $progressBar =
+        $('.installation-reels-progress-bar');
+
+    var $progressTrack =
+        $('.installation-reels-progress-track');
+
+
+    var BAR_WIDTH = 15;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Progress bar position
+    |--------------------------------------------------------------------------
+    */
+
+    function setBar(ratio) {
+
+        ratio = Math.min(
+            Math.max(ratio, 0),
+            1
+        );
+
+        $progressBar.css({
+
+            width: BAR_WIDTH + '%',
+
+            marginLeft:
+                (ratio * (100 - BAR_WIDTH)) + '%'
+
         });
-    </script>
-@endif --}}
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Initialize Owl Carousel
+    |--------------------------------------------------------------------------
+    */
+
+    $reelsSlider.owlCarousel({
+
+        loop: false,
+
+        margin: 20,
+
+        nav: false,
+
+        dots: false,
+
+        autoplay: false,
+
+        responsive: {
+
+            0: {
+
+                items: 2
+
+            },
+
+            576: {
+
+                items: 2
+
+            },
+
+            768: {
+
+                items: 3
+
+            },
+
+            992: {
+
+                items: 4
+
+            }
+
+        }
+
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Update progress when slider moves
+    |--------------------------------------------------------------------------
+    */
+
+    $reelsSlider.on(
+
+        'initialized.owl.carousel',
+
+        function (event) {
+
+            updateProgress(event);
+
+        }
+
+    );
+
+
+    $reelsSlider.on(
+
+        'changed.owl.carousel',
+
+        function (event) {
+
+            updateProgress(event);
+
+        }
+
+    );
+
+
+    $reelsSlider.on(
+
+        'refreshed.owl.carousel',
+
+        function (event) {
+
+            updateProgress(event);
+
+        }
+
+    );
+
+
+    function updateProgress(event) {
+
+        if (!event.item) {
+
+            return;
+
+        }
+
+
+        var total =
+            event.item.count;
+
+        var visible =
+            event.page.size || 1;
+
+
+        var maxIndex =
+            Math.max(
+                total - visible,
+                0
+            );
+
+
+        if (maxIndex === 0) {
+
+            setBar(0);
+
+            return;
+
+        }
+
+
+        var currentIndex =
+            event.item.index;
+
+
+        var ratio =
+            currentIndex / maxIndex;
+
+
+        setBar(ratio);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Progress bar -> Slider position
+    |--------------------------------------------------------------------------
+    */
+
+    var isDragging = false;
+
+
+    function getMaxIndex() {
+
+        var total =
+            $reelsSlider
+                .find('.owl-item')
+                .length;
+
+
+        var visible =
+            $reelsSlider
+                .find('.owl-item.active')
+                .length || 1;
+
+
+        return Math.max(
+            total - visible,
+            0
+        );
+
+    }
+
+
+    function ratioFromX(clientX) {
+
+        var trackOffset =
+            $progressTrack
+                .offset()
+                .left;
+
+
+        var trackWidth =
+            $progressTrack
+                .outerWidth();
+
+
+        var ratio =
+            (clientX - trackOffset)
+            / trackWidth;
+
+
+        return Math.min(
+            Math.max(ratio, 0),
+            1
+        );
+
+    }
+
+
+    function seek(clientX) {
+
+        var ratio =
+            ratioFromX(clientX);
+
+
+        setBar(ratio);
+
+
+        var maxIndex =
+            getMaxIndex();
+
+
+        var targetIndex =
+            Math.round(
+                ratio * maxIndex
+            );
+
+
+        $reelsSlider.trigger(
+
+            'to.owl.carousel',
+
+            [
+                targetIndex,
+                200,
+                true
+            ]
+
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Mouse click / drag
+    |--------------------------------------------------------------------------
+    */
+
+    $progressTrack.on(
+
+        'mousedown',
+
+        function (e) {
+
+            isDragging = true;
+
+            seek(e.clientX);
+
+        }
+
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Touch start
+    |--------------------------------------------------------------------------
+    */
+
+    $progressTrack.on(
+
+        'touchstart',
+
+        function (e) {
+
+            isDragging = true;
+
+
+            var touch =
+                e.originalEvent
+                    .touches[0];
+
+
+            seek(touch.clientX);
+
+        }
+
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Mouse move
+    |--------------------------------------------------------------------------
+    */
+
+    $(document).on(
+
+        'mousemove',
+
+        function (e) {
+
+            if (!isDragging) {
+
+                return;
+
+            }
+
+            seek(e.clientX);
+
+        }
+
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Touch move
+    |--------------------------------------------------------------------------
+    */
+
+    $(document).on(
+
+        'touchmove',
+
+        function (e) {
+
+            if (!isDragging) {
+
+                return;
+
+            }
+
+
+            var touch =
+                e.originalEvent
+                    .touches[0];
+
+
+            seek(touch.clientX);
+
+        }
+
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Mouse / touch end
+    |--------------------------------------------------------------------------
+    */
+
+    $(document).on(
+
+        'mouseup touchend',
+
+        function () {
+
+            isDragging = false;
+
+        }
+
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Window resize
+    |--------------------------------------------------------------------------
+    */
+
+    $(window).on(
+
+        'resize',
+
+        function () {
+
+            $reelsSlider.trigger(
+                'refresh.owl.carousel'
+            );
+
+        }
+
+    );
+
+});
+
+</script>
