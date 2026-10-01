@@ -188,17 +188,18 @@
                         <p>Plot No. A2/502-1, Opp. Indo German Tool Room, Phase-4, GIDC Estate, Vatva, Ahmedabad - 382445, Gujarat, India.</p>
                     </a>
                 </div>
-                <div>
+                <div> 
                     <h6 class="address_small_head">Unit 2</h6>
-                    <a href="https://www.google.com/maps/search/7603,+Phase+IV,+GIDC+Industrial+Estate,+Vatva,+Ahmedabad+-+382445,+Gujarat,+India./@22.9739435,72.6536447,12z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI1MDkxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank">
-                        <p>7603, Phase IV, GIDC Industrial Estate, Vatva, Ahmedabad - 382445, Gujarat, India.</p>
-                    </a>    
+                    <a href="https://maps.app.goo.gl/sLryFte18UtfgG8M8" target="_blank">
+                        <p>Panchratna Industrial Estate, Plot No. 10/5, Cross Road, Nr. Vatva GIDC, Phase IV, Ramol, Ahmedabad-382445, Gujarat, India.</p>
+                    </a>  
+                      
                 </div>
                  <div>
                     <h6 class="address_small_head">Unit 3</h6>
-                    <a href="https://maps.app.goo.gl/BekxXUXuvXGjEK5g8" target="_blank">
-                        <p>Panchratna Industrial Estate, Plot No. 10/5, Cross Road, Nr. Vatva GIDC, Phase IV, Ramol, Ahmedabad-382445, Gujarat, India.</p>
-                    </a>    
+                     <a href="https://www.google.com/maps/search/7603,+Phase+IV,+GIDC+Industrial+Estate,+Vatva,+Ahmedabad+-+382445,+Gujarat,+India./@22.9739435,72.6536447,12z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI1MDkxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank">
+                        <p>7603, Phase IV, GIDC Industrial Estate, Vatva, Ahmedabad - 382445, Gujarat, India.</p>
+                    </a>  
                 </div>
                 <!--<div>-->
                 <!--    <h6 class="address_small_head">Unit 3</h6>-->

@@ -44,8 +44,9 @@ use App\Http\Controllers\Web\VideoController;
 use App\Http\Controllers\Web\QuoteController;
 use App\Http\Controllers\Web\CareerController;
 use App\Http\Controllers\Web\LandingController;
-    
-    
+
+use App\Http\Controllers\SitemapController;
+
     
     Route::get('/clear-cache', function () {
         Artisan::call('config:clear');
@@ -57,6 +58,8 @@ use App\Http\Controllers\Web\LandingController;
         return 'All caches cleared and config re-cached.';
     });
 
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::post('/brochure-submit', [HomeController::class, 'brochureForm'])->name('front.brochure.submit');
 
 Route::post('/whatsaapinquiry', [HomeController::class, 'whatsaapinquiry'])->name('whatsaapinquiry');
     route::get('/', [HomeController::class, 'index'])->name('front.home');

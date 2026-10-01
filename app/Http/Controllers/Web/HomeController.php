@@ -586,7 +586,7 @@ public function productenquirystore(Request $request)
         return view('front.life-armstrong',compact('metatitle','metadescription','lifearmstrong'));
     }
     
-     public function whatsaapinquiry(Request $request)
+    public function whatsaapinquiry(Request $request)
     {
         WhatsappInquiry::create([
            
@@ -628,4 +628,66 @@ public function productenquirystore(Request $request)
         return back()->with('whatsapp_url', $whatsappUrl);
     }
 
+    // START - BROCHURE MODAL LOGIC TO STORE ENTRY INTO G-SHEET
+    public function brochureForm(Request $request)
+    {
+        $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/^[A-Za-z\s]+$/'
+            ],
+
+            'contact' => [
+                'required',
+                'digits_between:10,20'
+            ],
+
+            'email' => [
+                'nullable',
+                'email',
+                'max:255'
+            ],
+        ]);
+
+        $timestamp = Carbon::now()->format('Y-m-d H:i:s');
+
+        $sheetsData = [
+            'form_type' => 'Brochure Request',
+            'name'      => $request->name,
+            'contact'   => $request->contact,
+            'email'     => $request->email,
+            'date'       => $timestamp,
+        ];
+
+        try {
+
+            $response = Http::timeout(30)
+                ->withHeaders([
+                    'Content-Type' => 'application/json'
+                ])
+                ->post(
+                    'https://script.google.com/macros/s/AKfycbwLSt6-2tAYRHL3f9GpfClTbq9slI4aX4CepQwdIkNL2ENUNOjMF9egjYQVy2d1GN4C/exec',
+                    $sheetsData
+                );
+
+            Log::info('Brochure Google Sheet Response', [
+                'status' => $response->status(),
+                'body'   => $response->body(),
+                'data'   => $sheetsData,
+            ]);
+
+        } catch (\Exception $e) {
+
+            Log::error('Google Sheets Exception (Brochure Form):', [
+                'message'   => $e->getMessage(),
+                'data_sent' => $sheetsData
+            ]);
+
+        }
+
+        return redirect()->route('thankyou');
+    }
+    // END - BROCHURE MODAL LOGIC TO STORE ENTRY INTO G-SHEET
 }
