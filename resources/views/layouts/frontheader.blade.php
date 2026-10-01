@@ -287,7 +287,7 @@
                                         {{-- LEFT SIDE (Categories) --}}
                                         <div class="nav flex-column nav-pills col-lg-3 col-md-3 col-12" id="v-pills-tab"
                                             role="tablist" aria-orientation="vertical">
-                                            @foreach($product_categories as $index => $category)
+                                            @foreach($product_categories->sortBy('sort_order') as $index => $category)
                                             <button
                                                 class="d-none d-md-block nav-link category-btn @if($index == 0) active @endif"
                                                 data-id="{{ $category->id }}" type="button">
