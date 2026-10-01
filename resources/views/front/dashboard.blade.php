@@ -95,7 +95,7 @@ Team</span></div>
                 <a href="#" class="hn-btn hn-btn--line" data-bs-toggle="modal" data-bs-target="#exampleModal">Get A Quote <img src="{{ $hn }}/icons/arrow-sm-red.svg" alt=""></a>
             </div>
             <div class="hn-pgrid">
-                @foreach($category as $index => $cat)
+                @foreach($category->sortBy('sort_order') as $index => $cat)
                     <a href="{{ route('products.listing', $cat->url) }}" class="hn-pcard">
                         <span class="hn-pcard__media">
                             <img src="{{ asset('/' . $cat->category_image) }}" alt="{{ $cat->name }}" loading="lazy">
