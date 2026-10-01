@@ -28,7 +28,8 @@
             }, { passive: true });
             update();
         }
-
+        
+        
         /* ---- mobile / tablet mega-menu: single, reliable open/close ----
            The site's own main.js attaches TWO separate click handlers to nav-links
            (one bound only to the very first ".nav-link", one bound to every ".nav-link"
@@ -51,5 +52,6 @@
             });
             if (!wasOpen) menu.classList.add('active');
         }, true);
+        
     });
 })();

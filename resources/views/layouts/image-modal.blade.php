@@ -34,6 +34,24 @@
 .btn-close{
     height:10px!important;
     width:10px!important;
+    
+}
+
+ .modal_home_video .btn-close-white
+    {
+        position: absolute; right: 31px; top: 41px; z-index: 999; filter: invert(0) !important; opacity:1;
+    }
+
+
+@media (max-width:769px)
+{
+    
+    .modal_home_video .btn-close-white
+    {
+        right: 20px; top: 30px;
+    }
+    
+    
 }
 
 </style>
@@ -43,9 +61,9 @@
         <div class="modal-content" style="background: transparent; border: none;">
             <div class="modal-body p-0">
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" 
-                        style="position: absolute; right: 15px; top: 15px; z-index: 999; filter: invert(1) !important; opacity:1;"></button>
+                        ></button>
                 
-                  <img src="{{ asset('public/front/images/home-modal.png')}}" alt="Armstrong Event Image" class="img-fluid">
+                  <img src="{{ asset('public/front/images/home-modal.jpg')}}" alt="Armstrong Event Image" class="img-fluid">
             </div>
         </div>
     </div>
