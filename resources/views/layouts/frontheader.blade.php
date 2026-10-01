@@ -287,7 +287,7 @@
                                         {{-- LEFT SIDE (Categories) --}}
                                         <div class="nav flex-column nav-pills col-lg-3 col-md-3 col-12" id="v-pills-tab"
                                             role="tablist" aria-orientation="vertical">
-                                            @foreach($product_categories as $index => $category)
+                                            @foreach($product_categories->sortBy('sort_order') as $index => $category)
                                             <button
                                                 class="d-none d-md-block nav-link category-btn @if($index == 0) active @endif"
                                                 data-id="{{ $category->id }}" type="button">
@@ -336,42 +336,7 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- Special container for category 3 (FIBC & Woven Sack) -->
-
-                                                <!--<div id="special-category-container" class="row justify-content-between mt-5">-->
-                                                <!--     <div class="col-lg-6 mb-3">-->
-                                                <!--         <ul>-->
-                                                <!--             <h3 class="certi_head">FIBC Machines</h3>-->
-                                                <!--             <li>-->
-                                                <!--                 <a href="{{ route('products.special', 'armstrong-sewing-machines') }}">-->
-                                                <!--                     Armstrong Sewing Machines-->
-                                                <!--                 </a>-->
-                                                <!--             </li>-->
-                                                <!--             <li>-->
-                                                <!--                 <a href="{{ route('products.special', 'orsan-machines') }}">-->
-                                                <!--                     Orsan Machines-->
-                                                <!--                 </a>-->
-                                                <!--             </li>-->
-
-                                                <!--         </ul>-->
-                                                <!--     </div>-->
-                                                <!--     <div class="col-lg-6 mb-3">-->
-                                                <!--         <ul>-->
-                                                <!--             <h3 class="certi_head">Woven Sack Machines</h3>-->
-                                                <!--             <li>-->
-                                                <!--                 <a href="{{ route('products.special', 'newlong-machines') }}">-->
-                                                <!--                     NewLong Machine-->
-                                                <!--                 </a>-->
-                                                <!--             </li>-->
-                                                <!--             <li>-->
-                                                <!--                 <a href="{{ route('products.special', 'juki-machines') }}">-->
-                                                <!--                     Juki Machine-->
-                                                <!--                 </a>-->
-                                                <!--             </li>-->
-
-                                                <!--         </ul>-->
-                                                <!--     </div>-->
-                                                <!-- </div>-->
+                                            
                                                 <div id="special-category-container"
                                                     class="row justify-content-between mt-5">
                                                     <div class="col-lg-6 mb-3">
