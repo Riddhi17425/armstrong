@@ -3,7 +3,7 @@
     'og_image' => asset($product->images->first()->image ?? '')
 
 ])
-<style>
+{{-- <style>
   .product-reels-section {
     padding: 40px 0;
   }
@@ -41,9 +41,53 @@
       max-width: 180px;
     }
   }
+</style> --}}
+
+<style>
+  .product-reels-section {
+    padding: 40px 0;
+  }
+  .reels-title {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  .installation-video-slider .reel-card {
+    aspect-ratio: 9 / 16;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  }
+  .installation-video-slider .reel-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .installation-video-slider .owl-nav {
+    display: none;
+  }
+  .installation-reels-progress-track {
+    width: 100%;
+    max-width: 250px;
+    height: 4px;
+    background: #d9d9d9;
+    border-radius: 999px;;
+    margin: 20px auto 0;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+  .installation-reels-progress-bar {
+    height: 100%;
+    width: 15%;
+    background: #E41E29;
+    border-radius: 999px;;
+    transition: margin-left 0.3s ease;
+  }
 </style>
 
-@if(in_array($product->url, ['wide-width-flexo-printing-machine', 'mulch-film-punching-machine']))
+{{-- @if(in_array($product->url, ['wide-width-flexo-printing-machine', 'mulch-film-punching-machine']))
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <style>
@@ -53,7 +97,7 @@
             margin: 0 auto;
         }
     </style>
-@endif
+@endif --}}
 
 
 @php
@@ -514,9 +558,9 @@
 
 @if(!empty($installationVideos))
 <section class="product-reels-section">
-  <div class="container">
+  <div class="container position-relative">
     <h2 class="reels-title">{{ $product->product_name }} Installation &amp; Setup</h2>
-    <div class="product-reels-wrap">
+    <div class="installation-video-slider owl-carousel owl-theme">
       @foreach($installationVideos as $ivideo)
         <div class="reel-card">
           <video
@@ -529,8 +573,215 @@
         </div>
       @endforeach
     </div>
+    <div class="installation-reels-progress-track">
+      <div class="installation-reels-progress-bar"></div>
+    </div>
   </div>
 </section>
+
+{{-- <script>
+    $(function () {
+        var $reelsSlider = $('.installation-video-slider');
+        var $progressBar = $('.installation-reels-progress-bar');
+        var $progressTrack = $('.installation-reels-progress-track');
+
+        $reelsSlider.owlCarousel({
+            loop: false,
+            margin: 20,
+            nav: false,
+            dots: false,
+            responsive: {
+                0: { items: 2 },
+                576: { items: 2 },
+                768: { items: 3 },
+                992: { items: 4 }
+            }
+        });
+
+        function getTotals() {
+            var total = $reelsSlider.find('.owl-item').length;
+            var visible = $reelsSlider.find('.owl-item.active').length || 1;
+            return { total: total, visible: visible, maxIndex: Math.max(total - visible, 0) };
+        }
+
+        function updateReelsProgress() {
+            var $stage = $reelsSlider.find('.owl-stage');
+            var $outer = $reelsSlider.find('.owl-stage-outer');
+            if (!$stage.length || !$outer.length) return;
+
+            var stageWidth = $stage.width();
+            var outerWidth = $outer.width();
+            var maxScroll = stageWidth - outerWidth;
+
+            if (maxScroll <= 0) {
+                $progressBar.css({ width: '100%', marginLeft: '0%' });
+                return;
+            }
+
+            var transform = $stage.css('transform');
+            var translateX = 0;
+            if (transform && transform !== 'none') {
+                var match = transform.match(/matrix\(([^)]+)\)/);
+                if (match) {
+                    translateX = parseFloat(match[1].split(',')[4]) || 0;
+                }
+            }
+
+            var progress = Math.min(Math.max(Math.abs(translateX) / maxScroll, 0), 1);
+            var barWidthPercent = 8;
+            var leftPercent = progress * (100 - barWidthPercent);
+
+            $progressBar.css({
+                width: barWidthPercent + '%',
+                marginLeft: leftPercent + '%'
+            });
+        }
+
+        $reelsSlider.on(
+            'initialized.owl.carousel refreshed.owl.carousel translate.owl.carousel translated.owl.carousel',
+            updateReelsProgress
+        );
+        $(window).on('resize', updateReelsProgress);
+
+        // ----- Drag / tap on the progress track to seek (smooth, matches cursor exactly) -----
+        var isDragging = false;
+        var dragMaxScroll = 0;
+        var lastRatio = 0;
+
+        function dragToPosition(clientX) {
+            if (dragMaxScroll <= 0) return;
+
+            var trackOffset = $progressTrack.offset().left;
+            var trackWidth = $progressTrack.outerWidth();
+            var ratio = (clientX - trackOffset) / trackWidth;
+            ratio = Math.min(Math.max(ratio, 0), 1);
+            lastRatio = ratio;
+
+            var translateX = -ratio * dragMaxScroll;
+            $reelsSlider.find('.owl-stage').css('transform', 'translate3d(' + translateX + 'px, 0px, 0px)');
+
+            var barWidthPercent = 15;
+            var leftPercent = ratio * (100 - barWidthPercent);
+            $progressBar.css({
+                width: barWidthPercent + '%',
+                marginLeft: leftPercent + '%'
+            });
+        }
+
+        $progressTrack.on('mousedown touchstart', function (e) {
+            isDragging = true;
+
+            var $stage = $reelsSlider.find('.owl-stage');
+            var $outer = $reelsSlider.find('.owl-stage-outer');
+            dragMaxScroll = $stage.width() - $outer.width();
+
+            $stage.css('transition', 'none');
+
+            var clientX = e.type === 'touchstart' ? e.originalEvent.touches[0].clientX : e.clientX;
+            dragToPosition(clientX);
+        });
+
+        $(document).on('mousemove touchmove', function (e) {
+            if (!isDragging) return;
+            var clientX = e.type === 'touchmove' ? e.originalEvent.touches[0].clientX : e.clientX;
+            dragToPosition(clientX);
+        });
+
+        $(document).on('mouseup touchend', function () {
+            if (!isDragging) return;
+            isDragging = false;
+
+            $reelsSlider.find('.owl-stage').css('transition', '');
+
+            var t = getTotals();
+            var targetIndex = Math.round(lastRatio * t.maxIndex);
+
+            $reelsSlider.trigger('to.owl.carousel', [targetIndex, 200, true]);
+        });
+    });
+</script> --}}
+<script>
+    $(function () {
+        var $reelsSlider = $('.installation-video-slider');
+        var $progressBar = $('.installation-reels-progress-bar');
+        var $progressTrack = $('.installation-reels-progress-track');
+
+        var BAR_WIDTH = 15; // % — CSS wali value ke barabar
+
+        function setBar(ratio) {
+            ratio = Math.min(Math.max(ratio, 0), 1);
+            $progressBar.css({
+                width: BAR_WIDTH + '%',
+                marginLeft: (ratio * (100 - BAR_WIDTH)) + '%'
+            });
+        }
+
+        $reelsSlider.owlCarousel({
+            loop: false,
+            margin: 20,
+            nav: false,
+            dots: false,
+            responsive: {
+                0:   { items: 2 },
+                576: { items: 2 },
+                768: { items: 3 },
+                992: { items: 4 }
+            }
+        });
+
+        // Slide change hone pe bar update (index based)
+        $reelsSlider.on('initialized.owl.carousel changed.owl.carousel refreshed.owl.carousel', function (e) {
+            if (!e.item) return;
+            var total   = e.item.count;
+            var visible = e.page.size || 1;
+            var maxIndex = Math.max(total - visible, 0);
+
+            if (maxIndex === 0) {
+                setBar(0);
+                return;
+            }
+            setBar(e.item.index / maxIndex);
+        });
+
+        // ----- Track pe click / drag se seek -----
+        var isDragging = false;
+
+        function getMaxIndex() {
+            var total = $reelsSlider.find('.owl-item').length;
+            var visible = $reelsSlider.find('.owl-item.active').length || 1;
+            return Math.max(total - visible, 0);
+        }
+
+        function ratioFromX(clientX) {
+            var left = $progressTrack.offset().left;
+            var width = $progressTrack.outerWidth();
+            return Math.min(Math.max((clientX - left) / width, 0), 1);
+        }
+
+        function seek(clientX) {
+            var ratio = ratioFromX(clientX);
+            setBar(ratio);                                   // bar cursor ke saath chale
+            var targetIndex = Math.round(ratio * getMaxIndex());
+            $reelsSlider.trigger('to.owl.carousel', [targetIndex, 200, true]);
+        }
+
+        $progressTrack.on('mousedown touchstart', function (e) {
+            isDragging = true;
+            var x = e.type === 'touchstart' ? e.originalEvent.touches[0].clientX : e.clientX;
+            seek(x);
+        });
+
+        $(document).on('mousemove touchmove', function (e) {
+            if (!isDragging) return;
+            var x = e.type === 'touchmove' ? e.originalEvent.touches[0].clientX : e.clientX;
+            seek(x);
+        });
+
+        $(document).on('mouseup touchend', function () {
+            isDragging = false;
+        });
+    });
+</script>
 @endif
 
 
@@ -1000,7 +1251,7 @@
 
 
 @include('layouts.frontfooter')
-@if($product->url === 'wide-width-flexo-printing-machine')
+{{-- @if($product->url === 'wide-width-flexo-printing-machine')
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script>
         $(function () {
@@ -1017,4 +1268,4 @@
             });
         });
     </script>
-@endif
+@endif --}}
