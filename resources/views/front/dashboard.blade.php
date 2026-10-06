@@ -23,7 +23,8 @@
     $pct = fn($v, $base) => round($v / $base * 100, 3) . '%';
     $H = 222;
 @endphp
-<link rel="stylesheet" href="{{ $hn }}/css/home.css">
+<!--<link rel="stylesheet" href="{{ $hn }}/css/home.css">-->
+<link rel="stylesheet" href="{{ $hn }}/css/home.css?v=20261006">
 
 <main class="hn">
 
