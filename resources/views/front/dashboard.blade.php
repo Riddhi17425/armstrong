@@ -400,3 +400,11 @@ Team</span></div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="{{ $hn }}/js/home.js"></script>
 @include('layouts.frontfooter')
+<script>
+    // hero video: bind explicitly so it opens in the Fancybox popup on mobile too
+    document.addEventListener('DOMContentLoaded', function () {
+        if (window.Fancybox) {
+            Fancybox.bind('.hn-hero a.hn-play[data-fancybox]', {});
+        }
+    });
+</script>
