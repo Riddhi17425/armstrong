@@ -37,7 +37,7 @@
                     <p>Four decades of engineering. Machinery built for precision, <br>productivity and lasting performance.</p>
                 </div>
                 <div class="hn-hero__btns">
-                    <a href="{{ route('productlist') }}" class="hn-btn hn-btn--white">Explore Our Machines <img src="{{ $hn }}/icons/arrow-btn-dark.svg" alt=""></a>
+                    <a href="{{ route('productlist') }}" class="hn-btn hn-btn--white" style="var(--hn-dark);">Explore Our Machines <img src="{{ $hn }}/icons/arrow-btn-dark.svg" alt=""></a>
                     <a href="#" class="hn-btn hn-btn--ghost" data-bs-toggle="modal" data-bs-target="#exampleModal">Request a Quote <img src="{{ $hn }}/icons/arrow-sm-white.svg" alt=""></a>
                 </div>
             </div>
