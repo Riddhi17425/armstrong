@@ -23,7 +23,8 @@
     $pct = fn($v, $base) => round($v / $base * 100, 3) . '%';
     $H = 222;
 @endphp
-<link rel="stylesheet" href="{{ $hn }}/css/home.css">
+<!--<link rel="stylesheet" href="{{ $hn }}/css/home.css">-->
+<link rel="stylesheet" href="{{ $hn }}/css/home.css?v=20261006">
 
 <main class="hn">
 
@@ -36,7 +37,7 @@
                     <p>Four decades of engineering. Machinery built for precision, <br>productivity and lasting performance.</p>
                 </div>
                 <div class="hn-hero__btns">
-                    <a href="{{ route('productlist') }}" class="hn-btn hn-btn--white">Explore Our Machines <img src="{{ $hn }}/icons/arrow-btn-dark.svg" alt=""></a>
+                    <a href="{{ route('productlist') }}" class="hn-btn hn-btn--white" style="var(--hn-dark);">Explore Our Machines <img src="{{ $hn }}/icons/arrow-btn-dark.svg" alt=""></a>
                     <a href="#" class="hn-btn hn-btn--ghost" data-bs-toggle="modal" data-bs-target="#exampleModal">Request a Quote <img src="{{ $hn }}/icons/arrow-sm-white.svg" alt=""></a>
                 </div>
             </div>
@@ -400,3 +401,11 @@ Team</span></div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="{{ $hn }}/js/home.js"></script>
 @include('layouts.frontfooter')
+<script>
+    // hero video: bind explicitly so it opens in the Fancybox popup on mobile too
+    document.addEventListener('DOMContentLoaded', function () {
+        if (window.Fancybox) {
+            Fancybox.bind('.hn-hero a.hn-play[data-fancybox]', {});
+        }
+    });
+</script>
