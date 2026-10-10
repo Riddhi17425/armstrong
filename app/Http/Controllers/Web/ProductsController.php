@@ -21,19 +21,24 @@ class ProductsController extends Controller
         }])->where('url', $url)->firstOrFail();
         $products = $category->products;
         
-        if (isset($category) && ($category->id == 18 || $url == 'flexographic-printing')) {
-            $products = ProductMaster::whereIn('id', [
-                90, // Woven Sack Flexographic Printing Machine
-                116, // Wide Width Flexo Printing Machine
-                89, // Six Colors Roll to Roll Flexographic Printing Machine
-                72, // Six Color Flexo Printing Machine With Sheet Cutting Machine
-                30  // Flexographic Printing
-            ])
-            ->where('product_status', 'active')
-            ->where('is_live', 1)
-            ->with('images')
-            ->orderBy('product_name', 'asc')
-            ->get();
+        $categoryProductIds = null;
+        if ($category->id == 17 && $category->url == 'conveyor-machines') {
+            $categoryProductIds = [144, 145, 146, 147];
+        } else if ($category->id == 18 && $category->url == 'flexographic-printing') {
+            $categoryProductIds = [90, 116, 89, 72, 30];
+        } else if ($category->id == 19 && $category->url == 'bag-stitching-machines') {
+            $categoryProductIds = [55, 77, 78, 79, 80, 82, 83, 87, 88, 93, 149];
+        } else if ($category->id == 20 && $category->url == 'paper-sack-machines') {
+            $categoryProductIds = [66, 69, 116, 89, 72, 90, 30, 149];
+        }
+
+        if ($categoryProductIds !== null) {
+            $products = ProductMaster::whereIn('id', $categoryProductIds)
+                ->where('product_status', 'active')
+                ->where('is_live', 1)
+                ->with('images')
+                ->orderBy('product_name', 'asc')
+                ->get();
         }
         
        $faqs = [];

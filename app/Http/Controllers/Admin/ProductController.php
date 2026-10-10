@@ -825,24 +825,47 @@ class ProductController extends Controller
 
         $products = ProductMaster::where('product_status', 'Active')->where('is_live', 1);
 
-        if ($category->id == 18 && $category->url == 'flexographic-printing') {
-
+        if ($category->id == 17 && $category->url == 'conveyor-machines') {
             $products = $products->whereIn('id', [
-
-                90, // Woven Sack Flexographic Printing Machine
-
-                116, // Wide Width Flexo Printing Machine
-
-                89, // Six Colors Roll to Roll Flexographic Printing Machine
-
-                72, // Six Color Flexo Printing Machine With Sheet Cutting Machine
-
-                30, // Flexographic Printing
-
+                144, // Heavy Duty Bag Closing Machine AS-802BC-ATC
+                145, // NP-7A Portable Bag Closer
+                146, // Pedestal Column Bag Closing Machine AS 800/802
+                147, // Heavy Duty Bag Closing Machine with Column & Conveyor AS802
             ]);
-
+        }else if ($category->id == 18 && $category->url == 'flexographic-printing') {
+            $products = $products->whereIn('id', [
+                90, // Woven Sack Flexographic Printing Machine
+                116, // Wide Width Flexo Printing Machine
+                89, // Six Colors Roll to Roll Flexographic Printing Machine
+                72, // Six Color Flexo Printing Machine With Sheet Cutting Machine
+                30, // Flexographic Printing
+            ]);
+        }else if ($category->id == 19 && $category->url == 'bag-stitching-machines') {
+            $products = $products->whereIn('id', [
+                55, // Ultrasonic Woven Sacks Hemming Sewing Machine
+                77, // FIBC Big Bag Sewing Machine
+                78, // FIBC Bag Sewing Machine
+                79, // Big Bag Sewing Machine
+                80, // High-Speed Single Needle Union Feed Lockstitch Mac...
+                82, // Double Needle Four Thread Overlock & Chain Stitch Sewing Machine
+                83, // High-Speed Double Needle Four Thread Sewing Machine (BOPP/PP/HDPE/Paper Bags)
+                87, // Jumbo Bag Loop Sewing Machine
+                88, // Single Needle Double Thread Plain Feed Chain Stitch Sewing Machine
+                93, // The Single Needle Flat Bed Sewing Machine
+                149, // 502HD Bottom Sewing Machine with Auto Cutter
+            ]);
+        }else if ($category->id == 20 && $category->url == 'paper-sack-machines') {
+            $products = $products->whereIn('id', [
+                66, // PP Woven Bag Lamination Machine
+                69, // Tarpaulin Lamination Machine
+                116, // The Wide-Width Flexo Printing Machine
+                89, // Six Colours Roll-to-Roll Flexographic Cylinder Less Printing Machine
+                72, // Six Color Flexo Printing Machine with Sheet Cutting Machine
+                90, // Woven Sack Flexographic Printing Machine
+                30, // Flexographic FIBC Printing Machine
+                149, // 502HD Bottom Sewing Machine with Auto Cutter
+            ]);
         } else {
-
             $products = $products->where('category_id', $id);
 
         }
