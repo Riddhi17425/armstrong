@@ -462,6 +462,13 @@ header.hn-header .container {
     .hn-hero h1 { font-size: clamp(30px, 8.4vw, 40px); }
     .hn-hero__btns { flex-direction: column; align-items: stretch; gap: 14px; }
     .hn-hero__btns .hn-btn { justify-content: center; }
+    /* mobile order: heading/text -> play button -> CTA buttons */
+    .hn-hero .hn-wrap { display: flex; flex-direction: column; }
+    .hn-hero__content { display: contents; }
+    .hn-hero__text { order: 1; margin-bottom: 24px; }
+    .hn-hero .hn-play { display: flex; position: static; order: 2; width: 72px; height: 72px; margin: 0 auto 24px; }
+    .hn-hero__btns { order: 3; }
+    .hn-hero .hn-play img { width: 32px; height: 32px; }
     .hn-btn { font-size: 16px; }
     .hn-stats { margin-top: 50px; padding: 20px 14px; row-gap: 22px; column-gap: 10px; }
     .hn-stat { flex: 1 1 40%; gap: 10px; }

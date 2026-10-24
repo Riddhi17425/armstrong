@@ -212,22 +212,20 @@
 </head>
 
 <body>
-    <!-- <div id="loader">-->
-    <!--     <div class="loader-logo">Armstrong</div>-->
-    <!--     <div class="loader-bar"><span></span></div>-->
-    <!--</div>-->
-
-    <header @if(!empty($home_new)) class="hn-header" @endif>
+   <header @if(!empty($home_new)) class="hn-header" @endif>
         @if(!empty($home_new))
         <div class="hn-topbar">
             <div class="container">
                 <div class="hn-topbar__in">
                     <a class="hn-topbar__mail" href="mailto:inquiry@armstrongex.com"><img src="{{ asset('public/front/home-new/icons/hdr-mail.svg') }}" alt=""><span>inquiry@armstrongex.com</span></a>
                     <i class="hn-topbar__sep"></i>
-                    <a class="hn-topbar__btn" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#brochureModal">
-                        <img src="{{ asset('public/front/home-new/icons/hdr-download.svg') }}" alt="">
-                        <span>Brochure</span>
-                    </a>
+                    <a class="hn-topbar__btn" href="{{ asset('public/Armstrong_Brochure_2025.pdf') }}" target="_blank"><img src="{{ asset('public/front/home-new/icons/hdr-download.svg') }}" alt=""><span>Brochure</span></a>
+                    
+                    <!--<a class="hn-topbar__btn" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#brochureModal">-->
+                    <!--    <img src="{{ asset('public/front/home-new/icons/hdr-download.svg') }}" alt="">-->
+                    <!--    <span>Brochure</span>-->
+                    <!--</a>-->
+                    
                     <i class="hn-topbar__sep"></i>
                     <div class="hn-topbar__social">
                         <a href="https://www.facebook.com/armstrong.stitchman" target="_blank" aria-label="Facebook"><img src="{{ asset('public/front/home-new/icons/soc-facebook.png') }}" alt="facebook"></a>
@@ -262,6 +260,7 @@
                                     class="img-fluid setting-icon">
                             </a>
 
+
                             @php
                             use App\Models\ProductCategory;
                             use App\Models\ProductMaster;
@@ -287,7 +286,7 @@
                                         {{-- LEFT SIDE (Categories) --}}
                                         <div class="nav flex-column nav-pills col-lg-3 col-md-3 col-12" id="v-pills-tab"
                                             role="tablist" aria-orientation="vertical">
-                                            @foreach($product_categories as $index => $category)
+                                            @foreach($product_categories->sortBy('sort_order') as $index => $category)
                                             <button
                                                 class="d-none d-md-block nav-link category-btn @if($index == 0) active @endif"
                                                 data-id="{{ $category->id }}" type="button">
@@ -494,7 +493,7 @@
                                 </div>
                             </div>
                         </li>
-                         @if(isset($applications) && is_countable($applications) && count($applications) > 0)
+                        {{-- @if(isset($applications) && is_countable($applications) && count($applications) > 0)
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('front.application')}}">Applications
                             <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
@@ -529,8 +528,8 @@
 
                                 </div>
                             </div>
-                        </li>
-                        @endif 
+                        </li> 
+                        @endif --}} 
                         <!--<li class="nav-item">-->
                         <!--    <a class="nav-link" href="{{route('research.development')}}">R&D</a>-->
                         <!--</li>-->
@@ -723,7 +722,7 @@
     </header>
 
     @include('layouts.quote-modal')
-    <!--@include('layouts.image-modal')-->
+    @include('layouts.image-modal')
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
