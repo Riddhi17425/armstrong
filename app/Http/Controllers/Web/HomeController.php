@@ -535,7 +535,7 @@ public function productenquirystore(Request $request)
         try {
             $response = \Http::timeout(30)
                 ->withHeaders(['Content-Type' => 'application/json'])
-                ->post('https://script.google.com/macros/s/AKfycbwLSt6-2tAYRHL3f9GpfClTbq9slI4aX4CepQwdIkNL2ENUNOjMF9egjYQVy2d1GN4C/exec', $sheetData);
+                ->post('https://script.google.com/macros/s/AKfycbw49ndwOyK2RlEJg4ZgsEVjwsoT3ZlOPBO1Fkb8CwIqc2MnmRiUGvnryHSPDMbsX5Wvjw/exec', $sheetData);
 
             if ($response->successful()) {
                 \Log::info('✅ Google Sheet updated successfully', ['email' => $sheetData['email']]);
@@ -589,7 +589,6 @@ public function productenquirystore(Request $request)
     public function whatsaapinquiry(Request $request)
     {
         WhatsappInquiry::create([
-           
             'number'  => $request->number,
             'message'  => $request->message,
         ]);
@@ -608,7 +607,7 @@ public function productenquirystore(Request $request)
         // Send to Google Sheets
         try {
             Http::withHeaders(['Content-Type' => 'application/json'])
-                ->post('https://script.google.com/macros/s/AKfycbyiWRofXVf9V0lj8xKffnzl3ygyRIzPh_EJ2FvgPmClfgJWU0xHe0hE63BaLDCSVjfE/exec', 
+                ->post('https://script.google.com/macros/s/AKfycbyjaqcuLGOVmivDzQFLa-_eBBx2Ahd3NXNS3LNMdop-SaM_9gsHDihrIja29v08s_j0/exec', 
                     $sheetsData
                 );
         } catch (\Exception $e) {

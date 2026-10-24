@@ -143,3 +143,4 @@ class ProductMaster extends Model
     }
 
 }
+    

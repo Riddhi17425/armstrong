@@ -1664,7 +1664,7 @@ footer p {
 }
 
 .event-wrap img {
-  /*width: 50%;*/
+  width: 50%;
   border: 1px solid #DDDDDD;
   border-radius: 5px;
 }

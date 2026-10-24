@@ -80,7 +80,7 @@ class ContactController extends Controller
             
             try {
                 Http::timeout(5)->withHeaders(['Content-Type' => 'application/json'])
-                    ->post('https://script.google.com/macros/s/AKfycbwLSt6-2tAYRHL3f9GpfClTbq9slI4aX4CepQwdIkNL2ENUNOjMF9egjYQVy2d1GN4C/exec', $sheetData);
+                    ->post('https://script.google.com/macros/s/AKfycbw49ndwOyK2RlEJg4ZgsEVjwsoT3ZlOPBO1Fkb8CwIqc2MnmRiUGvnryHSPDMbsX5Wvjw/exec', $sheetData);
             } catch (\Exception $e) {
                 Log::error('Contact Form: Google Sheets API Exception (Async): ' . $e->getMessage());
             }

@@ -84,7 +84,7 @@ class QuoteController extends Controller
                 Http::timeout(30)
                     ->withHeaders(['Content-Type' => 'application/json'])
                     ->post(
-                        'https://script.google.com/macros/s/AKfycbwLSt6-2tAYRHL3f9GpfClTbq9slI4aX4CepQwdIkNL2ENUNOjMF9egjYQVy2d1GN4C/exec',
+                        'https://script.google.com/macros/s/AKfycbw49ndwOyK2RlEJg4ZgsEVjwsoT3ZlOPBO1Fkb8CwIqc2MnmRiUGvnryHSPDMbsX5Wvjw/exec',
                         [
                             'form_type'    => 'Header Form',
                             'name'         => $request->name ?? '',

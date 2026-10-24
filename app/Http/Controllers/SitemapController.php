@@ -27,6 +27,22 @@ class SitemapController extends Controller
         );
     }
 
+    /**
+     * Get valid sitemap lastmod date
+     */
+    protected function sitemapLastmod($date, $fallback)
+    {
+        try {
+            if (!empty($date)) {
+                return \Carbon\Carbon::parse($date)->toAtomString();
+            }
+        } catch (\Exception $e) {
+            // Use fallback date below
+        }
+
+        return $fallback;
+    }
+
     public function index()
     {
         $todayTime = now()->toAtomString();
@@ -56,7 +72,9 @@ class SitemapController extends Controller
             $xml .= '
             <url>
                 <loc>' . $this->xmlEscape($productUrl) . '</loc>
-                <lastmod>' . $this->xmlEscape(optional($product->updated_at)->toAtomString()) . '</lastmod>
+                <lastmod>' . $this->xmlEscape(
+                    $this->sitemapLastmod($product->updated_at, $todayTime)
+                ) . '</lastmod>
                 <priority>0.80</priority>
             </url>';
         }
@@ -68,8 +86,8 @@ class SitemapController extends Controller
             ->where('name', '!=', '')
             ->get();
 
-        foreach ($categories as $category) {
-
+        foreach ($categories as $category)
+        {
             $slug = \Illuminate\Support\Str::slug($category->name);
 
             $categoryUrl = route('products.listing', $slug);
@@ -77,7 +95,9 @@ class SitemapController extends Controller
             $xml .= '
             <url>
                 <loc>' . $this->xmlEscape($categoryUrl) . '</loc>
-                <lastmod>' . $this->xmlEscape(optional($category->updated_at)->toAtomString()) . '</lastmod>
+                <lastmod>' . $this->xmlEscape(
+                    $this->sitemapLastmod($category->updated_at, $todayTime)
+                ) . '</lastmod>
                 <priority>0.80</priority>
             </url>';
         }
@@ -89,8 +109,8 @@ class SitemapController extends Controller
             ->where('url', '!=', '')
             ->get();
 
-        foreach ($applications as $application) {
-
+        foreach ($applications as $application)
+        {
             $applicationUrl = route(
                 'front.application.details',
                 $application->url
@@ -99,11 +119,12 @@ class SitemapController extends Controller
             $xml .= '
             <url>
                 <loc>' . $this->xmlEscape($applicationUrl) . '</loc>
-                <lastmod>' . $this->xmlEscape(optional($application->updated_at)->toAtomString()) . '</lastmod>
+                <lastmod>' . $this->xmlEscape(
+                    $this->sitemapLastmod($application->updated_at, $todayTime)
+                ) . '</lastmod>
                 <priority>0.60</priority>
             </url>';
         }
-
 
         // STATIC PAGES
         $staticPages = [
@@ -136,21 +157,22 @@ class SitemapController extends Controller
             </url>';
         }
 
-
         // BLOG DETAIL PAGES
         $blogs = Blogs::where('status', 1)
             ->whereNotNull('url')
             ->where('url', '!=', '')
             ->get();
 
-        foreach ($blogs as $blog) {
-
+        foreach ($blogs as $blog)
+        {
             $blogUrl = route('blogs.detail', $blog->url);
 
             $xml .= '
             <url>
                 <loc>' . $this->xmlEscape($blogUrl) . '</loc>
-                <lastmod>' . $this->xmlEscape(optional($blog->updated_at)->toAtomString()) . '</lastmod>
+                <lastmod>' . $this->xmlEscape(
+                    $this->sitemapLastmod($blog->updated_at, $todayTime)
+                ) . '</lastmod>
                 <priority>0.60</priority>
             </url>';
         }
