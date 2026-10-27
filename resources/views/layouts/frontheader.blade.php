@@ -62,137 +62,139 @@
             .custom-placeholder {
                 display: none;
             }
+        }
 
+       .language-select  {
+            display: flex;
+            align-items: center;
+            border: 1px solid #DDDDDD;
+            border-radius: 5px;
+            padding: .4em 0;
+        }
+
+        .dropdown-wrapper {
+        position: relative;
+        width: 200px;
+        }
+
+        .dropdown-input-lan {
+        width: 100%;
+        border: none;
+        padding-left:10px;
+        cursor: pointer;
+        }
+
+        .dropdown-input-lan:focus {
+        outline: none;
+        border-color: unset;
+
+        }
+
+        .dropdown-list {
+        position: absolute;
+        top: 136%;
+        left: -50px;
+        right: -15px;
+        max-height: 250px;
+        overflow-y: auto;
+        background: #fff;
+        /*border: 1px solid #ddd;*/
+        /*border-radius: 6px;*/
+        z-index: 100;
+        display: none;
+        }
+
+        .dropdown-list.show {
+        display: block;
+        }
+
+        .dropdown-list .search-box {
+        padding: 6px 10px;
+        /*border-bottom: 1px solid #ddd;*/
+        /*background: #f9f9f9;*/
+        }
+
+        .dropdown-list .search-box input {
+        width: 100%;
+        padding: 6px 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        }
+
+        .dropdown-list .search-box input:focus {
+        outline: none;
+        border-color: none;
+        }
+
+        .dropdown-list .list-items div {
+        padding: 8px 12px;
+        cursor: pointer;
+        }
+
+        .dropdown-list .list-items div:hover {
+        background-color: #f1f1f1;
+        }
+
+        /* Hide Google Translate elements */
+        .goog-te-banner-frame,
+        .skiptranslate {
+            display: none !important;
+        }
+
+        body {top: 0 !important;}
+
+        /* Ensure dropdown remains untranslated */
+        .notranslate {translate: no;}
+
+        .skiptranslate {display: none !important;}
+        .modal-body .contact{border:none;padding:0;}
+        .select2-container--default .select2-selection--single{border:none;}
+
+        /* NEW CODE FOR First category red by default, hovered category red */
+        .category-btn.active .pagename span {
+            color: #E41E29 !important;
+        }
+        .category-btn .pagename span {
+            color: #333;
+            transition: color 0.2s ease;
+        }
+        .category-btn:hover .pagename span {
+            color: #E41E29 !important;
+        }
+
+        .application_header_link img
+        {
+            width: 80px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 4px;
+        }
+        .phone-icon{
+            display: flex;
+            align-content: center;
+            align-items: center;
+        }
+        .phone-icon p{
+            margin-bottom: 0;
+        }
+           .phone-icon .fas{
+            transform: rotate(90deg);
+        }
+            @media (max-width: 1537px) {
+                .application_header_link img {
+            width: 70px;
+
+        }
+            }
+            @media (max-width: 1441px) {
+                .application_header_link img {
+            width: 60px;
 
         }
 
 
-
-       .language-select  {
-        display: flex;
-        align-items: center;
-        border: 1px solid #DDDDDD;
-        border-radius: 5px;
-        padding: .4em 0;
-    }
-
-
-
-    .dropdown-wrapper {
-      position: relative;
-      width: 200px;
-    }
-
-    .dropdown-input-lan {
-      width: 100%;
-      border: none;
-      padding-left:10px;
-      cursor: pointer;
-    }
-
-
-
-    .dropdown-input-lan:focus {
-      outline: none;
-      border-color: unset;
-
-    }
-
-    .dropdown-list {
-      position: absolute;
-      top: 136%;
-      left: -50px;
-      right: -15px;
-      max-height: 250px;
-      overflow-y: auto;
-      background: #fff;
-      /*border: 1px solid #ddd;*/
-      /*border-radius: 6px;*/
-      z-index: 100;
-      display: none;
-    }
-
-    .dropdown-list.show {
-      display: block;
-    }
-
-    .dropdown-list .search-box {
-      padding: 6px 10px;
-      /*border-bottom: 1px solid #ddd;*/
-      /*background: #f9f9f9;*/
-    }
-
-    .dropdown-list .search-box input {
-      width: 100%;
-      padding: 6px 10px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .dropdown-list .search-box input:focus {
-      outline: none;
-      border-color: none;
-    }
-
-    .dropdown-list .list-items div {
-      padding: 8px 12px;
-      cursor: pointer;
-    }
-
-    .dropdown-list .list-items div:hover {
-      background-color: #f1f1f1;
-    }
-
-    /* Hide Google Translate elements */
-    .goog-te-banner-frame,
-    .skiptranslate {
-      display: none !important;
-    }
-
-    body {top: 0 !important;}
-
-    /* Ensure dropdown remains untranslated */
-    .notranslate {translate: no;}
-
-    .skiptranslate {display: none !important;}
-    .modal-body .contact{border:none;padding:0;}
-    .select2-container--default .select2-selection--single{border:none;}
-
-    /* NEW CODE FOR First category red by default, hovered category red */
-    .category-btn.active .pagename span {
-        color: #E41E29 !important;
-    }
-    .category-btn .pagename span {
-        color: #333;
-        transition: color 0.2s ease;
-    }
-    .category-btn:hover .pagename span {
-        color: #E41E29 !important;
-    }
-
-    .application_header_link img
-    {
-        width: 80px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        padding: 4px;
-    }
-
-    @media (max-width: 1537px) {
-        .application_header_link img {
-    width: 70px;
-
-}
-
-    @media (max-width: 1441px) {
-        .application_header_link img {
-    width: 60px;
-
-}
-
-
-    }
+        }
 
     </style>
 
@@ -227,11 +229,18 @@
                     <!--</a>-->
                     
                     <i class="hn-topbar__sep"></i>
-                    <div class="hn-topbar__social">
-                        <a href="https://www.facebook.com/armstrong.stitchman" target="_blank" aria-label="Facebook"><img src="{{ asset('public/front/home-new/icons/soc-facebook.png') }}" alt="facebook"></a>
-                        <a href="https://www.linkedin.com/company/armstrong-india/" target="_blank" aria-label="LinkedIn"><img src="{{ asset('public/front/home-new/icons/soc-linkedin.png') }}" alt="linkedin"></a>
-                        <a href="https://www.youtube.com/@armstrongmachineryllp1330" target="_blank" aria-label="YouTube"><img src="{{ asset('public/front/home-new/icons/soc-youtube.png') }}" alt="youtube"></a>
-                    </div>
+
+                    <div  class="phone-icon">
+                        <div class="hn-topbar__social hn-topbar__contact">
+                            <a href="tel:+916358820089" aria-label="Call +91 6358 820 089">
+                                <i class="fas fa-phone-alt"></i>
+                            </a>
+                        </div>
+                        <p>+91 6358 820 089</p>
+                    <div>
+                            
+                    
+
                 </div>
             </div>
         </div>
