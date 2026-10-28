@@ -16,12 +16,24 @@ class ProductsController extends Controller
     public function productsByCategory($url)
     {
         // Fetch category with products
-        $category = ProductCategory::with(['products' => function($query) {
-            $query->where('product_status', 'active')->where('is_live', 1)->with('images')->orderBy('product_name', 'asc');
+        $category = ProductCategory::with(['products' => function ($query) {
+            $query->where('product_status', 'active')
+                ->where('is_live', 1)
+                ->with('images')
+                ->orderByRaw("
+                    CASE
+                        WHEN product_name = 'Auto Labelling Machines for PP Woven Sacks for Bag Making & Bag Closing Industries'
+                        THEN 1
+                        ELSE 0
+                    END ASC
+                ")
+                ->orderBy('product_name', 'asc');
         }])->where('url', $url)->firstOrFail();
+
         $products = $category->products;
-        
+
         $categoryProductIds = null;
+
         if ($category->id == 17 && $category->url == 'conveyor-machines') {
             $categoryProductIds = [144, 145, 146, 147];
         } else if ($category->id == 18 && $category->url == 'flexographic-printing') {
@@ -37,28 +49,42 @@ class ProductsController extends Controller
                 ->where('product_status', 'active')
                 ->where('is_live', 1)
                 ->with('images')
+                ->orderByRaw("
+                    CASE
+                        WHEN product_name = 'Auto Labelling Machines for PP Woven Sacks for Bag Making & Bag Closing Industries'
+                        THEN 1
+                        ELSE 0
+                    END ASC
+                ")
                 ->orderBy('product_name', 'asc')
                 ->get();
         }
-        
-       $faqs = [];
+
+        $faqs = [];
+
         if (!empty($category->faqs)) {
-            $faqs = $category->faqs; 
+            $faqs = $category->faqs;
         }
-        
-        
-        
+
         $metatitle = $category->meta_title;
         $metadescription = $category->meta_description;
-        $productsForJs = $products->map(function($product) {
-            return [
-                    'name' => $product->product_name,
-                    'url'  => route('products.detail', $product->url),
-                    'image'=> asset($product->images->first()->image ?? ''),
-                ];
-            });
 
-        return view('front.product', compact('metatitle','metadescription','category', 'products' , 'productsForJs','faqs'));
+        $productsForJs = $products->map(function ($product) {
+            return [
+                'name'  => $product->product_name,
+                'url'   => route('products.detail', $product->url),
+                'image' => asset($product->images->first()->image ?? ''),
+            ];
+        });
+
+        return view('front.product', compact(
+            'metatitle',
+            'metadescription',
+            'category',
+            'products',
+            'productsForJs',
+            'faqs'
+        ));
     }
     
     public function detail($url)
