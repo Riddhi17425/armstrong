@@ -147,10 +147,10 @@ header.hn-header .mega_menu { top: 100%; }
         visibility: hidden;
         opacity: 0;
         pointer-events: none;
-        transform: translateY(14px);
+        transform: none;
         z-index: 5;
-        /* soft ease-out; short delay before closing = forgiving when the mouse briefly leaves the panel */
-        transition: opacity .35s ease, transform .35s cubic-bezier(.22, .61, .36, 1), visibility 0s linear .35s;
+        /* fade only (no slide), so two panels cross-fading never show two red top lines; short delay before closing = forgiving when the mouse briefly leaves the panel */
+        transition: opacity .3s ease, visibility 0s linear .3s;
     }
     header.hn-header .nav-item:hover > .mega_menu,
     header.hn-header .mega_menu:hover {
