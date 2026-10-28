@@ -870,7 +870,7 @@ class ProductController extends Controller
 
         }
 
-        $products = $products->orderBy('product_name', 'ASC')->get(['product_name', 'url']);
+        $products = $products->orderBy('product_name', 'ASC')->get(['product_name', 'url', 'front_image']);
 
         return response()->json([
 

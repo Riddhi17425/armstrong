@@ -219,42 +219,185 @@
         <div class="hn-topbar">
             <div class="container">
                 <div class="hn-topbar__in">
-                    <a class="hn-topbar__mail" href="mailto:inquiry@armstrongex.com"><img src="{{ asset('public/front/home-new/icons/hdr-mail.svg') }}" alt=""><span>inquiry@armstrongex.com</span></a>
-                    <i class="hn-topbar__sep"></i>
-                    <a class="hn-topbar__btn" href="{{ asset('public/Armstrong_Brochure_2025.pdf') }}" target="_blank"><img src="{{ asset('public/front/home-new/icons/hdr-download.svg') }}" alt=""><span>Brochure</span></a>
-                    
-                    <!--<a class="hn-topbar__btn" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#brochureModal">-->
-                    <!--    <img src="{{ asset('public/front/home-new/icons/hdr-download.svg') }}" alt="">-->
-                    <!--    <span>Brochure</span>-->
-                    <!--</a>-->
-                    
-                    <i class="hn-topbar__sep"></i>
-
-                    <div  class="phone-icon">
-                        <div class="hn-topbar__social hn-topbar__contact">
-                            <a href="tel:+916358820089" aria-label="Call +91 6358 820 089">
-                                <i class="fas fa-phone-alt"></i>
-                            </a>
+                    <a class="hn-topbar__brand" href="{{ url('/') }}"><img src="{{ asset('public/front/home-new/icons/hdr-logo-icon.svg') }}" alt="Armstrong" class="hn-topbar__logo-i"><img src="{{ asset('public/front/home-new/icons/hdr-logo-text.svg') }}" alt="Armstrong" class="hn-topbar__logo-t"></a>
+                    <form class="hn-topbar__search" id="hnSearchForm" action="{{ route('productlist') }}" method="get" autocomplete="off">
+                        <select aria-label="Category" id="hnSearchCat">
+                            <option value="">All Categories</option>
+                            @foreach(\App\Models\ProductCategory::where('status', 'Active')->orderBy('sort_order')->get() as $hnCat)
+                                <option value="{{ route('products.listing', $hnCat->url) }}" data-id="{{ $hnCat->id }}">{{ $hnCat->name }}</option>
+                            @endforeach
+                        </select>
+                        <input type="text" id="hnSearchQ" name="q" placeholder="Search Armstrong Machines" aria-label="Search">
+                        <button type="submit" aria-label="Search"><i class="fas fa-search"></i></button>
+                        <ul class="hn-topbar__results" id="hnSearchResults" hidden></ul>
+                    </form>
+                    <a class="hn-topbar__link" href="{{ asset('public/Armstrong_Brochure_2025.pdf') }}" target="_blank"><small>Download</small><b>Brochure</b></a>
+                    <a class="hn-topbar__icon" href="tel:+916358820089" aria-label="Call +91 6358 820 089"><i class="fas fa-phone-alt" aria-hidden="true"></i></a>
+                    <a class="hn-topbar__icon" href="mailto:inquiry@armstrongex.com" aria-label="Email inquiry@armstrongex.com"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+                    <div class="language-select hn-lang">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                            <path d="M16 28C18.66 27.9998 21.2446 27.1163 23.348 25.488C25.4515 23.8598 26.9546 21.5791 27.6213 19.004M16 28C13.34 27.9998 10.7554 27.1163 8.65197 25.488C6.54854 23.8598 5.04544 21.5791 4.37867 19.004M16 28C19.3133 28 22 22.6267 22 16C22 9.37334 19.3133 4 16 4M16 28C12.6867 28 10 22.6267 10 16C10 9.37334 12.6867 4 16 4M27.6213 19.004C27.868 18.044 28 17.0373 28 16C28.0033 13.9361 27.4718 11.9067 26.4573 10.1093M27.6213 19.004C24.0656 20.9752 20.0656 22.0064 16 22C11.784 22 7.82267 20.9133 4.37867 19.004M4.37867 19.004C4.12633 18.0226 3.9991 17.0133 4 16C4 13.86 4.56 11.8493 5.54267 10.1093M16 4C18.1283 3.99911 20.2186 4.56448 22.0563 5.63809C23.894 6.71169 25.4129 8.25489 26.4573 10.1093M16 4C13.8717 3.99911 11.7814 4.56448 9.94375 5.63809C8.10606 6.71169 6.58708 8.25489 5.54267 10.1093M26.4573 10.1093C23.5542 12.6239 19.8407 14.0055 16 14C12.0027 14 8.34667 12.5333 5.54267 10.1093" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <div class="dropdown-wrapper notranslate">
+                            <input type="text" id="dropdownInput" class="dropdown-input-lan" value="EN" aria-label="Select language" readonly>
+                            <div class="dropdown-list border rounded" id="dropdownList">
+                                <div class="search-box">
+                                    <input type="text" id="searchInput" placeholder="Search language...">
+                                </div>
+                                <div class="list-items" id="listItems"></div>
+                            </div>
                         </div>
-                        <p>+91 6358 820 089</p>
-                    <div>
-                            
-                    
-
+                        <div id="google_translate_element" style="display:none;"></div>
+                    </div>
                 </div>
             </div>
         </div>
+        <script>
+        // top-bar product search: live suggestions (all products, or only the selected category); Enter opens the best match
+        document.addEventListener('DOMContentLoaded', function () {
+            var form = document.getElementById('hnSearchForm');
+            if (!form) return;
+            var cat = document.getElementById('hnSearchCat');
+            var input = document.getElementById('hnSearchQ');
+            var list = document.getElementById('hnSearchResults');
+            var byCategory = {}, timer;
+
+            // themed dropdown drawn over the native select (the select stays in the form as the source of truth)
+            var wrap = document.createElement('div');
+            var btn = document.createElement('button');
+            var menu = document.createElement('ul');
+            wrap.className = 'hn-select';
+            btn.type = 'button';
+            btn.className = 'hn-select__btn';
+            btn.setAttribute('aria-haspopup', 'listbox');
+            menu.className = 'hn-select__list';
+            menu.setAttribute('role', 'listbox');
+            menu.hidden = true;
+
+            function setOpen(open) { menu.hidden = !open; btn.setAttribute('aria-expanded', open); }
+            function sync() {
+                btn.textContent = cat.options[cat.selectedIndex].textContent;
+                Array.prototype.forEach.call(menu.children, function (li, i) { li.classList.toggle('is-selected', i === cat.selectedIndex); });
+            }
+
+            Array.prototype.forEach.call(cat.options, function (opt, i) {
+                var li = document.createElement('li');
+                li.setAttribute('role', 'option');
+                li.tabIndex = -1;
+                li.textContent = opt.textContent;
+                li.addEventListener('click', function () {
+                    cat.selectedIndex = i;
+                    cat.dispatchEvent(new Event('change'));
+                    sync();
+                    setOpen(false);
+                    btn.focus();
+                });
+                li.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); li.click(); }
+                    else if (e.key === 'ArrowDown' && li.nextSibling) { e.preventDefault(); li.nextSibling.focus(); }
+                    else if (e.key === 'ArrowUp' && li.previousSibling) { e.preventDefault(); li.previousSibling.focus(); }
+                    else if (e.key === 'Escape') { setOpen(false); btn.focus(); }
+                });
+                menu.appendChild(li);
+            });
+
+            btn.addEventListener('click', function () {
+                setOpen(menu.hidden);
+                if (!menu.hidden) menu.children[cat.selectedIndex].focus();
+            });
+            cat.parentNode.insertBefore(wrap, cat);
+            wrap.appendChild(btn);
+            wrap.appendChild(menu);
+            wrap.appendChild(cat);
+            cat.hidden = true;
+            sync();
+
+            function fallbackUrl() { return cat.value || form.action; }
+
+            function findProducts(q) {
+                var id = cat.options[cat.selectedIndex].dataset.id;
+                if (!id) {
+                    return fetch('{{ route("products.search") }}?q=' + encodeURIComponent(q)).then(function (r) { return r.json(); });
+                }
+                byCategory[id] = byCategory[id] || fetch('{{ route("category.products", ":id") }}'.replace(':id', id))
+                    .then(function (r) { return r.json(); })
+                    .then(function (d) { return d.products || []; });
+                return byCategory[id].then(function (items) {
+                    return items
+                        .filter(function (p) { return p.product_name.toLowerCase().indexOf(q.toLowerCase()) !== -1; })
+                        .slice(0, 10)
+                        .map(function (p) {
+                            return {
+                                name: p.product_name,
+                                url: '{{ route("products.detail", ":url") }}'.replace(':url', p.url),
+                                image: p.front_image ? '{{ asset("public/admin/product/front_image") }}/' + p.front_image : ''
+                            };
+                        });
+                });
+            }
+
+            function render(items) {
+                list.innerHTML = '';
+                if (!items.length) {
+                    var empty = document.createElement('li');
+                    empty.className = 'hn-empty';
+                    empty.textContent = 'No matching products found';
+                    list.appendChild(empty);
+                }
+                items.forEach(function (p) {
+                    var li = document.createElement('li');
+                    var a = document.createElement('a');
+                    var thumb = document.createElement('span');
+                    var name = document.createElement('span');
+                    a.href = p.url;
+                    thumb.className = 'hn-thumb';
+                    if (p.image && p.image.indexOf('no-image') === -1) {
+                        var img = document.createElement('img');
+                        img.src = p.image;
+                        img.alt = '';
+                        img.loading = 'lazy';
+                        img.onerror = function () { img.remove(); };
+                        thumb.appendChild(img);
+                    }
+                    name.textContent = p.name;
+                    a.appendChild(thumb);
+                    a.appendChild(name);
+                    li.appendChild(a);
+                    list.appendChild(li);
+                });
+                list.hidden = false;
+            }
+
+            function search() {
+                var q = input.value.trim();
+                if (q.length < 2) { list.hidden = true; return Promise.resolve([]); }
+                return findProducts(q).then(function (items) { render(items); return items; }).catch(function () { return []; });
+            }
+
+            input.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(search, 250); });
+            cat.addEventListener('change', search);
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (!input.value.trim()) { window.location.href = fallbackUrl(); return; }
+                search().then(function (items) { window.location.href = items.length ? items[0].url : fallbackUrl(); });
+            });
+            document.addEventListener('click', function (e) {
+                if (!form.contains(e.target)) list.hidden = true;
+                if (!wrap.contains(e.target)) setOpen(false);
+            });
+        });
+        </script>
         @endif
         <nav class="navbar navbar-expand-lg navbar-white bg-white">
             <div class="container">
-                <a class="navbar-brand" href="{{url('/')}}">
+                <a class="navbar-brand @if(!empty($home_new)) d-lg-none @endif" href="{{url('/')}}">
                     @if(!empty($home_new))<img src="{{ asset('public/front/home-new/icons/hdr-logo-icon.svg') }}" alt="Armstrong" class="hn-logo-i"><img src="{{ asset('public/front/home-new/icons/hdr-logo-text.svg') }}" alt="Armstrong" class="hn-logo-t">@else<img src="{{asset('public/front/img/logo.svg')}}" alt="logo" class="img-fluid hed-logo1">
                     <img src="{{asset('public/front/img/armstrong_logo_header.svg')}}" alt="logo"
                         class="img-fluid hed-logo2">
                     @endif
                 </a>
-                <div class="hamburger" id="hamburger" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-                    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="hamburger" id="hamburger" @if(empty($home_new)) data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                    aria-controls="navbarTogglerDemo01" aria-expanded="false" @endif aria-label="Toggle navigation">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
@@ -264,7 +407,7 @@
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0  navbar-nav-scroll">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('productlist')}}">Products
+                            <a class="nav-link" href="{{route('productlist')}}">@if(!empty($home_new))All Categories @else Products @endif
                                 <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
                                     class="img-fluid setting-icon">
                             </a>
@@ -293,42 +436,32 @@
                                     <div class="d-flex align-items-start product_menu">
 
                                         {{-- LEFT SIDE (Categories) --}}
+                                        <button type="button" class="pm-arrow pm-arrow--prev" aria-label="Scroll categories left" hidden>&#8249;</button>
+                                        <button type="button" class="pm-arrow pm-arrow--next" aria-label="Scroll categories right" hidden>&#8250;</button>
                                         <div class="nav flex-column nav-pills col-lg-3 col-md-3 col-12" id="v-pills-tab"
                                             role="tablist" aria-orientation="vertical">
                                             @foreach($product_categories->sortBy('sort_order') as $index => $category)
                                             <button
                                                 class="d-none d-md-block nav-link category-btn @if($index == 0) active @endif"
-                                                data-id="{{ $category->id }}" type="button">
-                                                <a class="icon" href="{{ route('products.listing', $category->url) }}">
-                                                    <img src="{{ asset('/' . $category->category_small_image ?? 'public/front/img/cp.png') }}"
-                                                        alt="{{ $category->title }}" class="img-fluid">
+                                                data-id="{{ $category->id }}"
+                                                type="button">
+                                                <a class="icon" href="{{ route('products.listing', $category->url) }}" title="{{ $category->name }}">
+                                                    @if(!empty($category->category_small_image))
+                                                    <img src="{{ asset($category->category_small_image) }}" alt="" loading="lazy" width="40" height="40">
+                                                    @endif
                                                     <div class="pagename">
                                                         <span>
                                                             {{ $category->name }}
-                                                            @if($category->name == 'Mulch Film Punching' ||
-                                                            $category->name == 'Needle Loom')
-                                                            Machine
-
-                                                            @elseif($category->name=='Spare Parts')
-
-                                                            @else
-                                                            Machines
-                                                            @endif
                                                         </span>
                                                     </div>
                                                 </a>
+                                                <span class="pm-count" aria-hidden="true"></span>
                                             </button>
                                             <a class="icon d-block d-md-none"
                                                 href="{{ route('products.listing', $category->url) }}">
                                                 <div class="pagename">
                                                     <span>
                                                         {{ $category->name }}
-                                                        @if($category->name == 'Mulch Film Punching' || $category->name
-                                                        == 'Needle Loom')
-                                                        Machine
-                                                        @else
-                                                        Machines
-                                                        @endif
                                                     </span>
                                                 </div>
                                             </a>
@@ -337,7 +470,7 @@
                                         <div class="tab-content col-lg-9 d-none d-md-block">
                                             <div class="tab-pane fade show active">
                                                 <div class="row justify-content-between">
-                                                    <div class="col-lg-12">
+                                                    <div class="col-lg-12 pm-list-col">
                                                         <ul id="dynamic-product-list" class="two-col-product">
                                                             <li>Select a category to view products</li>
                                                         </ul>
@@ -496,6 +629,13 @@
                                                         </ul>
                                                     </div>
                                                 </div>
+                                                <div class="pm-help">
+                                                    <div class="pm-help__text">
+                                                        <strong>Not sure which machine fits your production line?</strong>
+                                                        <span>Talk to our experts for a free recommendation &middot; <a href="tel:+916358820089">+91 6358 820 089</a></span>
+                                                    </div>
+                                                    <a class="pm-help__btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#exampleModal">Request a Quote</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -542,43 +682,6 @@
                         <!--<li class="nav-item">-->
                         <!--    <a class="nav-link" href="{{route('research.development')}}">R&D</a>-->
                         <!--</li>-->
-                        <li class="nav-item">
-                            <a class="nav-link" onclick="avoid(0);" href="javascript:avoid(0);">Media
-                                <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"
-                                    class="img-fluid setting-icon">
-                            </a>
-                            <div class="mega_menu">
-                                <div class="container">
-                                    <div class="mega_menu_wrapper">
-                                        <div class="icons">
-                                            <a class="icon icon1" href="{{route('front.event')}}">
-                                                <img src="{{asset('public/front/img/Events.webp')}}" alt="cp"
-                                                    class="img-fluid d-none d-md-block">
-                                                <div class="pagename">
-                                                    <span>Events</span>
-                                                </div>
-                                            </a>
-                                            <a class="icon icon3 mb-0" href="{{route('front.video')}}">
-                                                <img src="{{asset('public/front/img/Videos.webp')}}" alt="cp"
-                                                    class="img-fluid d-none d-md-block">
-                                                <div class="pagename">
-                                                    <span>Videos</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="icons_bg">
-                                            <img src="{{asset('public/front/img/Media.webp')}}" alt="cp"
-                                                class=" img-fluid main-bg bd_10">
-                                            <img src="{{asset('public/front/img/event-banner.webp')}}" alt="cp"
-                                                class=" img-fluid main-bg1 bd_10">
-                                            <!--<img src="{{asset('public/front/img/gallery-banner.jpg')}}" alt="cp" class=" img-fluid main-bg2 bd_10">-->
-                                            <img src="{{asset('public/front/img/Media.webp')}}" alt="cp"
-                                                class=" img-fluid main-bg3 bd_10">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
                         <!--<li class="nav-item">-->
                         <!--    <a class="nav-link" href="{{route('career')}}">Careers-->
                         <!--        <img src="{{asset('public/front/img/setting_icon.svg')}}" alt="setting"-->
@@ -633,18 +736,11 @@
                                                     <span>Company Profile</span>
                                                 </div>
                                             </a>
-                                            <a class="icon  icon2" href="{{route('our.infrastructure')}}">
+                                            <a class="icon mb-0 icon2" href="{{route('our.infrastructure')}}">
                                                 <img src="{{asset('public/front/img/Our Infrastructure.webp')}}" alt="cp"
                                                     class="img-fluid d-none d-md-block">
                                                 <div class="pagename">
                                                     <span>Our Infrastructure</span>
-                                                </div>
-                                            </a>
-                                            <a class="icon mb-0  icon3" href="{{route('certificates')}}">
-                                                <img src="{{asset('public/front/img/Certificates.webp')}}" alt="cp"
-                                                    class="img-fluid d-none d-md-block">
-                                                <div class="pagename">
-                                                    <span>Certificates</span>
                                                 </div>
                                             </a>
                                         </div>
@@ -655,12 +751,19 @@
                                                 class=" img-fluid main-bg1 bd_10">
                                             <img src="{{asset('public/front/img/ABOUT.webp')}}" alt="cp"
                                                 class=" img-fluid main-bg2 bd_10">
-                                            <img src="{{asset('public/front/img/certificates-banner.webp')}}" alt="cp"
-                                                class=" img-fluid main-bg3 bd_10">
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('certificates')}}">Certificates</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('front.event')}}">Events</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('front.video')}}">Videos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('blog')}}">Blogs</a>
@@ -670,30 +773,6 @@
                         </li>
                     </ul>
                     <form class="d-flex mb-3 mb-lg-0">
-                        <div class="language-select me-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32"
-                                fill="none">
-                                <path
-                                    d="M16 28C18.66 27.9998 21.2446 27.1163 23.348 25.488C25.4515 23.8598 26.9546 21.5791 27.6213 19.004M16 28C13.34 27.9998 10.7554 27.1163 8.65197 25.488C6.54854 23.8598 5.04544 21.5791 4.37867 19.004M16 28C19.3133 28 22 22.6267 22 16C22 9.37334 19.3133 4 16 4M16 28C12.6867 28 10 22.6267 10 16C10 9.37334 12.6867 4 16 4M27.6213 19.004C27.868 18.044 28 17.0373 28 16C28.0033 13.9361 27.4718 11.9067 26.4573 10.1093M27.6213 19.004C24.0656 20.9752 20.0656 22.0064 16 22C11.784 22 7.82267 20.9133 4.37867 19.004M4.37867 19.004C4.12633 18.0226 3.9991 17.0133 4 16C4 13.86 4.56 11.8493 5.54267 10.1093M16 4C18.1283 3.99911 20.2186 4.56448 22.0563 5.63809C23.894 6.71169 25.4129 8.25489 26.4573 10.1093M16 4C13.8717 3.99911 11.7814 4.56448 9.94375 5.63809C8.10606 6.71169 6.58708 8.25489 5.54267 10.1093M26.4573 10.1093C23.5542 12.6239 19.8407 14.0055 16 14C12.0027 14 8.34667 12.5333 5.54267 10.1093"
-                                    stroke="#172A42" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                </path>
-                            </svg>
-
-
-                                <div class="ml-4">
-                                    <div class="dropdown-wrapper notranslate">
-                                    <input type="text" id="dropdownInput" class="dropdown-input-lan" placeholder="Select Language" readonly>
-                                    <div class="dropdown-list border rounded" id="dropdownList">
-                                      <div class="search-box">
-                                        <input type="text" id="searchInput" placeholder="Search language...">
-                                      </div>
-                                      <div class="list-items" id="listItems"></div>
-                                    </div>
-                                  </div>
-
-                                  <div id="google_translate_element" style="display:none;"></div
-                                </div>
-                            </div>
 
 
                         </div>
@@ -729,6 +808,84 @@
             </div>
         </nav>
     </header>
+
+    @if(!empty($home_new))
+    {{-- mobile / tablet drawer: category accordions (products load on first open) + page links --}}
+    <div class="hn-backdrop" id="hnBackdrop"></div>
+    <aside class="hn-drawer" id="hnDrawer" aria-label="Menu">
+        <div class="hn-drawer__head"><b>All Categories</b><button type="button" id="hnDrawerClose" aria-label="Close">&#10005;</button></div>
+        <div class="hn-drawer__body">
+            @foreach($product_categories->sortBy('sort_order') as $category)
+                @if(in_array($category->id, [3, 15]))
+                    <div class="hn-acc"><a href="{{ route('products.listing', $category->url) }}">{{ $category->name }}</a></div>
+                @else
+                    <div class="hn-acc" data-id="{{ $category->id }}">
+                        <button type="button">{{ $category->name }}</button>
+                        <div class="hn-acc__inner">
+                            <ul></ul>
+                            <a class="va" href="{{ route('products.listing', $category->url) }}">View all {{ $category->name }} &rarr;</a>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+            <div class="hn-drawer__links">
+                <a href="{{ route('about') }}">About Us</a>
+                <a href="{{ route('our.infrastructure') }}">Our Infrastructure</a>
+                <a href="{{ route('certificates') }}">Certificates</a>
+                <a href="{{ route('front.event') }}">Events</a>
+                <a href="{{ route('front.video') }}">Videos</a>
+                <a href="{{ route('blog') }}">Blogs</a>
+                <a href="{{ route('contact') }}">Contact Us</a>
+            </div>
+        </div>
+        <div class="hn-drawer__foot">
+            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#exampleModal" data-drawer-close>Request a Quote</a>
+            <a href="{{ asset('public/Armstrong_Brochure_2025.pdf') }}" target="_blank">Download Brochure</a>
+        </div>
+    </aside>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var drawer = document.getElementById('hnDrawer');
+        var backdrop = document.getElementById('hnBackdrop');
+        var burger = document.getElementById('hamburger');
+        if (!drawer || !burger) return;
+
+        function toggle(open) {
+            drawer.classList.toggle('on', open);
+            backdrop.classList.toggle('on', open);
+            document.body.style.overflow = open ? 'hidden' : '';
+        }
+        burger.addEventListener('click', function () { toggle(true); });
+        backdrop.addEventListener('click', function () { toggle(false); });
+        document.getElementById('hnDrawerClose').addEventListener('click', function () { toggle(false); });
+        drawer.querySelector('[data-drawer-close]').addEventListener('click', function () { toggle(false); });
+
+        Array.prototype.forEach.call(drawer.querySelectorAll('.hn-acc > button'), function (btn) {
+            btn.addEventListener('click', function () {
+                var acc = btn.parentElement, wasOpen = acc.classList.contains('on');
+                Array.prototype.forEach.call(drawer.querySelectorAll('.hn-acc.on'), function (a) { a.classList.remove('on'); });
+                if (wasOpen) return;
+                acc.classList.add('on');
+
+                var list = acc.querySelector('ul');
+                if (list.children.length) return;
+                fetch('{{ route("category.products", ":id") }}'.replace(':id', acc.getAttribute('data-id')))
+                    .then(function (r) { return r.json(); })
+                    .then(function (d) {
+                        (d.products || []).forEach(function (p) {
+                            var li = document.createElement('li');
+                            var a = document.createElement('a');
+                            a.href = '{{ route("products.detail", ":url") }}'.replace(':url', p.url);
+                            a.textContent = p.product_name;
+                            li.appendChild(a);
+                            list.appendChild(li);
+                        });
+                    });
+            });
+        });
+    });
+    </script>
+    @endif
 
     @include('layouts.quote-modal')
     @include('layouts.image-modal')
@@ -794,7 +951,7 @@ document.addEventListener("DOMContentLoaded", function () {
         div.dataset.code = lang.code;
         div.classList.add('notranslate'); // Prevent translation of list items
         div.addEventListener('click', () => {
-          dropdownInput.value = lang.name;
+          dropdownInput.value = lang.code.toUpperCase();
           dropdownList.classList.remove('show');
           changeLanguage(lang.code);
         });
@@ -814,10 +971,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Toggle dropdown
     dropdownInput.addEventListener('click', () => dropdownList.classList.toggle('show'));
+    document.querySelectorAll('.language-select').forEach(box => box.addEventListener('click', e => {
+      if (e.target !== dropdownInput && !e.target.closest('.dropdown-list')) dropdownList.classList.toggle('show');
+    }));
 
     // Close dropdown on click outside
     document.addEventListener('click', e => {
-      if (!e.target.closest('.dropdown-wrapper')) dropdownList.classList.remove('show');
+      if (!e.target.closest('.language-select')) dropdownList.classList.remove('show');
     });
 
     // Google Translate
@@ -882,7 +1042,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const langCode = cookie.split('=')[1].split('/')[2];
         const found = languages.find(l => l.code === langCode);
         if (found) {
-          dropdownInput.value = found.name; // Set dropdown to original English name
+          dropdownInput.value = found.code.toUpperCase();
         }
       }
       // Re-render the list to ensure it stays in English
@@ -1273,6 +1433,54 @@ document.addEventListener("DOMContentLoaded", function () {
             const specialCategoryContainer = document.querySelector('#special-category-container');
             const specialCategoryContainerspare = document.querySelector('#special-category-spare');
 
+            // ---- product search (filters the loaded list) + "View all" link of the active category ----
+            const pmHead = document.getElementById('pm-head');
+            const pmSearch = document.getElementById('pm-search');
+
+            function updateHead(categoryId, count) {
+                if (!pmHead) return;
+                const btn = document.querySelector('.category-btn[data-id="' + categoryId + '"]');
+                if (!btn) return;
+                const linkEl = btn.querySelector('a.icon');
+                const all = pmHead.querySelector('.pm-head__all');
+                if (all && linkEl) all.setAttribute('href', linkEl.getAttribute('href'));
+                if (pmSearch) {
+                    pmSearch.value = '';
+                    pmSearch.placeholder = (count === null || count === undefined) ? 'Search products...' : 'Search in ' + count + (count === 1 ? ' product' : ' products') + '...';
+                    pmSearch.closest('.pm-search').hidden = (count === null || count === undefined);
+                }
+            }
+
+            function filterProducts() {
+                if (!productListContainer || !pmSearch) return;
+                const q = pmSearch.value.trim().toLowerCase();
+                let shown = 0;
+                productListContainer.querySelectorAll('li[data-pm]').forEach(li => {
+                    const match = !q || li.textContent.toLowerCase().indexOf(q) !== -1;
+                    li.hidden = !match;
+                    if (match) shown++;
+                });
+                let empty = productListContainer.querySelector('li.pm-empty');
+                if (!shown && q) {
+                    if (!empty) {
+                        empty = document.createElement('li');
+                        empty.className = 'pm-empty';
+                        productListContainer.appendChild(empty);
+                    }
+                    empty.textContent = 'No matching products found';
+                } else if (empty) {
+                    empty.remove();
+                }
+            }
+
+            if (pmSearch) {
+                pmSearch.addEventListener('input', filterProducts);
+                pmSearch.addEventListener('keydown', function (e) { if (e.key === 'Escape') { this.value = ''; filterProducts(); } });
+            }
+
+            const pmCache = {};   // category URL -> products promise (a category is only fetched once)
+            let pmLast = 0, pmTimer;
+
             function loadProducts(categoryId) {
                 // Skip if APP_URLS is missing or empty
                 if (!window.APP_URLS
@@ -1282,8 +1490,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
 
+                const token = ++pmLast;   // lets a slow answer for an earlier category be ignored
+                const tc = document.querySelector('.product_menu .tab-content');
+                if (tc) tc.classList.remove('pm-loading');
+
                 // Special case for category ID 3 - show FIBC and Woven Sack machines
                 if (categoryId == 3) {
+                    updateHead(categoryId, null);
                     // Hide the dynamic product list
                     if (productListContainer) {
                         productListContainer.style.display = 'none';
@@ -1293,12 +1506,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (specialCategoryContainer) {
                         specialCategoryContainer.style.display = 'flex';
                     }
+                    if (specialCategoryContainerspare) {
+                        specialCategoryContainerspare.style.display = 'none';
+                    }
 
 
                     return; // Exit early for category 3
                 }
 
                 if (categoryId == 15) {
+                    updateHead(categoryId, null);
 
                     if (productListContainer) {
                         productListContainer.style.display = 'none';
@@ -1330,9 +1547,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 var url = window.APP_URLS.categoryProducts.replace(':id', categoryId);
 
-                fetch(url)
-                    .then(response => response.json())
+                if (!pmCache[url] && tc) tc.classList.add('pm-loading');   // dim the list until the new one arrives
+                (pmCache[url] = pmCache[url] || fetch(url).then(response => response.json()))
                     .then(data => {
+                        if (token !== pmLast) return;
+                        if (tc) tc.classList.remove('pm-loading');
                         if (!productListContainer) return; // skip if no container on page
 
                         if (data.error) {
@@ -1347,17 +1566,23 @@ document.addEventListener("DOMContentLoaded", function () {
                                     : '#';
                                 return `
                             <li>
-                                <a href="${productUrl}">
+                                <a href="${productUrl}" title="${product.product_name.replace(/"/g, '&quot;')}">
                                     ${product.product_name}
                                 </a>
                             </li>
                         `;
                             }).join('');
+                            productListContainer.querySelectorAll('li').forEach(li => li.setAttribute('data-pm', ''));
+                            updateHead(categoryId, data.products.length);
                         } else {
                             productListContainer.innerHTML = `<li>No products available</li>`;
+                            updateHead(categoryId, null);
                         }
                     })
                     .catch(error => {
+                        delete pmCache[url];
+                        if (token !== pmLast) return;
+                        if (tc) tc.classList.remove('pm-loading');
                         console.error('Error:', error);
                         if (productListContainer) {
                             productListContainer.innerHTML = `<li>Error loading products</li>`;
@@ -1385,7 +1610,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Remove active from all, add to hovered
                     categoryButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
-                    loadProducts(this.getAttribute('data-id'));
+                    // short hover-intent delay: sweeping across the list doesn't load every category on the way
+                    const id = this.getAttribute('data-id');
+                    clearTimeout(pmTimer);
+                    pmTimer = setTimeout(() => loadProducts(id), 120);
                 });
             });
 
@@ -1393,6 +1621,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const productMenu = document.querySelector('.product_menu');
             if (productMenu) {
                 productMenu.addEventListener('mouseleave', function () {
+                    clearTimeout(pmTimer);
                     categoryButtons.forEach(btn => btn.classList.remove('active'));
                     if (categoryButtons.length > 0) {
                         categoryButtons[0].classList.add('active');
@@ -1401,6 +1630,53 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }
             // NEW CODE END
+            // product counts next to each category (fetched once, when the Products menu is first opened)
+            (function () {
+                const item = document.querySelector('.product_menu') && document.querySelector('.product_menu').closest('.nav-item');
+                if (!item || !window.APP_URLS || !window.APP_URLS.categoryProducts) return;
+                let done = false;
+                item.addEventListener('mouseenter', function () {
+                    if (done) return;
+                    done = true;
+                    // one request at a time, so the counts never compete with the hover request for the product list
+                    const buttons = Array.prototype.filter.call(document.querySelectorAll('.category-btn[data-id]'), function (btn) {
+                        const id = btn.getAttribute('data-id');
+                        return btn.querySelector('.pm-count') && id != 3 && id != 15;
+                    });
+                    (function next(i) {
+                        if (i >= buttons.length) return;
+                        const badge = buttons[i].querySelector('.pm-count');
+                        const u = window.APP_URLS.categoryProducts.replace(':id', buttons[i].getAttribute('data-id'));
+                        (pmCache[u] = pmCache[u] || fetch(u).then(function (r) { return r.json(); }))
+                            .then(function (d) { if (d && d.products && d.products.length) badge.textContent = d.products.length; })
+                            .catch(function () { delete pmCache[u]; })
+                            .then(function () { next(i + 1); });
+                    })(0);
+                });
+            })();
+
+            // category strip: prev / next arrows (shown only while the strip overflows)
+            (function () {
+                const strip = document.getElementById('v-pills-tab');
+                const prev = document.querySelector('.pm-arrow--prev');
+                const next = document.querySelector('.pm-arrow--next');
+                if (!strip || !prev || !next) return;
+                function sync() {
+                    const max = strip.scrollWidth - strip.clientWidth;
+                    const overflow = max > 4;
+                    prev.hidden = !overflow || strip.scrollLeft <= 4;
+                    next.hidden = !overflow || strip.scrollLeft >= max - 4;
+                }
+                function step(dir) { strip.scrollBy({ left: dir * Math.max(240, strip.clientWidth * 0.6), behavior: 'smooth' }); }
+                prev.addEventListener('click', function () { step(-1); });
+                next.addEventListener('click', function () { step(1); });
+                strip.addEventListener('scroll', sync, { passive: true });
+                window.addEventListener('resize', sync);
+                // the mega menu is hidden until hovered, so measure again when it opens
+                const item = strip.closest('.nav-item');
+                if (item) item.addEventListener('mouseenter', function () { setTimeout(sync, 60); });
+                sync();
+            })();
 
         });
         window.ORSAN_PRODUCTS = @json($orsan_products -> map(function ($product) {

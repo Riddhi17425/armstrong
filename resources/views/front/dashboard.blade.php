@@ -7,24 +7,15 @@
     $hn = asset('public/front/home-new');
 
     // name, image, keyword (category match), x, y, w, h  -> px inside the 390x222 (spare parts: 790x222) image area of the Figma card
-    $products = [
-        ['FIBC Machines',                  'prod-fibc',        'fibc',     22, 47, 345, 139, 390],
-        ['Woven Sack Machines',            'prod-woven',       'woven',    22, 53, 345, 127, 390],
-        ['Sewing Machines',                'prod-sewing',      'sewing',   60, 14, 269, 206, 390],
-        ['Mulch Film Punching Machines',   'prod-mulch',       'mulch',    20, 38, 350, 158, 390],
-        ['Bag Closing Machines',           'prod-bagclosing',  'closing',  22, 23, 346, 187, 390],
-        ['Needle Loom Machines',           'prod-needleloom',  'needle',   36, 33, 318, 168, 390],
-        ['Tarpaulin Machines',             'prod-tarpaulin',   'tarpaulin',22, 17, 346, 200, 390],
-        ['Circular Loom Machines',         'prod-circular',    'circular', 27, 27, 336, 179, 390],
-        ['Conveyor Machines',              'prod-conveyor',    'conveyor', 137,25, 115, 184, 390],
-        ['Flexographic Printing Machines', 'prod-flexo',       'flexo',    20, 30, 349, 173, 390],
-        ['Spare Parts',                    'prod-spare',       'spare',    117,19, 555, 195, 790],
-    ];
+ 
     $pct = fn($v, $base) => round($v / $base * 100, 3) . '%';
     $H = 222;
+
+    // product-range images that come without a shadow of their own (they get a CSS one, see .hn-shadow)
+    $noShadow = ['bag-stitching-machines', 'paper-sack-machines', 'mulch-film-punching', 'conveyor-machines'];
 @endphp
 <!--<link rel="stylesheet" href="{{ $hn }}/css/home.css">-->
-<link rel="stylesheet" href="{{ $hn }}/css/home.css?v=20261006">
+<link rel="stylesheet" href="{{ $hn }}/css/home.css?v=20261031">
 
 <main class="hn">
 
@@ -41,11 +32,12 @@
                     <a href="#" class="hn-btn hn-btn--ghost" data-bs-toggle="modal" data-bs-target="#exampleModal">Request a Quote <img src="{{ $hn }}/icons/arrow-sm-white.svg" alt=""></a>
                 </div>
             </div>
-            <!--<a href="{{ asset('public/front/img/Armstrong_home_vid3.mp4') }}" class="hn-play" data-fancybox data-type="video" aria-label="Play video">-->
-            <!--    <img src="{{ $hn }}/icons/play.svg" alt="">-->
-            <a href="https://www.youtube.com/watch?v=YPjFZcE4aSU" class="hn-play" data-fancybox data-type="video" aria-label="Play video">
-                <img src="{{ $hn }}/icons/play.svg" alt="Armstrong | Global Manufacturer of FIBC, Woven Sack & Industrial Packaging Machinery">
-            </a>
+            <!-- <a href="{{ asset('public/front/img/Armstrong_home_vid3.mp4') }}" class="hn-play" data-fancybox data-type="video" aria-label="Play video">
+            <img src="{{ $hn }}/icons/play.svg" alt="">-->
+            {{-- background video: plays automatically (muted, looping), no play button / modal --}}
+            <div class="hn-hero__video" aria-hidden="true">
+                <video autoplay muted loop playsinline preload="metadata" poster="{{ $hn }}/images/hero-poster.webp" src="{{ asset('public/front/img/Armstrong_home_vid.webm') }}"></video>
+            </div>
         </div>
     </section>
 
@@ -73,7 +65,7 @@ Team</span></div>
                 <div class="hn-about__paras">
                     <p>Engineering precision, delivering excellence.Transforming the industrial packaging industry.</p>
                     <p>With over 40 years of experience in working for the industrial packaging industry, we are now a leading name as the top FIBC machine manufacturers in India. From FIBC machines and woven sack machinery to HDPE sack sewing solutions. Our FIBC machines are built for durability, precision, and efficiency.</p>
-                    <p>Every machine we deliver is designed, assembled, and tested in-house in our state-of-the-art workplace, meeting industrial standards for high-quality and powerful performance. Today we serve across 30 countries, not just with our machines, but even additional technical expertise through customization and after-sales support.</p>
+                    <p>Every machine we deliver is designed, assembled, and tested in-house in our state-of-the-art workplace, meeting industrial standards for high-quality and powerful performance. Today we serve across 70+ countries, not just with our machines, but even additional technical expertise through customization and after-sales support.</p>
                     <!-- <p>With over 40 years of experience in working for the industrial packaging industry, we are now a leading name as the top FIBC machine manufacturers in India. From FIBC machines and woven sack machinery to HDPE sack sewing solutions. Our FIBC machines are built for durability, precision, and efficiency.</p>
                     <p>Every machine we deliver is designed, assembled, and tested in-house in our state-of-the-art workplace, meeting industrial standards for high-quality and powerful performance. Today we serve across 30+ countries, not just with our machines, but even additional technical expertise through customization and after-sales support.</p> -->
                 </div>
@@ -96,28 +88,16 @@ Team</span></div>
                 <a href="#" class="hn-btn hn-btn--line" data-bs-toggle="modal" data-bs-target="#exampleModal">Get A Quote <img src="{{ $hn }}/icons/arrow-sm-red.svg" alt=""></a>
             </div>
             <div class="hn-pgrid">
-                @foreach($category->sortBy('sort_order') as $index => $cat)
+                @foreach($category->where('url', '!=', 'spare-parts')->sortBy('sort_order') as $index => $cat)
                     <a href="{{ route('products.listing', $cat->url) }}" class="hn-pcard">
                         <span class="hn-pcard__media">
-                            <img src="{{ asset('/' . $cat->category_image) }}" alt="{{ $cat->name }}" loading="lazy">
+                            <img src="{{ asset('/' . $cat->category_image) }}" alt="{{ $cat->name }}" loading="lazy"{!! in_array($cat->url, $noShadow) ? ' class="hn-shadow"' : '' !!}>
                         </span>
                         <span class="hn-pcard__bar"><b>{{ $cat->name }}</b><img src="{{ $hn }}/icons/card-arrow.svg" alt=""></span>
                     </a>
                 @endforeach
 
-                {{--@foreach($products as [$name, $img, $kw, $x, $y, $w, $h, $base])
-                    @php
-                        $cat = $category->first(fn($c) => \Illuminate\Support\Str::contains(strtolower($c->name ?? ''), $kw));
-                        $link = $cat ? route('products.listing', $cat->url) : route('productlist');
-                    @endphp
-                    <a href="{{ $link }}" class="hn-pcard {{ $base > 390 ? 'hn-pcard--wide' : '' }}">
-                        <span class="hn-pcard__media">
-                            <img src="{{ $hn }}/images/{{ $img }}.png" alt="{{ $name }}" loading="lazy"
-                                 style="--x:{{ $pct($x, $base) }};--y:{{ $pct($y, $H) }};--w:{{ $pct($w, $base) }};--h:{{ $pct($h, $H) }}">
-                        </span>
-                        <span class="hn-pcard__bar"><b>{{ $name }}</b><img src="{{ $hn }}/icons/card-arrow.svg" alt=""></span>
-                    </a>
-                @endforeach--}}
+              
             </div>
         </div>
     </section>
