@@ -293,7 +293,7 @@
              </a>
         </div>
     </div>
-<a  class="request_btn Brochurs_btn_side" href="{{ asset('public/Armstrong_Brochure_2025.pdf') }}" target="_blank">inquiry now</a>
+<a  class="" href="{{ asset('public/Armstrong_Brochure_2025.pdf') }}" target="_blank">inquiry now</a>
 
 
 <style>
