@@ -220,7 +220,6 @@ class SparePartsApiController extends Controller
     }
 
     // API 3: Get Single Spare Part Detail
-        // API 3: Get Single Spare Part Detail (static data)
     public function partDetails($partId)
     {
         $partId    = (int) $partId;
@@ -320,46 +319,56 @@ class SparePartsApiController extends Controller
             ], 422);
         }
 
-        // part id can also come from the interested_spareParts list
-        $partId = $input['part_id'] ?? ($input['interested_spareParts'][0]['id'] ?? null);
+        // accept different spellings of the parts list
+        $list = $input['interested_spareParts']
+            ?? $input['interested_spare_parts']
+            ?? $input['interestedSpareParts']
+            ?? [];
+        $first = (is_array($list) && isset($list[0]) && is_array($list[0])) ? $list[0] : [];
 
-        $machineId   = $input['machine_id'] ?? null;
+        // 1) values sent by the app always win
+        $partId      = $input['part_id']      ?? ($first['id'] ?? null);
+        $machineId   = $input['machine_id']   ?? null;
         $machineName = $input['machine_name'] ?? null;
-        $partNumber  = $input['part_number'] ?? null;
-        $partName    = $input['part_name'] ?? null;
+        $partNumber  = $input['part_number']  ?? ($first['name'] ?? null);
+        $partName    = $input['part_name']    ?? null;
 
-        // if the part exists, trust the database over what the app sent
-        if ($partId) {
+        // 2) only fill what is still missing, using our own data
+        if ($partId && (!$machineId || !$machineName || !$partNumber || !$partName)) {
             $mId = intdiv((int) $partId, 1000);
             $m   = DB::table('product_masters')->where('id', $mId)->first();
 
             if ($m) {
                 foreach ($this->staticParts($mId) as $p) {
                     if ($p['id'] === (int) $partId) {
-                        $machineId   = $mId;
-                        $machineName = $m->model_name;
-                        $partNumber  = $p['part_number'];
-                        $partName    = $p['title'];
+                        $machineId   = $machineId   ?: $mId;
+                        $machineName = $machineName ?: $m->model_name;
+                        $partNumber  = $partNumber  ?: $p['part_number'];
+                        $partName    = $partName    ?: $p['title'];
                         break;
                     }
                 }
             }
         }
 
+        if ($machineId && !$machineName) {
+            $machineName = DB::table('product_masters')->where('id', $machineId)->value('model_name');
+        }
+
         $id = DB::table('spare_part_inquiries')->insertGetId([
-            'purpose_of_inquiry'     => $input['purpose_of_inquiry'],
-            'full_name'              => trim($input['full_name']),
-            'mobile_number'          => $input['mobile_number'],
-            'email_id'               => $input['email_id'] ?? null,
-            'company_name'           => $input['company_name'] ?? null,
-            'inquiry_type'           => $input['inquiry_type'] ?? 'spare_part',
-            'machine_id'             => $machineId,
-            'machine_name'           => $machineName,
-            'part_id'                => $partId,
-            'part_number'            => $partNumber,
-            'part_name'              => $partName,
-            'created_at'             => now(),
-            'updated_at'             => now(),
+            'purpose_of_inquiry' => $input['purpose_of_inquiry'],
+            'full_name'          => trim($input['full_name']),
+            'mobile_number'      => $input['mobile_number'],
+            'email_id'           => $input['email_id'] ?? null,
+            'company_name'       => $input['company_name'] ?? null,
+            'inquiry_type'       => $input['inquiry_type'] ?? 'spare_part',
+            'machine_id'         => $machineId,
+            'machine_name'       => $machineName,
+            'part_id'            => $partId,
+            'part_number'        => $partNumber,
+            'part_name'          => $partName,
+            'created_at'         => now(),
+            'updated_at'         => now(),
         ]);
 
         // INQ-2026-0001 style code
