@@ -204,9 +204,6 @@
     {!! $localSchema !!}
     </script>
 
-    <script type="application/ld+json">
-    {!! $productSchema !!}
-    </script>
     @if(!empty($home_new))
     <link rel="stylesheet" href="{{ asset('public/front/home-new/css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('public/front/home-new/css/footer.css') }}">
