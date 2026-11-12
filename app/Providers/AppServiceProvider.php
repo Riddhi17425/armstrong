@@ -38,8 +38,8 @@ class AppServiceProvider extends ServiceProvider
             ],
             "geo" => [
                 "@type" => "GeoCoordinates",
-                "latitude" => 23.042932,
-                "longitude" => 72.5645506
+                "latitude" => 23.043262774846593,
+                "longitude" => 72.5669538386229
             ],
             "sameAs" => [
                 "https://www.facebook.com/armstrong.stitchman",
