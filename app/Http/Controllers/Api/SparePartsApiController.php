@@ -68,7 +68,7 @@ class SparePartsApiController extends Controller
     }
 
     // front_image may hold one path or a JSON list of paths; return the first as a full URL
-    private function imageUrl($value, string $baseFolder = 'admin/product/front_image/'): ?string
+    private function imageUrl($value, string $baseFolder = 'public/admin/product/front_image/'): ?string
     {
         if (empty($value)) {
             return null;
