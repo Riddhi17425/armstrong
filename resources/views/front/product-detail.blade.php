@@ -198,11 +198,44 @@
     }
 </style>
 
+{{-- START - PRODUCT SCHEMA --}}
+@php
+    $productSchema = [
+        "@context" => "https://schema.org/",
+        "@type" => "Product",
 
-{{-- =========================================================
-     FAQ SCHEMA
-========================================================= --}}
+        "name" => $product->product_name,
 
+        "image" => !empty($product->front_image)
+            ? asset('public/product-images/' . $product->front_image)
+            : asset('public/front/img/logo.svg'),
+
+        "description" => $product->meta_description,
+
+        "brand" => [
+            "@type" => "Brand",
+            "name" => "Armstrong"
+        ],
+
+        "aggregateRating" => [
+            "@type" => "AggregateRating",
+            "ratingValue" => "5.0",
+            "bestRating" => "5",
+            "worstRating" => "1",
+            "ratingCount" => "09"
+        ]
+    ];
+@endphp
+
+<script type="application/ld+json">
+    {!! json_encode(
+        $productSchema,
+        JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT
+    ) !!}
+</script>
+{{-- END - PRODUCT SCHEMA --}}
+
+{{-- START - FAQ SCHEMA --}}
 @php
 
     $faqSchemaEntities = [];
@@ -241,7 +274,6 @@
 
 @endphp
 
-
 @if(!empty($faqSchemaEntities))
 
     <script type="application/ld+json">
@@ -259,12 +291,11 @@
     </script>
 
 @endif
+{{-- END - FAQ SCHEMA --}}
 
-
+{{-- START - BAG TESTING MACHINE PRODUCT SCHEMA --}}
 @if($product->url == 'bag-testing-machine')
-
 <script type="application/ld+json">
-
     {
 
         "@@context": "https://schema.org/",
@@ -300,16 +331,11 @@
         }
 
     }
-
 </script>
-
 @endif
+{{-- END - BAG TESTING MACHINE PRODUCT SCHEMA --}}
 
-
-{{-- =========================================================
-     BREADCRUMB
-========================================================= --}}
-
+{{-- START - BREADCRUMB --}}
 <section class="breadcrumb_wrapper">
 
     <div class="container">
@@ -365,7 +391,7 @@
     </div>
 
 </section>
-
+{{-- END - BREADCRUMB --}}
 
 {{-- =========================================================
      PRODUCT TOP SECTION

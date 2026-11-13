@@ -212,16 +212,16 @@ overflow-wrap: break-word;
 word-break: normal;
 }
 
-.blog_detail_wrapper th:first-child,
+/* .blog_detail_wrapper th:first-child,
 .blog_detail_wrapper td:first-child {
 width: 35%;
-}
+} */
 
-.blog_detail_wrapper th:last-child,
+/* .blog_detail_wrapper th:last-child,
 .blog_detail_wrapper td:last-child {
 width: 65%;
-}
-}
+} */
+} 
 
 /* Small Mobile */
 @media (max-width: 480px) {

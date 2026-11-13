@@ -24,31 +24,18 @@ class AppServiceProvider extends ServiceProvider
             "@id" => $baseUrl . "/#business",
             "url" => $baseUrl . "/",
             "telephone" => "+91 63587 40011",
-            "priceRange" => "-",
+            "priceRange" => "₹₹",
             "address" => [
                 "@type" => "PostalAddress",
-                "streetAddress" => "6th Floor, SARAP Building, Opp. Navjivan Press, B/H Gujarat Vidyapith",
+                "streetAddress" => "Sarap Complex, 601, Navjeevan Marg, near Ashram Road, Sattar Taluka Society, Usmanpura",
                 "addressLocality" => "Ahmedabad",
-                "postalCode" => "380014",
+                "postalCode" => "380009",
                 "addressCountry" => "IN"
             ],
             "geo" => [
                 "@type" => "GeoCoordinates",
-                "latitude" => 22.97104358549153,
-                "longitude" => 72.64164987116435
-            ],
-            "openingHoursSpecification" => [
-                "@type" => "OpeningHoursSpecification",
-                "dayOfWeek" => [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                    "Saturday"
-                ],
-                "opens" => "09:00",
-                "closes" => "18:00"
+                "latitude" => 23.043262774846593,
+                "longitude" => 72.5669538386229
             ],
             "sameAs" => [
                 "https://www.facebook.com/armstrong.stitchman",
@@ -79,7 +66,6 @@ class AppServiceProvider extends ServiceProvider
 
         View::share([
             'localSchema' => json_encode($localSchema, JSON_UNESCAPED_SLASHES),
-            'productSchema' => json_encode($productSchema, JSON_UNESCAPED_SLASHES)
         ]);
     }
 }

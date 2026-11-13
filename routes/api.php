@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginApiController;
 use App\Http\Controllers\Api\ProductApiController;
 use App\Http\Controllers\Api\ApplicationApiController;
+use App\Http\Controllers\Api\SparePartsApiController;
 
 route::Post('/login' , [LoginApiController::class , 'login']);
 
@@ -18,3 +19,10 @@ Route::Post('/inquiry' , [ProductApiController::class , 'inquiryStore']);
 
 Route::get('/filter-list' , [ApplicationApiController::class , 'filterList']);
 Route::get('/filter-product' , [ProductApiController::class , 'FilterProduct']);
+
+Route::prefix('v1')->group(function () {
+    Route::get('/spare-parts/machines', [SparePartsApiController::class, 'machines']);
+    Route::get('/spare-parts/machines/{machine_id}/parts', [SparePartsApiController::class, 'machineParts'])->whereNumber('machine_id');
+    Route::get('/spare-parts/{part_id}', [SparePartsApiController::class, 'partDetails'])->whereNumber('part_id');
+    Route::post('/inquiry/submit', [SparePartsApiController::class, 'submitInquiry']);
+});
