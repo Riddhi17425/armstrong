@@ -145,7 +145,7 @@
                         </div>
                         <div class="better-living-divider"></div>
                         <div class="better-living-right">
-                            <img src="https://www.armstrongex.com/public/front/images/IIP%20logo.png" alt="IPMA Logo" class="img-fluid">
+                            <img src="{{ asset('public/front/images/IIP%20logo.png') }}" alt="IPMA Logo" class="img-fluid">
                         </div>
                     </div> -->
                     

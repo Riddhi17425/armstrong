@@ -73,7 +73,7 @@
       <div class="row gy-4 gy-lg-0 gx-lg-5 align-items-center">
          <div class="col-md-7">
                         <div class="text-center">
-                <img src="https://www.armstrongex.com/public/admin/uploads/products/product_1757489304_68c12898a7798.png" alt="product" class="img-fluid product_card_details_img">
+                <img src="{{ asset('public/admin/uploads/products/product_1757489304_68c12898a7798.png') }}" alt="product" class="img-fluid product_card_details_img">
             </div>
                     </div>
          <div class="col-md-5">
@@ -120,9 +120,9 @@
             </div>
             <div class="col-md-6">
                 <div class="video_card_top">
-                     <img src="https://www.armstrongex.com/public/admin/product/videos/images/1757584868_FIBC Fabric Cutting Machine.png" alt="FIBC Fabric Cutting Machine" class="img-fluid">
+                     <img src="{{ asset('public/admin/product/videos/images/1757584868_FIBC%20Fabric%20Cutting%20Machine.png') }}" alt="FIBC Fabric Cutting Machine" class="img-fluid">
                               <a href="https://www.youtube.com/watch?v=fd9_BsuzfLA" data-fancybox="video-gallery">
-                             <img class="play_btn" src="https://www.armstrongex.com/public/front/img/play-btn.png" alt="play">
+                             <img class="play_btn" src="{{ asset('public/front/img/play-btn.png') }}" alt="play">
                          </a>
                  </div>
             </div>
@@ -294,7 +294,7 @@
       <div class="how-slider owl-carousel ">
                    <div class="slide-content">
                <div class="image-circle">
-                  <img src="https://www.armstrongex.com/public/admin/application/textiles-non-woven-fabrics_68c11ac58cada.png" alt="textiles non Woven fabrics">
+                  <img src="{{ asset('public/admin/application/textiles-non-woven-fabrics_68c11ac58cada.png') }}" alt="textiles non Woven fabrics">
                </div>
                <div class="slide-text">
                   <h3>Textiles &amp; Non-Woven Fabrics</h3>
@@ -303,7 +303,7 @@
             </div>
                 <div class="slide-content">
                     <div class="image-circle">
-                       <img src="https://www.armstrongex.com/public/admin/application/packaging-logistics_68c11ad5563bd.png" alt="packaging logistics">
+                       <img src="{{ asset('public/admin/application/packaging-logistics_68c11ad5563bd.png') }}" alt="packaging logistics">
                     </div>
                     <div class="slide-text">
                        <h3>Packaging &amp; Logistics</h3>
@@ -312,7 +312,7 @@
                </div>
                <div class="slide-content">
                     <div class="image-circle">
-                       <img src="https://www.armstrongex.com/public/admin/application/specialty-powders-granules_68c120bb6ab85.png" alt="specialty powders granules">
+                       <img src="{{ asset('public/admin/application/specialty-powders-granules_68c120bb6ab85.png') }}" alt="specialty powders granules">
                     </div>
                     <div class="slide-text">
                        <h3>Specialty Powders &amp; Granules</h3>
@@ -321,7 +321,7 @@
                </div>
                <div class="slide-content">
                     <div class="image-circle">
-                       <img src="https://www.armstrongex.com/public/admin/application/agriculture_68c119c6b41eb.png" alt="agriculture">
+                       <img src="{{ asset('public/admin/application/agriculture_68c119c6b41eb.png') }}" alt="agriculture">
                     </div>
                     <div class="slide-text">
                        <h3>Agriculture</h3>
@@ -330,7 +330,7 @@
                </div>
                <div class="slide-content">
                     <div class="image-circle">
-                       <img src="https://www.armstrongex.com/public/admin/application/fertilizer-agrochemicals_68c11a8c73c18.png" alt="fertilizer agrochemicals">
+                       <img src="{{ asset('public/admin/application/fertilizer-agrochemicals_68c11a8c73c18.png') }}" alt="fertilizer agrochemicals">
                     </div>
                     <div class="slide-text">
                        <h3>Fertilizer &amp; Agrochemicals</h3>
@@ -339,7 +339,7 @@
                </div>
                <div class="slide-content">
                     <div class="image-circle">
-                       <img src="https://www.armstrongex.com/public/admin/application/plastics-polymers_68c11ab6019e1.png" alt="plastics polymers">
+                       <img src="{{ asset('public/admin/application/plastics-polymers_68c11ab6019e1.png') }}" alt="plastics polymers">
                     </div>
                     <div class="slide-text">
                        <h3>Plastics &amp; Polymers</h3>
@@ -349,8 +349,8 @@
            </div>    
       <!-- Custom Arrows -->
         <div class="custom_arrow">
-            <img src="https://www.armstrongex.com/public/front/img/arrow_left.svg" alt="Previous" class="img-fluid custom-prev">
-            <img src="https://www.armstrongex.com/public/front/img/arrow_right.svg" alt="Next" class="img-fluid custom-next">
+            <img src="{{ asset('public/front/img/arrow_left.svg') }}" alt="Previous" class="img-fluid custom-prev">
+            <img src="{{ asset('public/front/img/arrow_right.svg') }}" alt="Next" class="img-fluid custom-next">
         </div>
    </div>
 </section>

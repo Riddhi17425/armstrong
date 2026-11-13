@@ -113,7 +113,7 @@
             <div class="text-center mt-4">
 
                     
-                    <a class="request_btn"  href="https://www.armstrongex.com/public/Product-Catalogue.pdf" target="_blank">
+                    <a class="request_btn"  href="{{ asset('public/Product-Catalogue.pdf') }}" target="_blank">
                                       <svg class="me-1" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M6.14982 0H14.1738L20.9744 7.08846V20.8756C20.9744 22.6027 19.5771 24 17.8559 24H6.14982C4.42269 24 3.02539 22.6027 3.02539 20.8756V3.12443C3.02536 1.3973 4.42266 0 6.14982 0Z" fill="white"/>
 <path opacity="0.302" fill-rule="evenodd" clip-rule="evenodd" d="M14.168 0V7.03449H20.9746L14.168 0Z" fill="white"/>

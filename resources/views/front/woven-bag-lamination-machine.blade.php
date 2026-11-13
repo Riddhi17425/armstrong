@@ -116,9 +116,9 @@
          <div class="col-md-6">
              
             <div class="video_card_top">
-               <img src="https://www.armstrongex.com/public/admin/product/videos/images/1764154525_PP Woven Bag Lamination Machine 1.png" alt="" class="img-fluid">
+               <img src="{{ asset('public/admin/product/videos/images/1764154525_PP%20Woven%20Bag%20Lamination%20Machine%201.png') }}" alt="" class="img-fluid">
                <a href="https://youtu.be/Xblg7x0mCiA" data-fancybox="video-gallery">
-               <img class="play_btn" src="https://www.armstrongex.com/public/front/img/play-btn.png" alt="play">
+               <img class="play_btn" src="{{ asset('public/front/img/play-btn.png') }}" alt="play">
                </a>
             </div>
          </div>
@@ -269,7 +269,7 @@
        
                     <div class="slide-content">
                        <div class="image-circle">
-                          <img src="https://www.armstrongex.com/public/admin/application/food-processing_68c119dfd08c4.png" alt="textiles non Woven fabrics">
+                          <img src="{{ asset('public/admin/application/food-processing_68c119dfd08c4.png') }}" alt="textiles non Woven fabrics">
                        </div>
                        <div class="slide-text">
                           <h3>Food Processing</h3>
@@ -279,7 +279,7 @@
              
                     <div class="slide-content">
                        <div class="image-circle">
-                          <img src="https://www.armstrongex.com/public/admin/application/fertilizer-agrochemicals_68c11a8c73c18.png" alt="packaging logistics">
+                          <img src="{{ asset('public/admin/application/fertilizer-agrochemicals_68c11a8c73c18.png') }}" alt="packaging logistics">
                        </div>
                        <div class="slide-text">
                           <h3>Fertilizer & Agrochemicals</h3>
@@ -291,7 +291,7 @@
               
                     <div class="slide-content">
                        <div class="image-circle">
-                          <img src="https://www.armstrongex.com/public/admin/application/textiles-non-woven-fabrics_68c11ac58cada.png" alt="agriculture">
+                          <img src="{{ asset('public/admin/application/textiles-non-woven-fabrics_68c11ac58cada.png') }}" alt="agriculture">
                        </div>
                        <div class="slide-text">
                           <h3>Textiles & Non-Woven Fabrics</h3>
@@ -301,7 +301,7 @@
                
                     <div class="slide-content">
                        <div class="image-circle">
-                          <img src="https://www.armstrongex.com/public/admin/application/packaging-logistics_68c11ad5563bd.png" alt="fertilizer agrochemicals">
+                          <img src="{{ asset('public/admin/application/packaging-logistics_68c11ad5563bd.png') }}" alt="fertilizer agrochemicals">
                        </div>
                        <div class="slide-text">
                           <h3>Packaging & Logistics</h3>
@@ -311,7 +311,7 @@
               
                     <div class="slide-content">
                        <div class="image-circle">
-                          <img src="https://www.armstrongex.com/public/admin/application/construction-building-materials_68c11ae616023.png" alt="specialty powders granules">
+                          <img src="{{ asset('public/admin/application/construction-building-materials_68c11ae616023.png') }}" alt="specialty powders granules">
                        </div>
                        <div class="slide-text">
                           <h3>Construction & Building Materials</h3>
@@ -322,8 +322,8 @@
             
       <!-- Custom Arrows -->
         <div class="custom_arrow">
-            <img src="https://www.armstrongex.com/public/front/img/arrow_left.svg" alt="Previous" class="img-fluid custom-prev">
-            <img src="https://www.armstrongex.com/public/front/img/arrow_right.svg" alt="Next" class="img-fluid custom-next">
+            <img src="{{ asset('public/front/img/arrow_left.svg') }}" alt="Previous" class="img-fluid custom-prev">
+            <img src="{{ asset('public/front/img/arrow_right.svg') }}" alt="Next" class="img-fluid custom-next">
         </div>
    </div>
 </section>

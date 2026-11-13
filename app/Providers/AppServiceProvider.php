@@ -7,26 +7,22 @@ use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
+        $baseUrl = rtrim(url('/'), '/');
+
         $localSchema = [
             "@context" => "https://schema.org",
             "@type" => "LocalBusiness",
             "name" => "Armstrong",
-            "image" => "https://www.armstrongex.com/public/front/img/event-banner.webp",
-            "@id" => "https://www.armstrongex.com/#business",
-            "url" => "https://www.armstrongex.com/",
+            "image" => asset('public/front/img/event-banner.webp'),
+            "@id" => $baseUrl . "/#business",
+            "url" => $baseUrl . "/",
             "telephone" => "+91 63587 40011",
             "priceRange" => "-",
             "address" => [
@@ -66,9 +62,8 @@ class AppServiceProvider extends ServiceProvider
             "@context" => "https://schema.org/",
             "@type" => "Product",
             "name" => "Armstrong",
-            "image" => "https://www.armstrongex.com/public/front/img/logo.svg",
-            "description" => "Armstrong is a trusted manufacturer and exporter of finishing machinery and
-            spare parts for the PP/FIBC and woven sack industries.",
+            "image" => asset('public/front/img/logo.svg'),
+            "description" => "Armstrong is a trusted manufacturer and exporter of finishing machinery and spare parts for the PP/FIBC and woven sack industries.",
             "brand" => [
                 "@type" => "Brand",
                 "name" => "Armstrong"
@@ -78,11 +73,11 @@ class AppServiceProvider extends ServiceProvider
                 "ratingValue" => "5.0",
                 "bestRating" => "5",
                 "worstRating" => "1",
-                "ratingCount" => "09"
+                "ratingCount" => "9"
             ]
         ];
 
-         View::share([
+        View::share([
             'localSchema' => json_encode($localSchema, JSON_UNESCAPED_SLASHES),
             'productSchema' => json_encode($productSchema, JSON_UNESCAPED_SLASHES)
         ]);

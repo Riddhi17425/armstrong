@@ -78,7 +78,7 @@
     color: white;
     text-decoration: none;
     border-radius: 5px;"
-    href="https://www.armstrongex.com/public/Armstrong_Brochure_2025.pdf" target="_blank">
+    href="{{ asset('public/Armstrong_Brochure_2025.pdf') }}" target="_blank">
         <svg width="28" height="14" viewBox="0 0 28 14" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path d="M6.71029 12.2085L1.50196 7.00016M1.50196 7.00016L6.71029 1.79183M1.50196 7.00016H26.502"
