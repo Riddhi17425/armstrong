@@ -132,7 +132,7 @@ class SparePartsApiController extends Controller
                 'machine_id'  => $machineId,
                 'part_number' => 'SP-' . (50290 + $n),
                 'title'       => $title,
-                'image_url'   => $this->imageUrl('front/images/spare_parts/' . $image),
+                'image_url'   => $this->imageUrl('public/front/images/spare_parts/' . $image),
             ];
         }
 
