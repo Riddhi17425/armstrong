@@ -23,8 +23,8 @@ class SparePartsApiController extends Controller
             ->when($search !== '', function ($q) use ($search) {
                 $q->where(function ($q) use ($search) {
                     $q->where('p.product_name', 'like', "%{$search}%")
-                      ->orWhere('p.model_name', 'like', "%{$search}%")
-                      ->orWhere('c.name', 'like', "%{$search}%");   // also match category, e.g. "FIBC"
+                        ->orWhere('p.model_name', 'like', "%{$search}%")
+                        ->orWhere('c.name', 'like', "%{$search}%");   // also match category, e.g. "FIBC"
                 });
             })
             ->select([
@@ -39,35 +39,18 @@ class SparePartsApiController extends Controller
             ->orderBy('p.id')
             ->paginate($perPage);
 
-        // Load specifications for all machines on this page in ONE query
-        $ids   = collect($paginator->items())->pluck('id')->all();
-        $specs = DB::table('product_specifications')
-            ->whereIn('product_id', $ids)
-            ->orderBy('sort_order')
-            ->orderBy('id')
-            ->get()
-            ->groupBy('product_id');
-
-        $defaultSpecs = $this->defaultSpecifications();
-        $data = collect($paginator->items())->map(function ($m) use ($specs, $defaultSpecs) {
+        $data = collect($paginator->items())->map(function ($m) {
             $desc = $m->product_short_desc ?: $m->product_desc;
 
             return [
-                'id'                      => (int) $m->id,
-                'model_number'            => $m->model_name,
-                'title'                   => $m->model_name,
-                'subtitle'                => $m->product_name,
-                'category'                => $m->category_name,
-                'image_url'               => $this->imageUrl($m->front_image),
-                'total_parts_count'       => self::STATIC_PARTS_COUNT,
-                'description'             => trim(strip_tags(html_entity_decode((string) $desc))),
-                'overview_specifications' => isset($specs[$m->id])
-                    ? $specs[$m->id]->map(fn ($s) => [
-                        'attribute' => $s->attribute,
-                        'value_1'   => $s->value_1,
-                        'value_2'   => $s->value_2,
-                    ])->values()->all()
-                    : $defaultSpecs,
+                'id'                => (int) $m->id,
+                'model_number'      => $m->model_name,
+                'title'             => $m->model_name,
+                'subtitle'          => $m->product_name,
+                'category'          => $m->category_name,
+                'image_url'         => $this->imageUrl($m->front_image),
+                'total_parts_count' => self::STATIC_PARTS_COUNT,
+                'description'       => trim(strip_tags(html_entity_decode((string) $desc))),
             ];
         })->values()->all();
 
@@ -120,23 +103,8 @@ class SparePartsApiController extends Controller
         return url($encoded);
     }
 
-    private function defaultSpecifications(): array
-    {
-        return [
-            ['attribute' => 'Max Speed',     'value_1' => '2800',                        'value_2' => '2400'],
-            ['attribute' => 'Stitch Range',  'value_1' => '11-16 / 100 MM',              'value_2' => '8-14/100 MM'],
-            ['attribute' => 'Seam',          'value_1' => 'Double Thread',               'value_2' => 'Chain Stitch'],
-            ['attribute' => 'No. of Needle', 'value_1' => '2 Needle',                    'value_2' => '2 Needle'],
-            ['attribute' => 'No. of Thread', 'value_1' => '4 Thread',                    'value_2' => '4 Thread'],
-            ['attribute' => 'Needle Size',   'value_1' => 'DN X 1#25',                   'value_2' => 'DR X 2 # 26'],
-            ['attribute' => 'Lubrication',   'value_1' => '(Automatic oil bath system)', 'value_2' => '(Automatic oil bath system)'],
-            ['attribute' => 'Fabric',        'value_1' => 'For HDPE/PP',                 'value_2' => 'For Hessian/Tar laminated/Jute Bag'],
-        ];
-    }
-
     // API 2: Get Paginated Spare Parts List for a Machine
-
-        private const STATIC_PARTS_COUNT = 45;
+    private const STATIC_PARTS_COUNT = 45;
 
     // Static parts list (same for every machine). Replace with DB data later.
     private function staticParts(int $machineId): array
@@ -295,18 +263,19 @@ class SparePartsApiController extends Controller
         }
 
         $validator = Validator::make($input, [
-            'purpose_of_inquiry'    => 'required|in:New Setup,Replace Existing Machine,Seeking Automation,Just Exploring',
-            'full_name'             => 'required|string|max:255',
-            'mobile_number'         => ['required', 'regex:/^[0-9]{10}$/'],
-            'email_id'              => 'nullable|email|max:255',
-            'company_name'          => 'nullable|string|max:255',
-            'inquiry_type'          => 'nullable|string|max:50',
-            'machine_id'            => 'nullable|integer',
-            'machine_name'          => 'nullable|string|max:255',
-            'part_id'               => 'nullable|integer',
-            'part_number'           => 'nullable|string|max:255',
-            'part_name'             => 'nullable|string|max:255',
-            'interested_spareParts' => 'nullable|array',
+            'full_name'               => 'required|string|max:255',
+            'mobile_number'           => ['required', 'regex:/^[0-9]{10}$/'],
+            'email_id'                => 'nullable|email|max:255',
+            'company_name'            => 'nullable|string|max:255',
+            'designation'             => 'nullable|string|max:255',
+            'additional_requirements' => 'nullable|string|max:2000',
+            'inquiry_type'            => 'nullable|string|max:50',
+            'machine_id'              => 'nullable|integer',
+            'machine_name'            => 'nullable|string|max:255',
+            'part_id'                 => 'nullable|integer',
+            'part_number'             => 'nullable|string|max:255',
+            'part_name'               => 'nullable|string|max:255',
+            'interested_spareParts'   => 'nullable|array',
         ], [
             'mobile_number.regex' => 'Mobile number must be exactly 10 digits.',
         ]);
@@ -355,26 +324,35 @@ class SparePartsApiController extends Controller
             $machineName = DB::table('product_masters')->where('id', $machineId)->value('model_name');
         }
 
+        $fullName     = trim($input['full_name']);
+        $email        = $input['email_id'] ?? null;
+        $company      = $input['company_name'] ?? null;
+        $designation  = $input['designation'] ?? null;
+        $requirements = $input['additional_requirements'] ?? null;
+        $inquiryType  = $input['inquiry_type'] ?? 'spare_part';
+
         $id = DB::table('spare_part_inquiries')->insertGetId([
-            'purpose_of_inquiry' => $input['purpose_of_inquiry'],
-            'full_name'          => trim($input['full_name']),
-            'mobile_number'      => $input['mobile_number'],
-            'email_id'           => $input['email_id'] ?? null,
-            'company_name'       => $input['company_name'] ?? null,
-            'inquiry_type'       => $input['inquiry_type'] ?? 'spare_part',
-            'machine_id'         => $machineId,
-            'machine_name'       => $machineName,
-            'part_id'            => $partId,
-            'part_number'        => $partNumber,
-            'part_name'          => $partName,
-            'created_at'         => now(),
-            'updated_at'         => now(),
+            'full_name'               => $fullName,
+            'mobile_number'           => $input['mobile_number'],
+            'email_id'                => $email,
+            'company_name'            => $company,
+            'designation'             => $designation,
+            'additional_requirements' => $requirements,
+            'inquiry_type'            => $inquiryType,
+            'machine_id'              => $machineId,
+            'machine_name'            => $machineName,
+            'part_id'                 => $partId,
+            'part_number'             => $partNumber,
+            'part_name'               => $partName,
+            'created_at'              => now(),
+            'updated_at'              => now(),
         ]);
 
-        // INQ-2026-0001 style code
+        // INQ-2026-0001 style code (saved in the table, not returned in the response)
         $code = 'INQ-' . now()->year . '-' . str_pad($id, 4, '0', STR_PAD_LEFT);
         DB::table('spare_part_inquiries')->where('id', $id)->update(['inquiry_code' => $code]);
 
+        // response exactly as specified
         return response()->json([
             'status'     => true,
             'message'    => 'Inquiry submitted successfully',
