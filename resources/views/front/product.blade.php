@@ -247,7 +247,7 @@
                                          class="img-fluid w-100 h-100"
                                          alt="Armstrong Sewing Machine Manufacturing Plant">
                     
-                                    <img class="play_btn" src="https://www.armstrongex.com/public/front/img/play-btn.png" alt="play">
+                                    <img class="play_btn" src="{{ asset('public/front/img/play-btn.png') }}" alt="play">
                     
                                 </a>
                             </div>

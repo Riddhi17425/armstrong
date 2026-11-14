@@ -3,10 +3,8 @@
     'home_new' => true
 ])
 @php
-    /* All assets of the new home page live in public/front/home-new/{css,js,images,icons} */
     $hn = asset('public/front/home-new');
 
-    // name, image, keyword (category match), x, y, w, h  -> px inside the 390x222 (spare parts: 790x222) image area of the Figma card
     $products = [
         ['FIBC Machines',                  'prod-fibc',        'fibc',     22, 47, 345, 139, 390],
         ['Woven Sack Machines',            'prod-woven',       'woven',    22, 53, 345, 127, 390],
@@ -23,7 +21,6 @@
     $pct = fn($v, $base) => round($v / $base * 100, 3) . '%';
     $H = 222;
 @endphp
-<!--<link rel="stylesheet" href="{{ $hn }}/css/home.css">-->
 <link rel="stylesheet" href="{{ $hn }}/css/home.css?v=20261006">
 
 <main class="hn">
@@ -122,7 +119,6 @@ Team</span></div>
         </div>
     </section>
 
-    {{-- ================= PRECISION MANUFACTURING INFRASTRUCTURE ================= --}}
     <section class="hn-block hn-infra">
         <div class="hn-wrap">
             <div class="hn-head">
@@ -180,7 +176,7 @@ Team</span></div>
         </div>
     </section>
 
-    {{-- ================= FEATURED MACHINE ================= --}}
+    {{-- ========= FEATURED MACHINE ====}}
     <section class="hn-block hn-featured">
         <div class="hn-wrap">
             @php
@@ -402,7 +398,6 @@ Team</span></div>
 <script src="{{ $hn }}/js/home.js"></script>
 @include('layouts.frontfooter')
 <script>
-    // hero video: bind explicitly so it opens in the Fancybox popup on mobile too
     document.addEventListener('DOMContentLoaded', function () {
         if (window.Fancybox) {
             Fancybox.bind('.hn-hero a.hn-play[data-fancybox]', {});

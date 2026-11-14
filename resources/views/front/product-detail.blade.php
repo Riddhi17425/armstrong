@@ -1,7 +1,25 @@
+@php
+    $mainImagePath = $product->images->first()->image ?? null;
+
+    // Gallery image na ho to front_image use karo
+    if (!$mainImagePath && !empty($product->front_image)) {
+        $decodedFront = json_decode($product->front_image, true);
+        $frontFile = (json_last_error() === JSON_ERROR_NONE && is_array($decodedFront))
+            ? ($decodedFront[0] ?? null)
+            : $product->front_image;
+
+        if ($frontFile) {
+            $mainImagePath = 'public/admin/product/front_image/' . $frontFile;
+        }
+    }
+
+    $mainImageUrl = $mainImagePath
+        ? asset($mainImagePath)
+        : asset('public/front/img/no-image.png');
+@endphp
+
 @include('layouts.frontheader', [
-
-    'og_image' => asset($product->images->first()->image ?? '')
-
+    'og_image' => $mainImageUrl
 ])
 
 <style>
@@ -286,7 +304,7 @@
 
         "name": "Bag Testing Machine",
 
-        "image": "https://www.armstrongex.com/public/admin/uploads/products/bag-testing-machine.png",
+        "image": "{{ asset('public/admin/uploads/products/bag-testing-machine.png') }}",
 
         "description": "Armstrong Bag Testing Machine tests strength and durability of HDPE and PP bags, with load capacities of 50Kgf, 100Kgf, 250Kgf, 250Kgf, and above.",
 
@@ -486,14 +504,13 @@
                         <div class="text-center">
 
                             <img
+                            fetchpriority="high"
 
-                                fetchpriority="high"
+                            src="{{ $mainImageUrl }}"
 
-                                src="{{ asset($product->images->first()->image ?? '') }}"
-
-                                alt="{{$product->product_name}}"
-
-                                class="img-fluid product_card_details_img">
+                            alt="{{ $product->product_name }}"
+                            
+                            class="img-fluid product_card_details_img">
 
                         </div>
 

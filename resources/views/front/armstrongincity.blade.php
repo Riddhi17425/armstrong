@@ -121,7 +121,7 @@
       <div class="row gy-4 gy-lg-0 gx-lg-5 align-items-center">
          <div class="col-md-7">
             <div class="text-center">
-               <img src="https://www.armstrongex.com/public/admin/uploads/products/product_1757137429_68bbca15a0287.png" alt="product" class="img-fluid product_card_details_img">
+               <img src="{{ asset('public/admin/uploads/products/product_1757137429_68bbca15a0287.png') }}" alt="product" class="img-fluid product_card_details_img">
             </div>
          </div>
          <div class="col-md-5">
@@ -423,7 +423,7 @@
           
                <div class="product_card">
                      <a href="#">
-                        <img src="https://www.armstrongex.com/public/admin/product/front_image/WOVEN%20SACKS%20SEWING%20MACHINES_Model_%20Newlong%20DKN3WGP%20(2).png" alt="images" class="img-fluid product_card_img">
+                        <img src="{{ asset('public/admin/product/front_image/WOVEN%20SACKS%20SEWING%20MACHINES_Model_%20Newlong%20DKN3WGP%20(2).png') }}" alt="images" class="img-fluid product_card_img">
                      </a>
                      <div class="product-contant">
                         <a href="#">

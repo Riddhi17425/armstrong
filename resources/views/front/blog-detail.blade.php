@@ -274,13 +274,13 @@ padding: 8px;
     <div class="row mb-4 text-center">
         <div class="col-md-12">
             <div class="video_card_top">
-                <img src="https://www.armstrongex.com/public/admin/product/videos/images/1757588250_Armstrong%20BCS%20Machine.png"
+                    <img src="{{ asset('public/admin/product/videos/images/1757588250_Armstrong%20BCS%20Machine.png') }}"
                      alt="FIBC Fabric Cutting Machine"
                      class="img-fluid">
 
                 <a href="https://www.youtube.com/watch?v=5DbR-6W3giU" data-fancybox="video-gallery">
                     <img class="play_btn"
-                         src="https://www.armstrongex.com/public/front/img/play-btn.png"
+                         src="{{ asset('public/front/img/play-btn.png') }}"
                          alt="play">
                 </a>
             </div>
