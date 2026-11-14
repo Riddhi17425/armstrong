@@ -25,4 +25,5 @@ Route::prefix('v1')->group(function () {
     Route::get('/spare-parts/machines/{machine_id}/parts', [SparePartsApiController::class, 'machineParts'])->whereNumber('machine_id');
     Route::get('/spare-parts/{part_id}', [SparePartsApiController::class, 'partDetails'])->whereNumber('part_id');
     Route::post('/inquiry/submit', [SparePartsApiController::class, 'submitInquiry']);
+    Route::get('/spare-parts/master-dump', [SparePartsApiController::class, 'masterDump']);
 });

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
 
 class SparePartsApiController extends Controller
 {
@@ -357,6 +358,72 @@ class SparePartsApiController extends Controller
             'status'     => true,
             'message'    => 'Inquiry submitted successfully',
             'inquiry_id' => $code,
+        ], 200, [], JSON_UNESCAPED_SLASHES);
+    }
+
+    // Change this number whenever the spare parts data changes.
+    // The app compares it with its saved version to know if it must download again.
+    private const DUMP_VERSION = 101;
+
+    // API 5: Master dump for offline prefetching (all machines + all parts + part details)
+    public function masterDump()
+    {
+        // cached for 10 minutes, so repeated app downloads don't hit the database each time
+        $data = Cache::remember('spare_parts_master_dump_v' . self::DUMP_VERSION, 600, function () {
+
+            $machines = DB::table('product_masters as p')
+                ->leftJoin('product_categories as c', 'c.id', '=', 'p.category_id')
+                ->whereNull('p.deleted_at')
+                ->where('p.product_status', 'Active')
+                ->select([
+                    'p.id',
+                    'p.model_name',
+                    'p.product_name',
+                    'p.product_short_desc',
+                    'p.product_desc',
+                    'p.front_image',
+                    'c.name as category_name',
+                ])
+                ->orderBy('p.id')
+                ->get();
+
+            $partDesc  = $this->defaultPartDescription();
+            $partSpecs = $this->defaultPartSpecifications();
+
+            return $machines->map(function ($m) use ($partDesc, $partSpecs) {
+                $desc = $m->product_short_desc ?: $m->product_desc;
+
+                $parts = array_map(function ($p) use ($partDesc, $partSpecs) {
+                    return [
+                        'id'             => $p['id'],
+                        'machine_id'     => $p['machine_id'],
+                        'part_number'    => $p['part_number'],
+                        'title'          => $p['title'],
+                        'image_url'      => $p['image_url'],
+                        'description'    => $partDesc,
+                        'specifications' => $partSpecs,
+                    ];
+                }, $this->staticParts((int) $m->id));
+
+                return [
+                    'id'                => (int) $m->id,
+                    'model_number'      => $m->model_name,
+                    'title'             => $m->model_name,
+                    'subtitle'          => $m->product_name,
+                    'category'          => $m->category_name,
+                    'image_url'         => $this->imageUrl($m->front_image),
+                    'total_parts_count' => count($parts),
+                    'description'       => trim(strip_tags(html_entity_decode((string) $desc))),
+                    'parts'             => $parts,
+                ];
+            })->values()->all();
+        });
+
+        return response()->json([
+            'status'  => true,
+            'message' => 'Spare parts master dump fetched successfully',
+            'version' => self::DUMP_VERSION,
+            'data'    => $data,
         ], 200, [], JSON_UNESCAPED_SLASHES);
     }
 }
