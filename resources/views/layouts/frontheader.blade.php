@@ -898,12 +898,10 @@ document.addEventListener("DOMContentLoaded", function () {
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <!----------------->
 
-
     <script>
         let headerCaptchaId, careerCaptchaId, noVacancyCaptchaId;
 
         window.onCaptchasLoad = function () {
-
 
             // request form
             if (document.getElementById('headerCaptcha')) {
@@ -942,10 +940,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         };
 
-
-
-
-         // -------------------- blocked domains--------------------
+        // -------------------- BLOCKED DOMAINS (used by other forms) --------------------
         const blockedDomains = [
             "mailinator.com",
             "tempmail.com",
@@ -962,16 +957,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const strictEmailRegex = /^(?!.*\.\.)(?!\.)(?!.*\.$)[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-        function showError(el, msg) {
-            hideError(el);
-            el.after('<small class="validation-error text-danger">' + msg + '</small>');
-        }
 
-        function hideError(el) {
-            el.next('.validation-error').remove();
-        }
-
-        // -------------------- VALIDATION FUNCTION --------------------
+        // -------------------- VALIDATION FUNCTION (used by other forms) --------------------
         function validateField(el) {
             const val = el.val().trim();
             const name = el.attr('name');
@@ -993,242 +980,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     hideError(el);
                 }
             } else {
-                hideError(el); // full name, company name, etc.
-            }
-            return true;
-        }
-
-
-
-
-        // -------------------- Quote FORM --------------------
-        $(document).ready(function () {
-            $('#reload-button').click(function () {
-                $('#captcha-image').attr('src', '{{ route("captcha.image") }}?' + Date.now());
-            });
-        });
-        // Blocked disposable/spam domains
-        const blockedDomainsQuote = [
-            "mailinator.com",
-            "tempmail.com",
-            "10minutemail.com",
-            "yopmail.com",
-            "guerrillamail.com",
-            "maildrop.cc",
-            "dispostable.com",
-            "trashmail.com"
-        ];
-
-        // Helper to get domain from email
-        function getEmailDomainQuote(email) {
-            return email.substring(email.lastIndexOf("@") + 1).toLowerCase();
-        }
-
-        // Stricter email regex: no consecutive dots, cannot start/end with dot
-        const strictEmailRegexQuote = /^(?!.*\.\.)(?!\.)(?!.*\.$)[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-
-        // -------------------- Validation Helpers --------------------
-        function showError(el, msg) {
-            hideError(el);
-            el.after('<small class="validation-error text-danger">' + msg + '</small>');
-        }
-        function hideError(el) {
-            el.next('.validation-error').remove();
-        }
-
-        function validateQuoteField(el) {
-            const val = el.val().trim();
-            const id = el.attr('id');
-
-            if (!val) {
-                showError(el, 'This field is required.');
-                return false;
-            } else if (id === 'quote_phone' && !/^\d{10,20}$/.test(val)) {
-                showError(el, 'Contact number must be 10–20 digits.');
-                return false;
-            } else if (id === 'quote_email') {
-                if (!strictEmailRegexQuote.test(val)) {
-                    showError(el, 'Please enter a valid email address.');
-                    return false;
-                } else if (blockedDomainsQuote.includes(getEmailDomainQuote(val))) {
-                    showError(el, 'Invalid email addresses are not allowed.');
-                    return false;
-                } else {
-                    hideError(el);
-                }
-            } else {
                 hideError(el);
             }
             return true;
         }
 
-       $(document).ready(function () {
-    // Hide error helper
-    function hideError($el) {
-        $el.removeClass("validation-error");
-        $el.next(".error-msg").remove();
-    }
-
-    // List of disallowed email domains
-    const blockedDomains = [
-        "mailinator.com",
-        "tempmail.com",
-        "10minutemail.com",
-        "yopmail.com",
-        "guerrillamail.com",
-        "maildrop.cc",
-        "dispostable.com",
-        "trashmail.com"
-    ];
-
-    // Validation logic
-    function validateQuoteField($input) {
-        let val = $input.val().trim();
-        let id = $input.attr("id");
-        let valid = true;
-        let msg = "";
-
-        // --- Name validation ---
-        if (id === "quote_fname") {
-            if (val === "") {
-                msg = "Please enter your name.";
-                valid = false;
-            } else if (!/^[A-Za-z\s]+$/.test(val)) {
-                msg = "Name must contain only alphabets and spaces.";
-                valid = false;
-            }
-        }
-
-        // --- Company name validation ---
-        else if (id === "quote_company_name") {
-            if (val === "") {
-                msg = "Please enter your company name.";
-                valid = false;
-            }
-        }
-
-        // --- Phone validation ---
-        else if (id === "quote_phone") {
-            if (val === "") {
-                msg = "Please enter your contact number.";
-                valid = false;
-            } else if (val.length < 10) {
-                msg = "Contact number must be at least 10 digits.";
-                valid = false;
-            }
-        }
-
-        // --- Email validation ---
-        else if (id === "quote_email") {
-            if (val === "") {
-                msg = "Please enter your email.";
-                valid = false;
-            } else {
-                let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(val)) {
-                    msg = "Please enter a valid email.";
-                    valid = false;
-                } else {
-                    // Extract domain part
-                    let domain = val.split("@")[1]?.toLowerCase() || "";
-                    if (blockedDomains.some(bad => domain.includes(bad))) {
-                        msg = "Please use a valid company email address.";
-                        valid = false;
-                    }
-                }
-            }
-        }
-
-        // --- Show or hide error message ---
-        if (!valid) {
-            $input.addClass("validation-error");
-            if ($input.next(".error-msg").length === 0) {
-                $input.after('<small class="error-msg text-danger">' + msg + "</small>");
-            }
-        } else {
-            hideError($input);
-        }
-
-        return valid;
-    }
-
-    // Input & blur validation
-    $(document).on("input", "#quoteForm input", function () {
-        hideError($(this));
-    });
-
-    $(document).on("blur", "#quoteForm input", function () {
-        validateQuoteField($(this));
-    });
-
-    // Reload captcha
-    $(document).on("click", "#reload-button", function () {
-        $("#captcha-image").attr("src", "{{ route('captcha.image') }}?" + Date.now());
-    });
-
-    // Submit handler
-    $(document).on("click", "#quoteSubmitBtn", function (e) {
-        e.preventDefault();
-
-        let form = $("#quoteForm");
-        let $btn = $(this);
-        let isValid = true;
-
-        $(".error-msg").remove();
-        $("#custom_captcha_error").hide();
-        form.find(".validation-error").removeClass("validation-error");
-
-        // Validate all required fields
-        form.find("input[type='text'], input[type='tel'], input[type='email']").each(function () {
-            if (!validateQuoteField($(this))) {
-                isValid = false;
-            }
-        });
-
-        // Custom captcha
-        let captcha = $("#custom_captcha").val().trim();
-        if (captcha === "") {
-            $("#custom_captcha_error").show().text("Please enter the captcha.");
-            isValid = false;
-        }
-
-        if (!isValid) return;
-
-        // Disable button during captcha check
-        $btn.prop("disabled", true).text("Verifying captcha...");
-
-        $.ajax({
-            url: "{{ route('captcha.verify') }}",
-            type: "POST",
-            data: {
-                _token: "{{ csrf_token() }}",
-                custom_captcha: captcha,
-            },
-            success: function (response) {
-                if (response.success) {
-                    $btn.text("Submitting...");
-                    form.off("submit").submit(); // submit naturally
-                } else {
-                    $("#custom_captcha_error").show().text(response.message);
-                    $btn.prop("disabled", false).text("Submit");
-                    $("#captcha-image").attr("src", "{{ route('captcha.image') }}?" + Date.now());
-                }
-            },
-            error: function () {
-                alert("Something went wrong. Please try again.");
-                $btn.prop("disabled", false).text("Submit");
-                $("#captcha-image").attr("src", "{{ route('captcha.image') }}?" + Date.now());
-            },
-        });
-    });
-});
-
-
-
-
-
-
-        // -------------------- ERROR DISPLAY HELPERS --------------------
+        // -------------------- ERROR DISPLAY HELPERS (one single copy) --------------------
         function showError(element, message) {
             hideError(element);
             element.closest('.floating-group').append(`<small class="text-danger validation-error">${message}</small>`);
@@ -1240,19 +997,65 @@ document.addEventListener("DOMContentLoaded", function () {
             element.closest('.floating-group').find('.validation-error').remove();
         }
 
-        // -------------------- MODAL RESET --------------------
-        $(".modal").on("hidden.bs.modal", function () {
-            let form = $("#quoteForm")[0];
-            if (form) {
-                form.reset();
-                $("#header-captcha-error").hide();
-                $("#quoteForm .validation-error").remove();
-                if (typeof headerCaptchaId !== 'undefined') {
+        // -------------------- QUOTE FORM VALIDATION (new) --------------------
+        function validateQuoteField($input) {
+            const val = $input.val().trim();
+            const id = $input.attr('id');
+            let msg = '';
+
+            if (id === 'quote_fname') {
+                if (!val) msg = 'Please enter your name.';
+                else if (!/^[A-Za-z]+(?:\s[A-Za-z]+)*$/.test(val)) msg = 'Name may only contain letters and spaces.';
+            }
+            else if (id === 'quote_company_name') {
+                if (!val) msg = 'Please enter your company name.';
+            }
+            else if (id === 'quote_phone') {
+                if (!val) msg = 'Please enter your contact number.';
+                else if (!/^\d{10,15}$/.test(val)) msg = 'Contact number must be 10 to 15 digits.';
+            }
+            else if (id === 'quote_email') {
+                if (!val) msg = 'Please enter your email.';
+                else if (!strictEmailRegex.test(val)) msg = 'Please enter a valid email.';
+                else if (blockedDomains.includes(getEmailDomain(val))) msg = 'Please use a valid company email address.';
+            }
+
+            if (msg) {
+                showError($input, msg);
+                return false;
+            }
+            hideError($input);
+            return true;
+        }
+
+        $(document).ready(function () {
+            const quoteFieldIds = ['quote_fname', 'quote_company_name', 'quote_phone', 'quote_email'];
+
+            // Clear error while typing
+            $(document).on('input', '#quoteForm input', function () {
+                if (quoteFieldIds.includes(this.id)) hideError($(this));
+            });
+
+            // Validate when leaving a field
+            $(document).on('blur', '#quoteForm input', function () {
+                if (quoteFieldIds.includes(this.id)) validateQuoteField($(this));
+            });
+
+            // Reset quote form when modal closes
+            $('#exampleModal').on('hidden.bs.modal', function () {
+                $('#quoteForm')[0].reset();
+                $('#quoteForm .validation-error').remove();
+                $('#quoteForm .is-invalid').removeClass('is-invalid');
+                $('#custom_captcha_error').hide();
+                $('#quote-form-messages').empty();
+                $('#reload-button').click();   // reload custom captcha image
+                if (typeof headerCaptchaId !== 'undefined' && window.grecaptcha) {
                     grecaptcha.reset(headerCaptchaId);
                 }
-            }
+            });
         });
     </script>
+   
     <script>
         window.APP_URLS = {
             productDetail: "{{ Route::has('products.detail') ? route('products.detail', ':url') : '' }}",

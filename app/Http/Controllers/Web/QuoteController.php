@@ -35,18 +35,61 @@ class QuoteController extends Controller
         }
 
         $request->validate([
-            'name'           => 'required|string|max:70',
-            'company_name'   => 'required|string|max:70',
-            'email'          => 'required|email|max:60',
-            'contact'        => 'required_without:full_phone|nullable|string|max:20', 
-            'full_phone'     => 'required_without:contact|nullable|string|max:30', 
-            'message'        => 'nullable|string|max:150',
-            'custom_captcha' => 'required|in:' . session('captcha_code'), 
+            'name' => [
+                'required', 'string', 'min:2', 'max:70',
+                'regex:/^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/',
+            ],
+            'company_name' => [
+                'required', 'string', 'min:2', 'max:70',
+                'regex:/^[a-zA-Z0-9]+(?:\s[a-zA-Z0-9]+)*$/',
+            ],
+            'email' => [
+                'required', 'string', 'email:rfc,dns', 'max:60',
+            ],
+            'contact' => [
+                'required_without:full_phone', 'nullable',
+                'regex:/^[0-9]{6,15}$/',
+            ],
+            'full_phone' => [
+                'required_without:contact', 'nullable',
+                'regex:/^\+[1-9][0-9]{6,14}$/',
+            ],
+            'country'   => ['nullable', 'string', 'max:100'],
+            'phonecode' => ['nullable', 'digits_between:1,4'],
+            'message'   => ['nullable', 'string', 'max:150'],
+            'custom_captcha' => [
+                'required', 'digits:4',
+                function ($attribute, $value, $fail) {
+                    $code = session('captcha_code');
+                    if (!$code || (string) $value !== (string) $code) {
+                        $fail('The CAPTCHA code is invalid. Please try again.');
+                    }
+                },
+            ],
         ], [
+            'name.required'          => 'Please enter your name.',
+            'name.min'               => 'Name must be at least 2 characters.',
+            'name.regex'             => 'Name may only contain letters and spaces.',
+
+            'company_name.required'  => 'Please enter your company name1.',
+            'company_name.min'       => 'Company name must be at least 2 characters.',
+            'company_name.regex'     => 'Company name may only contain letters, numbers and spaces.',
+
+            'email.required'         => 'Please enter your email address.',
+            'email.email'            => 'Please enter a valid email address.',
+            'email.max'              => 'Email may not be longer than 60 characters.',
+
+            'contact.required_without'    => 'Please enter your phone number.',
+            'contact.regex'               => 'Phone number must contain 6 to 15 digits.',
+            'full_phone.required_without' => 'Please enter your phone number.',
+            'full_phone.regex'            => 'Please enter a valid phone number.',
+
             'custom_captcha.required' => 'The CAPTCHA field is required.',
-            'custom_captcha.in'       => 'The CAPTCHA code is invalid. Please try again.',
+            'custom_captcha.digits'   => 'The CAPTCHA must be 4 digits.',
         ]);
 
+        // Optional: invalidate the captcha after a successful validation so it can't be reused
+        session()->forget('captcha_code');
 
         // Combine phonecode + contact for unified saving
         $fullPhone = $request->phonecode && $request->contact
