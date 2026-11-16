@@ -366,64 +366,97 @@ class SparePartsApiController extends Controller
     private const DUMP_VERSION = 101;
 
     // API 5: Master dump for offline prefetching (all machines + all parts + part details)
+        // API 5: Bulk dump for offline prefetching (flat machines list + flat spare_parts list)
     public function masterDump()
     {
-        // cached for 10 minutes, so repeated app downloads don't hit the database each time
-        $data = Cache::remember('spare_parts_master_dump_v' . self::DUMP_VERSION, 600, function () {
+        $rows = DB::table('product_masters as p')
+            ->whereNull('p.deleted_at')
+            ->where('p.product_status', 'Active')
+            ->select([
+                'p.id',
+                'p.model_name',
+                'p.product_name',
+                'p.product_short_desc',
+                'p.product_desc',
+                'p.front_image',
+            ])
+            ->orderBy('p.id')
+            ->get();
 
-            $machines = DB::table('product_masters as p')
-                ->leftJoin('product_categories as c', 'c.id', '=', 'p.category_id')
-                ->whereNull('p.deleted_at')
-                ->where('p.product_status', 'Active')
-                ->select([
-                    'p.id',
-                    'p.model_name',
-                    'p.product_name',
-                    'p.product_short_desc',
-                    'p.product_desc',
-                    'p.front_image',
-                    'c.name as category_name',
-                ])
-                ->orderBy('p.id')
-                ->get();
+        $partDesc = $this->defaultPartDescription();
 
-            $partDesc  = $this->defaultPartDescription();
-            $partSpecs = $this->defaultPartSpecifications();
+        // the app expects key/value, our static specs use attribute/value
+        $partSpecs = array_map(
+            fn ($s) => ['key' => $s['attribute'], 'value' => $s['value']],
+            $this->defaultPartSpecifications()
+        );
 
-            return $machines->map(function ($m) use ($partDesc, $partSpecs) {
-                $desc = $m->product_short_desc ?: $m->product_desc;
+        $machines = [];
+        $parts    = [];
 
-                $parts = array_map(function ($p) use ($partDesc, $partSpecs) {
-                    return [
-                        'id'             => $p['id'],
-                        'machine_id'     => $p['machine_id'],
-                        'part_number'    => $p['part_number'],
-                        'title'          => $p['title'],
-                        'image_url'      => $p['image_url'],
-                        'description'    => $partDesc,
-                        'specifications' => $partSpecs,
-                    ];
-                }, $this->staticParts((int) $m->id));
+        foreach ($rows as $m) {
+            $desc  = $m->product_short_desc ?: $m->product_desc;
+            $title = $m->product_name ?: $m->model_name;
 
-                return [
-                    'id'                => (int) $m->id,
-                    'model_number'      => $m->model_name,
-                    'title'             => $m->model_name,
-                    'subtitle'          => $m->product_name,
-                    'category'          => $m->category_name,
-                    'image_url'         => $this->imageUrl($m->front_image),
-                    'total_parts_count' => count($parts),
-                    'description'       => trim(strip_tags(html_entity_decode((string) $desc))),
-                    'parts'             => $parts,
+            $machines[] = [
+                'id'             => (int) $m->id,
+                'title'          => $title,
+                'model_number'   => $m->model_name,
+                'image_url'      => $this->imageUrl($m->front_image),
+                'description'    => trim(strip_tags(html_entity_decode((string) $desc))),
+            ];
+
+            foreach ($this->staticParts((int) $m->id) as $p) {
+                $parts[] = [
+                    'id'             => $p['id'],
+                    'machine_id'     => $p['machine_id'],
+                    'part_number'    => $p['part_number'],
+                    'title'          => $p['title'],
+                    'image_url'      => $p['image_url'],
+                    'description'    => $partDesc,
+                    'specifications' => $partSpecs,
                 ];
-            })->values()->all();
-        });
+            }
+        }
+
+        // version and last update time come from the sync_versions table
+        $sync = DB::table('sync_versions')->where('module_name', 'spare_parts')->first();
+
+        $version     = (int) ($sync->current_version ?? 1);
+        $lastUpdated = ($sync && $sync->last_updated)
+            ? \Carbon\Carbon::parse($sync->last_updated, config('app.timezone'))->utc()
+            : now()->utc();
 
         return response()->json([
             'status'  => true,
-            'message' => 'Spare parts master dump fetched successfully',
-            'version' => self::DUMP_VERSION,
-            'data'    => $data,
+            'message' => 'Bulk dump fetched successfully',
+            'meta'    => [
+                'version'         => $version,
+                'last_updated_at' => $lastUpdated->format('Y-m-d\TH:i:s\Z'),
+                'counts'          => [
+                    'total_machines' => count($machines),
+                    'total_parts'    => count($parts),
+                ],
+            ],
+            'data'    => [
+                'machines'    => $machines,
+                'spare_parts' => $parts,
+            ],
+        ], 200, [], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
+
+    // Ping API: returns only the current version (very fast)
+    public function syncStatus()
+    {
+        $version = DB::table('sync_versions')
+            ->where('module_name', 'spare_parts')
+            ->value('current_version');
+
+        return response()->json([
+            'status'   => true,
+            'versions' => [
+                'spare_parts_dump' => (int) ($version ?: 1),
+            ],
         ], 200, [], JSON_UNESCAPED_SLASHES);
     }
 }

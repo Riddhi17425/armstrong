@@ -177,7 +177,7 @@ class ProductApiController extends Controller
 
         $query = ProductMaster::with(['images'])
             ->where('product_status', 'Active')
-            ->orderBy('id' , 'Asc');
+            ->orderBy('id' , 'Desc');
  
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
