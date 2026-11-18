@@ -67,7 +67,16 @@ class SitemapController extends Controller
 
         foreach ($products as $product) {
 
-            $productUrl = route('products.detail', $product->url);
+            $productSlug = $product->url;
+
+            // Skip old product URLs
+            if (in_array($productSlug, [
+                'fibc-fabric-cutting-machine-old'
+            ])) {
+                continue;
+            }
+
+            $productUrl = route('products.detail', $productSlug);
 
             $xml .= '
             <url>
@@ -90,6 +99,21 @@ class SitemapController extends Controller
         {
             $slug = \Illuminate\Support\Str::slug($category->name);
 
+            // OLD URL TO NEW URL MAPPING
+            $categoryRedirects = [
+                'bag-stitching' => 'bag-stitching-machines',
+                'fibc' => 'fibc-machine',
+                'conveyor' => 'conveyor-machines',
+                'paper-sack' => 'paper-sack-machines',
+                'sewing' => 'sewing-machines',
+                'bag-closing' => 'bag-closing-machine',
+            ];
+
+            // If old slug exists, replace it with new slug
+            if (isset($categoryRedirects[$slug])) {
+                $slug = $categoryRedirects[$slug];
+            }
+
             $categoryUrl = route('products.listing', $slug);
 
             $xml .= '
@@ -101,7 +125,6 @@ class SitemapController extends Controller
                 <priority>0.80</priority>
             </url>';
         }
-
 
         // APPLICATION DETAIL PAGES
         $applications = Application::where('status', 1)
@@ -138,12 +161,12 @@ class SitemapController extends Controller
             route('our.infrastructure'),
             route('research.development'),
             route('front.event'),
-            route('front.gallery'),
+            // route('front.gallery'),
             route('front.application'),
             route('career'),
-            route('landing'),
-            route('products.fibc-fabric-cutting-machine'),
-            route('woven-bag-lamination-machine'),
+            // route('landing'),
+            url('/product/fibc-fabric-cutting-machine'),
+            url('/product/woven-bag-lamination-machine'),
             route('channelpartner'),
         ];
 

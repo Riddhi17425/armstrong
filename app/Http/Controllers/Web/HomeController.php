@@ -138,15 +138,12 @@ class HomeController extends Controller
         return view('front.woven-bag-lamination-machine',compact('metatitle','metadescription'));
     }
     
-    
-    
-    
     public function channelpartner()
-    {
-        $metatitle = “Authorized Channel Partner & Distributor | Armstrong”;
-        $metadescription = “Become an authorized channel partner or overseas distributor with Armstrong. Explore business opportunities in FIBC and industrial packaging machinery.”;
-        return view(‘front.channel-partner’,compact(‘metatitle’,‘metadescription’));
-    }
+    {
+        $metatitle = "Authorized Channel Partner & Distributor | Armstrong";
+        $metadescription = "Become an authorized channel partner or overseas distributor with Armstrong. Explore business opportunities in FIBC and industrial packaging machinery.";
+        return view('front.channel-partner', compact('metatitle', 'metadescription'));
+    }
    
     public function channelpartnerstore(Request $request)
     {
