@@ -366,10 +366,10 @@ class SparePartsApiController extends Controller
     private const DUMP_VERSION = 101;
 
     // API 5: Master dump for offline prefetching (all machines + all parts + part details)
-        // API 5: Bulk dump for offline prefetching (flat machines list + flat spare_parts list)
     public function masterDump()
     {
         $rows = DB::table('product_masters as p')
+            ->leftJoin('product_categories as c', 'c.id', '=', 'p.category_id')
             ->whereNull('p.deleted_at')
             ->where('p.product_status', 'Active')
             ->select([
@@ -379,6 +379,7 @@ class SparePartsApiController extends Controller
                 'p.product_short_desc',
                 'p.product_desc',
                 'p.front_image',
+                'c.name as category_name',
             ])
             ->orderBy('p.id')
             ->get();
@@ -395,15 +396,17 @@ class SparePartsApiController extends Controller
         $parts    = [];
 
         foreach ($rows as $m) {
-            $desc  = $m->product_short_desc ?: $m->product_desc;
-            $title = $m->product_name ?: $m->model_name;
+            $desc = $m->product_short_desc ?: $m->product_desc;
 
             $machines[] = [
-                'id'             => (int) $m->id,
-                'title'          => $title,
-                'model_number'   => $m->model_name,
-                'image_url'      => $this->imageUrl($m->front_image),
-                'description'    => trim(strip_tags(html_entity_decode((string) $desc))),
+                'id'                => (int) $m->id,
+                'model_number'      => $m->model_name,
+                'title'             => $m->model_name,
+                'subtitle'          => $m->product_name,
+                'category'          => $m->category_name,
+                'image_url'         => $this->imageUrl($m->front_image),
+                'total_parts_count' => self::STATIC_PARTS_COUNT,
+                'description'       => trim(strip_tags(html_entity_decode((string) $desc))),
             ];
 
             foreach ($this->staticParts((int) $m->id) as $p) {
