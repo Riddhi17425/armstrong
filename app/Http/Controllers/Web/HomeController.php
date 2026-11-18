@@ -141,12 +141,12 @@ class HomeController extends Controller
     
     
     
-     public function channelpartner()
-    {    
-        $metatitle = "Armstrong Authorized Channel Partner – Trusted Machinery Brand";
-        $metadescription = "Partner with Armstrong, a 40-year leader in FIBC and packaging machinery, and become an authorized channel partner with exclusive territory and full technical support.";
-        return view('front.channel-partner',compact('metatitle','metadescription'));
-    }
+    public function channelpartner()
+    {
+        $metatitle = “Authorized Channel Partner & Distributor | Armstrong”;
+        $metadescription = “Become an authorized channel partner or overseas distributor with Armstrong. Explore business opportunities in FIBC and industrial packaging machinery.”;
+        return view(‘front.channel-partner’,compact(‘metatitle’,‘metadescription’));
+    }
    
     public function channelpartnerstore(Request $request)
     {
