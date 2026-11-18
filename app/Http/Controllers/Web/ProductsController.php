@@ -39,7 +39,7 @@ class ProductsController extends Controller
         } else if ($category->id == 18 && $category->url == 'flexographic-printing') {
             $categoryProductIds = [90, 116, 89, 72, 30];
         } else if ($category->id == 19 && $category->url == 'bag-stitching-machines') {
-            $categoryProductIds = [55, 77, 78, 79, 80, 82, 83, 87, 88, 93, 149];
+            $categoryProductIds = [55, 77, 78, 79, 80, 82, 83, 87, 88, 93, 149, 155, 156];
         } else if ($category->id == 20 && $category->url == 'paper-sack-machines') {
             $categoryProductIds = [66, 69, 116, 89, 72, 90, 30, 149];
         }
