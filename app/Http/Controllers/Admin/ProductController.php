@@ -853,6 +853,8 @@ class ProductController extends Controller
                 88, // Single Needle Double Thread Plain Feed Chain Stitch Sewing Machine
                 93, // The Single Needle Flat Bed Sewing Machine
                 149, // 502HD Bottom Sewing Machine with Auto Cutter
+                155, // High Speed Chain Stitch Sewing Machine ST-802 VMC
+                156, //Lockstitch Machine for FIBC & Jumbo Bags ST 807 L
             ]);
         }else if ($category->id == 20 && $category->url == 'paper-sack-machines') {
             $products = $products->whereIn('id', [
