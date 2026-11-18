@@ -31,13 +31,13 @@
             </ol>
         </nav>
         <div class="setting_vector_icon">
-            <h1 class="hero-title mb-3">Channel Partner</h1>
+            <h1 class="hero-title mb-3">Become an Authorized Channel Partner & Overseas Distributor</h1>
             <img src="{{ asset('public/front/img/setting_vector.svg') }}" alt="setting vector" class="img-fluid setting-wrapper">
         </div>
         <div class="row justify-content-center">
             <div class="col-md-7 text-center">
-                <p class="mb-4">Expand your business! Partner with India’s most trusted manufacturer of industrial sewing, sealing & finishing machinery for FIBC, Woven Sack, Tarpaulin & Technical Textile industries.</p>
-                <a href="#channelpartner_form" class="sub_btn">Apply as Channel Partner</a>
+                <p class="mb-4">Expand your business with Armstrong! Become an authorized channel partner or overseas distributor for India's trusted industrial sewing, sealing and finishing machinery solutions for FIBC, Woven Sack, Tarpaulin and Technical Textile industries.  Join as an authorized channel partner, sales agent or foreign channel partner.</p>
+                <a href="#channelpartner_form" class="sub_btn">Apply as Channel Partner or Sales Agent</a>
             </div>
         </div>
     </div>
@@ -47,16 +47,16 @@
     <div class="container">
         <div class="row gx-lg-5">
             <div class="col-lg-7 order-2 order-md-1">
-                <h2 class="main_head">Benefits For Authorized Partners</h2>
-                <p>As an authorized partner, you get access to Armstrong’s complete product ecosystem, marketing, and engineering support, designed to help you scale your business quickly.</p>
+                <h2 class="main_head">Benefits For Authorized Channel Partners & Sales Agents</h2>
+                <p>As an authorized channel partner or sales agent, you get access to Armstrong’s complete product ecosystem, marketing, and engineering support, designed to help you scale your business quickly.</p>
                 <ul class="my-4">
-                    <li class="text-capitalize">Exclusive dealership territory</li>
+                    <li class="text-capitalize">Exclusive dealership territory for every channel partner, in India and overseas</li>
                     <li class="text-capitalize">Access to factory-backed technical support</li>
                     <li class="text-capitalize">End-to-end onboarding & product training</li>
                     <li class="text-capitalize">Marketing materials & branding resources</li>
                     <li class="text-capitalize">Partner listing on Armstrong website</li>
                     <li class="text-capitalize">Pre-sales & post-sales engineering assistance</li>
-                    <li class="text-capitalize">Dedicated Partner Relationship Manager</li>
+                    <li class="text-capitalize">Dedicated Partner Relationship Manager for sales agents & overseas distributors</li>
                     <li class="text-capitalize">Priority machine dispatch & inventory allocation</li>
                     <li class="text-capitalize">High-margin spare parts business</li>
                     <li class="text-capitalize">AMC service revenue (recurring)</li>
@@ -74,15 +74,18 @@
 
 <section class="section-mt">
     <div class="container">
-        <h2 class="main_head head_wrapper">Why Become a partner with Armstrong?</h2>
+        <h2 class="main_head head_wrapper">Why Become a Channel Partner or Sales Agent with Armstrong?</h2>
         <p class="my-md-5 my-4">
-           Armstrong has 30+ years of engineering excellence, a global client base, and proven machinery performance making it  the preferred manufacturing partner for industrial automation in bulk packaging and material handling. As a Channel Partner, you get access to our expansive product portfolio, advanced R&D support and dedicated marketing, and also technical assistance.
+           Armstrong has 30+ years of engineering excellence, a global client base, and proven machinery performance making it  the preferred manufacturing partner for industrial automation in bulk packaging and material handling. As a Channel Partner, Sales Agent or Overseas Distributor, you get access to our expansive product portfolio, advanced R&D support and dedicated marketing, and also technical assistance.
         </p>
         <div class="row g-lg-4 gy-4">
             <div class="col-lg-6">
                 <div class="innovations">
                     <h4 class="sub__head_red">Trusted Brand For Industrial Machinery</h4>
-                    <p>With 30+ years of innovation and 10,000+ installations worldwide, Armstrong is known for high-performance machinery engineered for reliability, precision and global safety standards.</p>
+                    <p>
+With 30+ years of innovation and 10,000+ installations worldwide, Armstrong is known for high-performance machinery engineered for reliability, precision and global safety standards. A reliable machinery brand for every foreign channel partner.
+
+</p>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -100,7 +103,7 @@
             <div class="col-lg-6">
                 <div class="innovations">
                     <h4 class="sub__head_red">Better Margins & Recurring Revenue</h4>
-                    <p>Proceeds through: Machine sales, Annual maintenance (AMC), Spare parts supply, After-sales service, OEM service support, ensuring a continuous monthly revenue.</p>
+                    <p>Proceeds for channel partners through: Machine sales, Annual maintenance (AMC), Spare parts supply, After-sales service, OEM service support, ensuring a continuous monthly revenue.</p>
                 </div>
             </div>
         </div>
@@ -114,7 +117,7 @@
                 <img class="img-fluid mb-3 mb-md-0" src="{{ asset('public/front/img/ideal_business_profiles.png') }}" alt="Ideal Business Profiles">
             </div>
             <div class="col-lg-7">
-                <h2 class="main_head">Eligibility & Ideal Business Profile</h2>
+                <h2 class="main_head">Eligibility & Ideal Business Profile for International Channel Partner</h2>
                 <p>Every Armstrong machine goes through full-cycle in-house testing designed to simulate real-world manufacturing conditions. To maximize partner success, we onboard businesses that can represent our brand with technical and commercial competence.</p>
                 <p class="certi_head mb-1">Best-Suited Profiles</p>
                 <ul class="mb-md-4 mb-1">
@@ -138,8 +141,8 @@
     <div class="container">
         <div class="row justify-content-between">
             <div class="col-lg-5 text-start text-lg-start mb-4 mb-lg-auto pe-md-5">
-                <h3 class="sub_head mb-3">Become an Authorized Channel Partner with Armstrong</h3>
-                <p>If you want to expand your industrial machinery portfolio or enter a high-demand engineering segment, partnering with Armstrong in Ahmedabad gives you direct access to India’s most reliable FIBC, Woven Sack, Tarpaulin & Technical Textile machinery line.Whether you're an industrial distributor, engineering consultant, or a business expanding into machinery supply. Armstrong gives you everything you need to succeed in the market.</p>
+                <h3 class="sub_head mb-3">Become an Authorized Channel Partner or Sales Agent with Armstrong</h3>
+                <p>If you want to expand your industrial machinery portfolio or enter a high-demand engineering segment, partnering with Armstrong in Ahmedabad as a channel partner, sales agent or foreign channel partner gives you direct access to India’s most reliable FIBC, Woven Sack, Tarpaulin & Technical Textile machinery line. Whether you're an industrial distributor, engineering consultant, or a business expanding into machinery supply. Armstrong gives you everything you need to succeed in the market.</p>
                 <p>Whether you're an industrial distributor, engineering consultant, or a business expanding into machinery supply, Armstrong gives you everything you need to succeed in the market.</p>
             </div>
             <div class="col-lg-7">
