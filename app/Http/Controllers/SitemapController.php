@@ -166,7 +166,6 @@ class SitemapController extends Controller
             route('career'),
             // route('landing'),
             url('/product/fibc-fabric-cutting-machine'),
-            url('/product/woven-bag-lamination-machine'),
             route('channelpartner'),
         ];
 
