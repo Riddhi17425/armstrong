@@ -58,7 +58,6 @@ Route::get('/clear', function () {
     Route::post('/whatsaapinquiry', [HomeController::class, 'whatsaapinquiry'])->name('whatsaapinquiry');
     Route::post('/brochure-submit', [HomeController::class, 'brochureForm'])->name('front.brochure.submit');
     
-    // route::get('/test', [HomeController::class, 'test']);
     route::get('/', [HomeController::class, 'index'])->name('front.home');
     route::get('/privacy-policy', [HomeController::class, 'privacypolicy'])->name('privacy-policy');
     route::get('/product-list', [HomeController::class, 'productlist'])->name('productlist');
