@@ -14,6 +14,8 @@ class ProductCategory extends Model
         'status',
         'category_image',
         'category_small_image',
+        'category_video',
+        'is_feature',
         'listing_desc',
         'detail_description',
         'created_at',

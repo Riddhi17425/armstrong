@@ -1,7 +1,5 @@
 @php
     $mainImagePath = $product->images->first()->image ?? null;
-
-    // Gallery image na ho to front_image use karo
     if (!$mainImagePath && !empty($product->front_image)) {
         $decodedFront = json_decode($product->front_image, true);
         $frontFile = (json_last_error() === JSON_ERROR_NONE && is_array($decodedFront))
@@ -21,7 +19,6 @@
 @include('layouts.frontheader', [
     'og_image' => $mainImageUrl
 ])
-
 <style>
     /* =========================================================
        PRODUCT INSTALLATION VIDEOS
@@ -199,6 +196,7 @@
 </style>
 
 {{-- START - PRODUCT SCHEMA --}}
+
 @php
     $productSchema = [
         "@context" => "https://schema.org/",
@@ -233,9 +231,13 @@
         JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT
     ) !!}
 </script>
+
 {{-- END - PRODUCT SCHEMA --}}
 
-{{-- START - FAQ SCHEMA --}}
+{{-- =========================================================
+     FAQ SCHEMA
+========================================================= --}}
+
 @php
 
     $faqSchemaEntities = [];
@@ -274,6 +276,7 @@
 
 @endphp
 
+
 @if(!empty($faqSchemaEntities))
 
     <script type="application/ld+json">
@@ -291,11 +294,12 @@
     </script>
 
 @endif
-{{-- END - FAQ SCHEMA --}}
 
-{{-- START - BAG TESTING MACHINE PRODUCT SCHEMA --}}
+
 @if($product->url == 'bag-testing-machine')
+
 <script type="application/ld+json">
+
     {
 
         "@@context": "https://schema.org/",
@@ -304,7 +308,7 @@
 
         "name": "Bag Testing Machine",
 
-        "image": "{{ asset('public/admin/uploads/products/bag-testing-machine.png') }}",
+        "image": "https://www.armstrongex.com/public/admin/uploads/products/bag-testing-machine.png",
 
         "description": "Armstrong Bag Testing Machine tests strength and durability of HDPE and PP bags, with load capacities of 50Kgf, 100Kgf, 250Kgf, 250Kgf, and above.",
 
@@ -331,11 +335,15 @@
         }
 
     }
-</script>
-@endif
-{{-- END - BAG TESTING MACHINE PRODUCT SCHEMA --}}
 
-{{-- START - BREADCRUMB --}}
+</script>
+
+@endif
+
+{{-- =========================================================
+     BREADCRUMB
+========================================================= --}}
+
 <section class="breadcrumb_wrapper">
 
     <div class="container">
@@ -391,7 +399,7 @@
     </div>
 
 </section>
-{{-- END - BREADCRUMB --}}
+
 
 {{-- =========================================================
      PRODUCT TOP SECTION
@@ -504,13 +512,11 @@
                         <div class="text-center">
 
                             <img
-                            fetchpriority="high"
 
-                            src="{{ $mainImageUrl }}"
-
-                            alt="{{ $product->product_name }}"
-                            
-                            class="img-fluid product_card_details_img">
+                                fetchpriority="high"
+                                src="{{ $mainImageUrl }}"
+                                alt="{{ $product->product_name }}"
+                                class="img-fluid product_card_details_img">
 
                         </div>
 

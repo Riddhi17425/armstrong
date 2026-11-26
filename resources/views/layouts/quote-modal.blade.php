@@ -44,7 +44,7 @@
 
                                 <div class="col-lg-12 floating-group mb-3">
                                     <input type="tel" id="quote_phone" name="contact" placeholder=" "
-                                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 15);">
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 15);"> 
                                 
                                     <input type="hidden" name="country" id="quote_country">
                                     <input type="hidden" name="phonecode" id="quote_phonecode">

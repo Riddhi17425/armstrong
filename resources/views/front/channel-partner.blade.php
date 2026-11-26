@@ -4,6 +4,8 @@
 
 
 <style>
+/* keep the "Apply as Channel Partner or Sales Agent" button text white after it is clicked / visited (the global a:focus { color: unset } rule turned it grey) */
+a.sub_btn:focus, a.sub_btn:active, a.sub_btn:visited, a.sub_btn:focus-visible { color: var(--white); }
 .contact .select2-container--default .select2-selection--single {
     border-radius: 0px;
     border: none;

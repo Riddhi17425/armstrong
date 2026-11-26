@@ -69,81 +69,43 @@
     </div>
 </div>
 
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        
-        // Check if we are on the homepage
-        const currentPath = window.location.pathname;
-        const isHomepage = currentPath === '/' || 
-                           currentPath === '/home' || 
-                           currentPath === '' ||
-                           currentPath === '/armstrong/' ||
-                           currentPath === '{{ url("/") }}';
-
-        if (isHomepage) {
-            // Wait 2 seconds then open the modal
-            setTimeout(function () {
-                
-                const modalElement = document.getElementById('autoOpenModal');
-                console.log("entered");
-                if (modalElement) {
-                    console.log("entered 2");
-                    const myModal = new bootstrap.Modal(modalElement, {
-                        backdrop: true,     // Allows closing when clicking outside
-                        keyboard: true      // Allows closing with ESC key
-                    });
-                    
-                    myModal.show();
-                }
-            }, 2000); // 2 seconds delay
-        }
-    });
-</script> --}}
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
 
-        // Check if we are on the homepage
         const currentPath = window.location.pathname;
         const isHomepage = currentPath === '/' ||
                            currentPath === '/home' ||
                            currentPath === '' ||
                            currentPath === '{{ url("/") }}';
 
-        if (isHomepage) {
+        if (!isHomepage) return;
 
-            // Wait 2 seconds then try to open the modal
-            setTimeout(function () {
+        function isUserBusy() {
+            // Koi bhi Bootstrap modal / offcanvas open hai?
+            if (document.querySelector('.modal.show, .offcanvas.show')) return true;
 
-                // Check 1: Koi bhi Bootstrap modal pehle se open hai?
-                if (document.querySelector('.modal.show')) {
-                    return;
-                }
+            // WhatsApp popup open hai? (apni asli class/id likhein)
+            const whatsappPopup = document.querySelector('.whatsapp-popup');
+            if (whatsappPopup && whatsappPopup.offsetParent !== null) return true;
 
-                // Check 2: WhatsApp popup open hai?
-                // '.whatsapp-popup' ki jagah apni asli class/id likhni hai
-                const whatsappPopup = document.querySelector('.whatsapp-popup');
-                if (whatsappPopup && whatsappPopup.offsetParent !== null) {
-                    return;
-                }
+            // User kisi field me type kar raha hai?
+            const active = document.activeElement;
+            if (active && ['INPUT', 'TEXTAREA', 'SELECT'].includes(active.tagName)) return true;
 
-                // Check 3: User kisi input/textarea me type kar raha hai?
-                const active = document.activeElement;
-                if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) {
-                    return;
-                }
-
-                // Sab check pass -> image modal kholo
-                const modalElement = document.getElementById('autoOpenModal');
-                if (modalElement) {
-                    const myModal = new bootstrap.Modal(modalElement, {
-                        backdrop: true,
-                        keyboard: true
-                    });
-                    myModal.show();
-                }
-
-            }, 2000); // 2 seconds delay
+            return false;
         }
+
+        setTimeout(function () {
+            if (isUserBusy()) return;
+
+            const modalElement = document.getElementById('autoOpenModal');
+            if (modalElement) {
+                new bootstrap.Modal(modalElement, {
+                    backdrop: true,
+                    keyboard: true,
+                    focus: false
+                }).show();
+            }
+        }, 2000);
     });
 </script>

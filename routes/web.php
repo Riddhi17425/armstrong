@@ -44,24 +44,21 @@ use App\Http\Controllers\Web\VideoController;
 use App\Http\Controllers\Web\QuoteController;
 use App\Http\Controllers\Web\CareerController;
 use App\Http\Controllers\Web\LandingController;
-
+    
 use App\Http\Controllers\SitemapController;
 
-    
-    Route::get('/clear-cache', function () {
-        Artisan::call('config:clear');
-        Artisan::call('cache:clear');
-        Artisan::call('route:clear');
-        Artisan::call('view:clear');
-        Artisan::call('config:cache');
-    
-        return 'All caches cleared and config re-cached.';
-    });
 
-Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
-Route::post('/brochure-submit', [HomeController::class, 'brochureForm'])->name('front.brochure.submit');
+Route::get('/clear', function () {
+    Artisan::call('optimize:clear');
 
-Route::post('/whatsaapinquiry', [HomeController::class, 'whatsaapinquiry'])->name('whatsaapinquiry');
+    return 'Laravel cache cleared successfully!';
+});
+
+    Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+    Route::post('/whatsaapinquiry', [HomeController::class, 'whatsaapinquiry'])->name('whatsaapinquiry');
+    Route::post('/brochure-submit', [HomeController::class, 'brochureForm'])->name('front.brochure.submit');
+    
+    // route::get('/test', [HomeController::class, 'test']);
     route::get('/', [HomeController::class, 'index'])->name('front.home');
     route::get('/privacy-policy', [HomeController::class, 'privacypolicy'])->name('privacy-policy');
     route::get('/product-list', [HomeController::class, 'productlist'])->name('productlist');
@@ -85,9 +82,10 @@ Route::post('/whatsaapinquiry', [HomeController::class, 'whatsaapinquiry'])->nam
     Route::get('/machinery-woven-sacks-fibc', function () {
         return redirect('/category/woven-sack', 301);
     });
-    
+
     route::get('application', [HomeController::class, 'application'])->name('front.application');
     route::get('application-details/{url}', [HomeController::class, 'applicationDetails'])->name('front.application.details');
+    
     Route::get('/product/circular-loom-spare-parts', [ProductsController::class, 'circularLoomStatic'])->name('product.circular-loom-spare-parts.static');
     
     Route::get('/product/{url}', [ProductsController::class, 'detail'])->name('products.detail');
@@ -140,7 +138,7 @@ Route::post('/whatsaapinquiry', [HomeController::class, 'whatsaapinquiry'])->nam
         route::post('/logout' , [LoginController::class , 'logout'])->name('logout');
         
         Route::post('/upload-image', [ImageUploadController::class, 'upload'])->name('image.upload');
-        // for application crud 
+        
         route::get('/applications', [ApplicationController::class , 'index'])->name('application');
         route::get('/applications/create', [ApplicationController::class , 'create'])->name('application.create');
         Route::get('/applications/edit/{id}' , [ApplicationController::class , 'edit'])->name('application.edit');

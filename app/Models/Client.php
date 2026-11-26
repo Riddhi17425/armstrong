@@ -19,7 +19,6 @@ class Client extends Model
         'status',
         'alt',
         'updated_at',
-        'deleted_at',
-        'profile_image'
+        'deleted_at'
     ];
 }
