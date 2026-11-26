@@ -2,6 +2,16 @@
     'og_image' => asset('public/front/img/transform-your-vision-to-reality.png')
 ])
 
+<style>
+    /* responsive: no sideways scroll on the careers page (the decorative gear sticks out of the right edge, and .gx-5 gutters are wider than the container padding) */
+    html, body { overflow-x: hidden; max-width: 100%; }
+    .setting_vector_icon { max-width: 100%; }
+    @media (max-width: 991.98px) {
+        .row.gx-5 { --bs-gutter-x: 1.5rem; }
+        .setting-wrapper { right: 0; max-width: 40%; }
+        .careers_card { padding: 30px 24px; }
+    }
+</style>
 
 <section class="breadcrumb_wrapper">
     <div class="container">

@@ -317,10 +317,32 @@ use App\Models\Application;
         .mmenu .mm-sub a{display:block;padding:11px 0;font:400 17px/1.35 'Quattrocento Sans',sans-serif;color:#333}
         .mmenu a:hover{color:#E32329}
         .mmenu .mm-contact{display:flex;align-items:center;justify-content:center;height:52px;margin-top:22px;border-radius:5px;background:#E32329;color:#fff !important;font-weight:700}
+        /* everything in the menu appears together with it: the old script gave each link a staggered delay (0.25s + 0.05s per link, and the hidden sub-links counted too), so Contact Us / the icons showed up late */
+        .mmenu a,.mmenu .mm-tools a,.mmenu .mm-tools span{transition-delay:0s !important}
+        .mmenu .mm-acc{opacity:0;transition:opacity .3s}
+        .mmenu.open .mm-acc{opacity:1}
+        .mm-tools a,.mm-tools span{transition:opacity .3s,transform .3s,background .3s !important}
         .mm-tools{margin-top:24px}
         .mm-tools a,.mm-tools span{border-color:#1A1A1A}
         .mm-tools svg{stroke:#1A1A1A}
         .mm-tools a:hover svg{stroke:#fff}
+      }
+      /* phones / tablets: never a sideways scroll on any page, and the floating buttons never sit on top of the open menu */
+      @media (max-width:1024px){
+        html,body{overflow-x:hidden;max-width:100%}
+        /* right-edge floating items must not stack on top of each other: search tab (top) > Inquiry Now tab (middle) > mail / WhatsApp / call (bottom) */
+        .Brochurs_btn_side{bottom:calc(16px + 3 * 48px + 2 * 12px + 90px) !important;right:-27px;padding:8px 14px}
+        /* search tab: red on red blended into the open FAQ header - white edge + shadow keep it visible over any section; slimmer so it covers less content */
+        .search_button{z-index:998;width:42px;height:42px;border:2px solid #fff;border-right:0;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+        div.fab{right:12px;bottom:12px}
+        div.fab .fab-btn{width:44px;height:44px}
+        body:has(#mobileMenu.open) .Brochurs_btn_side,
+        body:has(#mobileMenu.open) div.fab{opacity:0 !important;visibility:hidden !important;pointer-events:none !important}
+      }
+      /* language list on phones / tablets: always inside the screen, full width with 16px side gaps (JS places it right under the globe icon) */
+      @media (max-width:1024px){
+        .tn-lang{left:16px !important;right:16px !important;width:auto !important;max-width:420px;margin:0 auto}
+        .tn-lang .dropdown-list{max-height:min(50vh,320px)}
       }
       @media (max-width:560px){#siteHeader .hdr-brand{padding-left:16px}.logo-hdr--icon{height:34px !important}.logo-hdr--text{height:26px !important}}
       .tn-mega-panel{display:none}
@@ -404,7 +426,8 @@ use App\Models\Application;
           <a class="mm-top" href="{{ $tn_item[1] }}">{{ $tn_item[0] }}</a>
         @endif
       @endforeach
-      <a class="mm-contact" href="{{ route('contact') }}">Contact Us</a>
+      <a class="mm-top" href="{{ route('contact') }}">Contact Us</a>
+      <a class="mm-contact" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#exampleModal">Request a Quote</a>
 
       <div class="mm-tools">
         <a href="tel:+916358740011" aria-label="Call +91 63587 40011"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg></a>
