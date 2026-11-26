@@ -18,17 +18,14 @@ class QuoteController extends Controller
     
     public function store(Request $request)
     {
-        // --- 1. Bot Defense & Honeypot Check (Return success to hide detection) ---
         if (!empty($request->website_url)) {
             Log::warning('Honeypot trap triggered', $request->all());
             return response()->json(['status' => 'success', 'redirect' => route('thankyou')]);
         }
         
-        // --- 2. Spam Content Check (Blocking known malicious links) ---
         $message = $request->message ?? '';
         $url_count = substr_count($message, 'http'); 
         
-        // Check for links (http/https), or specific spam keywords (like 'kraken' or the domain)
         if ($url_count > 0 || preg_match('/kra2kn\.cc|kraken|onion|darknet|зекрало/i', $message)) {
             Log::warning('Spam content detected in message field.', $request->all());
             return response()->json(['status' => 'success', 'redirect' => route('thankyou')]);
@@ -47,15 +44,13 @@ class QuoteController extends Controller
                 'required', 'string', 'email:rfc,dns', 'max:60',
             ],
             'contact' => [
-                'required_without:full_phone', 'nullable',
-                'regex:/^[0-9]{6,15}$/',
+                'required', 'regex:/^[0-9]{6,15}$/',
             ],
             'full_phone' => [
-                'required_without:contact', 'nullable',
-                'regex:/^\+[1-9][0-9]{6,14}$/',
+                'nullable', 'regex:/^\+[1-9][0-9]{6,14}$/',
             ],
             'country'   => ['nullable', 'string', 'max:100'],
-            'phonecode' => ['nullable', 'digits_between:1,4'],
+            'phonecode' => ['required', 'digits_between:1,4'],
             'message'   => ['nullable', 'string', 'max:150'],
             'custom_captcha' => [
                 'required', 'digits:4',
@@ -79,19 +74,17 @@ class QuoteController extends Controller
             'email.email'            => 'Please enter a valid email address.',
             'email.max'              => 'Email may not be longer than 60 characters.',
 
-            'contact.required_without'    => 'Please enter your phone number.',
+            'contact.required'            => 'Please enter your contact number.',
             'contact.regex'               => 'Phone number must contain 6 to 15 digits.',
-            'full_phone.required_without' => 'Please enter your phone number.',
+            'phonecode.required'          => 'Please select your country code.',
             'full_phone.regex'            => 'Please enter a valid phone number.',
 
             'custom_captcha.required' => 'The CAPTCHA field is required.',
             'custom_captcha.digits'   => 'The CAPTCHA must be 4 digits.',
         ]);
 
-        // Optional: invalidate the captcha after a successful validation so it can't be reused
         session()->forget('captcha_code');
 
-        // Combine phonecode + contact for unified saving
         $fullPhone = $request->phonecode && $request->contact
             ? '+' . $request->phonecode . $request->contact
             : $request->full_phone;
