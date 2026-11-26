@@ -47,7 +47,7 @@ class HomeController extends Controller
         $clientsays = Client::orderBy('id','asc')->where('status','Active')->get();
         $blogs = Blogs::orderBy('id','desc')->where('status','Active')->get();
         $category = ProductCategory::with('products')->where('status', 'Active')->get();
-        $applications = Application::where('status', 'Active')->orderBy('created_at', 'desc')->get();
+         $applications = Application::where('status', 'Active')->orderBy('created_at', 'desc')->whereNull('deleted_at')->get();
 
         return view('front.dashboard',compact('metatitle','metadescription','steps','homesliders','clientsays','blogs','category', 'applications'));
     }

@@ -322,7 +322,7 @@
           <figure class="tm-card">
             <div class="tm-top"><span class="stars" role="img" aria-label="{{ $tn_rating }} out of 5 stars">@for($i = 1; $i <= 5; $i++)<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"@if($i > $tn_rating) class="off"@endif><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.9z"></path></svg>@endfor</span><span class="qm" aria-hidden="true">“</span></div>
             <blockquote>“{{ trim(html_entity_decode(strip_tags((string) $client->description))) }}”</blockquote>
-            <figcaption><span class="av" aria-hidden="true">@if($tn_has_img)<img src="{{ asset('public/front/images/clients/' . $client->profile_image) }}" alt="" width="48" height="48">@else{{ $tn_init }}@endif</span><span><span class="nm">{{ $client->name }}</span><span class="rl">{{ $client->designation ?: 'Armstrong customer' }}</span></span></figcaption>
+            <figcaption><span class="av" aria-hidden="true">@if($tn_has_img)<img src="{{ asset('public/front/images/clients/' . $client->profile_image) }}" alt="" width="48" height="48">@else{{ $tn_init }}@endif</span><span><span class="nm">{{ $client->name }}</span><span class="rl">{{ ($client->designation && strcasecmp(trim($client->designation), trim($client->name)) !== 0) ? $client->designation : '' }}</span></span></figcaption>
           </figure>
           @endforeach
           {{-- [TEST-PAGE-DYNAMIC] END: Testimonials --}}
