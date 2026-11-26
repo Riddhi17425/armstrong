@@ -19,8 +19,8 @@ use App\Models\Application;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{!! $metatitle ?? 'Armstrong' !!}</title>
     <meta name="description" content="{{ $metadescription ?? '' }}">
-    <link rel="icon" type="image/x-icon" href="{{asset('public/front/images/favicon.webp')}}">
-    <link rel="icon" type="image/x-icon" href="{{ asset('public/front/img/favicon.webp')}}">
+    <link rel="icon" type="image/x-icon" href="{{asset('public/front/images/favicon.png')}}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('public/front/img/favicon.png')}}">
 
     <!--og tags-->
      <meta property="og:title" content="{!! $metatitle ?? 'Armstrong' !!}">
