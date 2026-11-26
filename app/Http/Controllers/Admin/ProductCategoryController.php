@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ProductCategory; 
 use DataTables;
 use Str;
+use Illuminate\Support\Facades\Schema;
 
 class ProductCategoryController extends Controller
 {
@@ -28,6 +29,23 @@ class ProductCategoryController extends Controller
             ->rawColumns(['action']) // allow HTML rendering
             ->make(true);
     }
+    /**
+     * [CATEGORY-VIDEO / IS-FEATURE] Saves the optional category video and the is_feature flag.
+     * Guarded with Schema::hasColumn so the page keeps working until the SQL (ALTER TABLE) has been run.
+     */
+    private function saveVideoAndFeature(Request $request, ProductCategory $category)
+    {
+        if (Schema::hasColumn('product_categories', 'is_feature') && $request->has('is_feature')) {
+            $category->is_feature = $request->input('is_feature') == '1' ? 1 : 0;
+        }
+        if (Schema::hasColumn('product_categories', 'category_video') && $request->hasFile('category_video')) {
+            $video = $request->file('category_video');
+            $videoName = Str::uuid().'.'.$video->getClientOriginalExtension();
+            $video->move(public_path('admin/productcategory/video/'), $videoName);
+            $category->category_video = 'public/admin/productcategory/video/'.$videoName;
+        }
+    }
+
     public function store(Request $request)
     {
         
@@ -79,6 +97,7 @@ class ProductCategoryController extends Controller
 
         $category->category_image = $image_url ?? null;
         $category->category_small_image = $smallimage_url ?? null;
+        $this->saveVideoAndFeature($request, $category); // [CATEGORY-VIDEO / IS-FEATURE]
 
         $category->save();
 
@@ -145,6 +164,7 @@ class ProductCategoryController extends Controller
             $category->category_small_image = $smallimage_url ?? null;
         }
 
+        $this->saveVideoAndFeature($request, $category); // [CATEGORY-VIDEO / IS-FEATURE]
 
         $category->save();
 
@@ -180,6 +200,8 @@ class ProductCategoryController extends Controller
             'status' => $category->status,
             'category_image' => $category->category_image,
             'category_small_image' => $category->category_small_image,
+            'category_video' => $category->category_video ?? null,   // [CATEGORY-VIDEO / IS-FEATURE]
+            'is_feature' => (int) ($category->is_feature ?? 0),      // [CATEGORY-VIDEO / IS-FEATURE]
         ],
         'faqs' => $category->faqs ?? [],
     ]);

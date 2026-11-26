@@ -247,7 +247,7 @@
                                          class="img-fluid w-100 h-100"
                                          alt="Armstrong Sewing Machine Manufacturing Plant">
                     
-                                    <img class="play_btn" src="{{ asset('public/front/img/play-btn.png') }}" alt="play">
+                                    <img class="play_btn" src="https://www.armstrongex.com/public/front/img/play-btn.png" alt="play">
                     
                                 </a>
                             </div>
@@ -359,7 +359,8 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="text-center">
-                <img src="{{ asset('public/front/img/fibca-iftex.svg') }}" alt="fibca iftex" class="img-fluid">
+                 <img src="{{ asset('public/front/img/fibca-iftex.svg') }}" alt="fibca iftex" class="img-fluid d-none d-lg-block">
+                 <img src="{{ asset('public/front/img/fibca-iftex-mobile.svg') }}" alt="fibca iftex" class="img-fluid d-lg-none">
             </div>
         </div>
     </div> 

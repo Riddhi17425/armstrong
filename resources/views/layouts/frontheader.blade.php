@@ -1,4 +1,15 @@
 @php $home_new = true; /* new Figma header is used on EVERY page */ @endphp
+{{-- [TEST-PAGE-NEW-DESIGN] class imports hoisted to file top (they used to sit inside the header markup); needed because the legacy header is now wrapped in @if --}}
+@php
+use App\Models\ProductCategory;
+use App\Models\ProductMaster;
+use App\Models\Application;
+@endphp
+{{-- [TEST-PAGE-NEW-DESIGN] switch: every page except the home page ('/') gets the new header/footer; the test page passes test_new + tn_home (transparent header over the hero), inner pages get the same header in its solid white form --}}
+@php
+    $test_new = $test_new ?? !Request::is('/');
+    $tn_inner = !empty($test_new) && empty($tn_home);
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +18,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{!! $metatitle ?? 'Armstrong' !!}</title>
-    <meta name="description" content="{!! $metadescription ?? ''!!}">
+    <meta name="description" content="{{ $metadescription ?? '' }}">
     <link rel="icon" type="image/x-icon" href="{{asset('public/front/images/favicon.webp')}}">
     <link rel="icon" type="image/x-icon" href="{{ asset('public/front/img/favicon.webp')}}">
 
@@ -23,6 +34,14 @@
     @if (Request::is('woven-bag-lamination-machine'))
         <meta name="robots" content="noindex, nofollow">
     @endif
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MF2C8CJ3');</script>
+    <!-- End Google Tag Manager -->
 
 
     <!-- bootstrap -->
@@ -41,9 +60,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!--<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">-->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <!-- NEW ADDED FOR NEW HOME PAGE -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    {{-- [TEST-PAGE-NEW-DESIGN] home page (and test): full new-home css. INNER pages: only the header/footer part of it (style-layout.css) - the page content uses the legacy css/style.css below. --}}
+    @if(empty($tn_inner))<link rel="stylesheet" href="{{ asset('public/front/assets/css/style.css') }}">@endif
+
     <!-- Select2 CSS (CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Fancybox CSS -->
@@ -62,139 +86,148 @@
             .custom-placeholder {
                 display: none;
             }
+
+
         }
+
+
 
        .language-select  {
-            display: flex;
-            align-items: center;
-            border: 1px solid #DDDDDD;
-            border-radius: 5px;
-            padding: .4em 0;
-        }
-
-        .dropdown-wrapper {
-        position: relative;
-        width: 200px;
-        }
-
-        .dropdown-input-lan {
-        width: 100%;
-        border: none;
-        padding-left:10px;
-        cursor: pointer;
-        }
-
-        .dropdown-input-lan:focus {
-        outline: none;
-        border-color: unset;
-
-        }
-
-        .dropdown-list {
-        position: absolute;
-        top: 136%;
-        left: -50px;
-        right: -15px;
-        max-height: 250px;
-        overflow-y: auto;
-        background: #fff;
-        /*border: 1px solid #ddd;*/
-        /*border-radius: 6px;*/
-        z-index: 100;
-        display: none;
-        }
-
-        .dropdown-list.show {
-        display: block;
-        }
-
-        .dropdown-list .search-box {
-        padding: 6px 10px;
-        /*border-bottom: 1px solid #ddd;*/
-        /*background: #f9f9f9;*/
-        }
-
-        .dropdown-list .search-box input {
-        width: 100%;
-        padding: 6px 10px;
-        font-size: 14px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        }
-
-        .dropdown-list .search-box input:focus {
-        outline: none;
-        border-color: none;
-        }
-
-        .dropdown-list .list-items div {
-        padding: 8px 12px;
-        cursor: pointer;
-        }
-
-        .dropdown-list .list-items div:hover {
-        background-color: #f1f1f1;
-        }
-
-        /* Hide Google Translate elements */
-        .goog-te-banner-frame,
-        .skiptranslate {
-            display: none !important;
-        }
-
-        body {top: 0 !important;}
-
-        /* Ensure dropdown remains untranslated */
-        .notranslate {translate: no;}
-
-        .skiptranslate {display: none !important;}
-        .modal-body .contact{border:none;padding:0;}
-        .select2-container--default .select2-selection--single{border:none;}
-
-        /* NEW CODE FOR First category red by default, hovered category red */
-        .category-btn.active .pagename span {
-            color: #E41E29 !important;
-        }
-        .category-btn .pagename span {
-            color: #333;
-            transition: color 0.2s ease;
-        }
-        .category-btn:hover .pagename span {
-            color: #E41E29 !important;
-        }
-
-        .application_header_link img
-        {
-            width: 80px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 4px;
-        }
-        .phone-icon{
-            display: flex;
-            align-content: center;
-            align-items: center;
-        }
-        .phone-icon p{
-            margin-bottom: 0;
-        }
-           .phone-icon .fas{
-            transform: rotate(90deg);
-        }
-            @media (max-width: 1537px) {
-                .application_header_link img {
-            width: 70px;
-
-        }
-            }
-            @media (max-width: 1441px) {
-                .application_header_link img {
-            width: 60px;
-
-        }
+        display: flex;
+        align-items: center;
+        border: 1px solid #DDDDDD;
+        border-radius: 5px;
+        padding: .4em 0;
+    }
 
 
-        }
+
+    .dropdown-wrapper {
+      position: relative;
+      width: 200px;
+    }
+
+    .dropdown-input-lan {
+      width: 100%;
+      border: none;
+      padding-left:10px;
+      cursor: pointer;
+    }
+
+
+
+    .dropdown-input-lan:focus {
+      outline: none;
+      border-color: unset;
+
+    }
+
+    .dropdown-list {
+      position: absolute;
+      top: 136%;
+      left: -50px;
+      right: -15px;
+      max-height: 250px;
+      overflow-y: auto;
+      background: #fff;
+      /*border: 1px solid #ddd;*/
+      /*border-radius: 6px;*/
+      z-index: 100;
+      display: none;
+    }
+
+    .dropdown-list.show {
+      display: block;
+    }
+
+    .dropdown-list .search-box {
+      padding: 6px 10px;
+      /*border-bottom: 1px solid #ddd;*/
+      /*background: #f9f9f9;*/
+    }
+
+    .dropdown-list .search-box input {
+      width: 100%;
+      padding: 6px 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .dropdown-list .search-box input:focus {
+      outline: none;
+      border-color: none;
+    }
+
+    .dropdown-list .list-items div {
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .dropdown-list .list-items div:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* Hide Google Translate elements */
+    .goog-te-banner-frame,
+    .skiptranslate {
+      display: none !important;
+    }
+
+    body {top: 0 !important;}
+
+    /* Ensure dropdown remains untranslated */
+    .notranslate {translate: no;}
+
+    .skiptranslate {display: none !important;}
+    .modal-body .contact{border:none;padding:0;}
+    .select2-container--default .select2-selection--single{border:none;}
+
+    /* NEW CODE FOR First category red by default, hovered category red */
+    .category-btn.active .pagename span {
+        color: #E41E29 !important;
+    }
+    .category-btn .pagename span {
+        color: #333;
+        transition: color 0.2s ease;
+    }
+    .category-btn:hover .pagename span {
+        color: #E41E29 !important;
+    }
+
+    .application_header_link img
+    {
+        width: 80px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 4px;
+    }
+    .phone-icon{
+        display: flex;
+        align-content: center;
+        align-items: center;
+    }
+    .phone-icon p{
+        margin-bottom: 0;
+    }
+       .phone-icon .fas{
+        transform: rotate(90deg);
+    }
+    
+    @media (max-width: 1537px) {
+        .application_header_link img {
+    width: 70px;
+
+}
+
+    @media (max-width: 1441px) {
+        .application_header_link img {
+    width: 60px;
+
+}
+
+
+    }
 
     </style>
 
@@ -203,15 +236,580 @@
     <script type="application/ld+json">
     {!! $localSchema !!}
     </script>
-
+    
     @if(!empty($home_new))
     <link rel="stylesheet" href="{{ asset('public/front/home-new/css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('public/front/home-new/css/footer.css') }}">
     @endif
+    {{-- [TEST-PAGE-NEW-DESIGN] new homepage stylesheet re-loaded last (only on the test page) so its sections/header win over the shared legacy css --}}
+    @if(!empty($test_new))
+    @if(empty($tn_inner)) <link rel="stylesheet" href="{{ asset('public/front/assets/css/style.css') }}"> @else <link rel="stylesheet" href="{{ asset('public/front/assets/css/style-layout.css') }}?v=1"> @endif {{-- inner pages: header/footer css loaded AFTER the legacy css so it wins for the header/footer only --}}
+    @if(!empty($tn_home))
+    {{-- [TEST-PAGE-NEW-DESIGN] new HOME page only: undo the generic rules of the shared bootstrap/legacy css (global box-sizing, 14px/21px base text, capitalized h1/h2, button font/padding) INSIDE the new sections (main.page + footer.foot), so they look exactly like the new design. Written with :where() so every class rule of the new design still wins; the header/mega menu and all other pages are untouched. --}}
+    <style>
+      main.page, footer.foot{font-size:16px;line-height:normal}
+      :where(main.page, footer.foot) *, :where(main.page, footer.foot) *::before, :where(main.page, footer.foot) *::after{box-sizing:content-box}
+      :where(main.page, footer.foot) :where(button, input, select, textarea, summary, progress, meter){box-sizing:border-box} /* browser default for form controls */
+      :where(main.page, footer.foot) h1, :where(main.page, footer.foot) h2{text-transform:none}
+    </style>
+    @endif
+    {{-- [TEST-PAGE-NEW-DESIGN] original mega menu is shown in a panel below the new header --}}
+    <style>
+      .tn-mega{position:fixed;left:0;right:0;z-index:1000;display:block;visibility:hidden;opacity:0;pointer-events:none;transition:opacity .2s ease,visibility 0s linear .2s} /* side gaps: moving the mouse into them closes the menu; shown instantly (no effect) */
+      .tn-mega.open{visibility:visible;opacity:1;pointer-events:auto;transition-delay:0s} /* plain fade only (no up/down movement) */
+      .tn-mega, .tn-mega *{overscroll-behavior:contain} /* scrolling inside the menu never scrolls the page behind it */
+      #siteHeader.tn-no-fx,#siteHeader.tn-no-fx *{transition-duration:.2s !important} /* smooth (not abrupt) colour change of the header; size never changes so nothing moves */
+      /* white header on hover WITHOUT shrinking: menu links keep their exact position (only colour/background change) */
+      /* header is shorter while its menu is open (bottom white space removed); top padding keeps the links at exactly the same position */
+      /* same height with and without hover (links never move), slightly shorter than the original 136px so everything sits a little higher */
+      @media (min-width:992px){#siteHeader{height:116px}}
+      #siteHeader.tn-keep.scrolled{height:116px !important}
+      #siteHeader.tn-keep.scrolled .logo-hdr--icon{height:48px}
+      #siteHeader.tn-keep.scrolled .logo-hdr--text{height:38px}
+      @media (max-width:1024px){#siteHeader.tn-keep.scrolled .logo-hdr--icon{height:38px}#siteHeader.tn-keep.scrolled .logo-hdr--text{height:30px}}
+      /* header must stay visible while its menu is open (page scroll can hide it, which pushed the panel to the very top) */
+      #siteHeader.tn-open{transform:none !important;box-shadow:none !important}
+      /* header + panel look like ONE white block: no shadow/edge between them, one soft shadow only under the panel */
+      .tn-mega .mega_menu{box-shadow:0 22px 30px -20px rgba(0,0,0,.3) !important;border:0 !important}
+      /* inner lists fit inside the panel (the original gives them 64vh each, which made a 2nd scrollbar and cut the last items) */
+      .tn-mega .product_menu .nav{height:max(240px, calc(100vh - 261px)) !important}
+      .tn-mega .product_menu .tab-content{max-height:max(240px, calc(100vh - 261px)) !important}
+      /* hide the old green WhatsApp float button (from the shared footer) on the new test page; the new design has its own round WhatsApp button */
+      .float-buttons{display:none !important}
+      /* arrow after menu items that open a menu + a little more space between the header menu items */
+      #siteHeader .navw a{margin:0 8px}
+      #siteHeader .navw a .tn-arrow{margin-left:6px;vertical-align:-1px;stroke:currentColor !important;transition:transform .2s ease}
+      #siteHeader .navw a:hover .tn-arrow{transform:rotate(180deg)}
+      /* inner pages: the same header, always in its solid white form (no transparent state), always visible; page content starts right below it */
+      /* floating mail/WhatsApp/call buttons: Font Awesome (loaded on inner pages) also owns the class ".fab" and turned this column into inline blocks - restore the intended layout */
+      div.fab{display:flex;flex-direction:column;gap:12px;line-height:normal;font-style:normal}
+      div.fab .fab-btn{display:flex;width:48px;height:48px;line-height:normal}
+      #siteHeader.tn-solid, #siteHeader.tn-solid.hide{transform:none !important}
+      #siteHeader.tn-solid{box-shadow:none !important;border-bottom:1px solid #e3e3e3} /* inner pages: no shadow under the header, a thin border instead */
+      /* WhatsApp popup button keeps its ORIGINAL look (the new generic .btn style had turned it red / left aligned) */
+      #exampleModal-4 .popup-btn{display:block;min-height:0;gap:0;padding:12px;font:600 16px/1.5 'Quattrocento Sans',sans-serif;text-align:center;border:0;border-radius:12px;background:#720f14;color:#fff;transform:none;box-shadow:none}
+      #exampleModal-4 .popup-btn:hover{background:#191818;color:#fff;transform:none;box-shadow:none}
+      body:has(> #siteHeader.tn-solid){padding-top:88px}
+      @media (max-width:991px){body:has(> #siteHeader.tn-solid){padding-top:68px}}
+      /* language dropdown (globe icon) */
+      #tnLangBtn{background:none;border:0;padding:0;cursor:pointer}
+      .tn-lang{position:fixed;right:24px;top:100px;width:260px;z-index:1200}
+      .tn-lang .dropdown-wrapper{width:100%}
+      .tn-lang .dropdown-list{top:0;left:0;right:0;border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.2);color:#333}
+      .tn-lang .dropdown-list .list-items div{color:#333;font-size:16px}
+      /* ===== mobile / tablet header + menu (<=1024px): same look as the new desktop header (white bar, dark text, red Contact Us) ===== */
+      @media (max-width:1024px){
+        #siteHeader .logo-hdr{filter:none !important}
+        #siteHeader .burger span{background:#1A1A1A !important;filter:none !important}
+        #siteHeader{background:#fff;height:76px !important;box-shadow:0 1px 0 #e3e3e3}
+        #siteHeader:not(.scrolled) .hdr-contact{text-shadow:none}
+        body:has(> #siteHeader.tn-solid){padding-top:76px}
+        #siteHeader .hdr-brand{padding-left:20px}
+        .mmenu{background:#fff;align-items:flex-start;padding:92px 24px 32px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+        .mmenu nav{width:100%;gap:0}
+        .mmenu a,.mmenu .mm-acc{font:600 19px/1.3 'Quattrocento Sans',sans-serif;color:#1A1A1A;letter-spacing:0}
+        .mmenu .mm-top,.mmenu .mm-acc{display:flex;align-items:center;justify-content:space-between;width:100%;padding:16px 0;border:0;border-bottom:1px solid #e3e3e3;background:none;text-align:left;cursor:pointer}
+        .mmenu .mm-acc .mm-chev{transition:transform .25s ease;flex:none}
+        .mmenu .mm-acc[aria-expanded="true"]{color:#E32329}
+        .mmenu .mm-acc[aria-expanded="true"] .mm-chev{transform:rotate(180deg)}
+        .mmenu .mm-sub{padding:4px 0 8px 14px;border-bottom:1px solid #e3e3e3}
+        .mmenu .mm-sub[hidden]{display:none}
+        .mmenu .mm-sub a{display:block;padding:11px 0;font:400 17px/1.35 'Quattrocento Sans',sans-serif;color:#333}
+        .mmenu a:hover{color:#E32329}
+        .mmenu .mm-contact{display:flex;align-items:center;justify-content:center;height:52px;margin-top:22px;border-radius:5px;background:#E32329;color:#fff !important;font-weight:700}
+        .mm-tools{margin-top:24px}
+        .mm-tools a,.mm-tools span{border-color:#1A1A1A}
+        .mm-tools svg{stroke:#1A1A1A}
+        .mm-tools a:hover svg{stroke:#fff}
+      }
+      @media (max-width:560px){#siteHeader .hdr-brand{padding-left:16px}.logo-hdr--icon{height:34px !important}.logo-hdr--text{height:26px !important}}
+      .tn-mega-panel{display:none}
+      .tn-mega-panel.on{display:block}
+      .tn-mega .mega_menu{max-height:calc(100vh - 215px) !important;min-height:0;padding-top:16px !important;padding-bottom:30px !important;display:block !important;visibility:visible !important;position:static !important;width:100%;z-index:auto;transform:none}
+      @media (max-width:991px){.tn-mega{display:none !important}}
+    </style>
+    @endif
 </head>
 
 <body>
-   <header @if(!empty($home_new)) class="hn-header" @endif>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MF2C8CJ3"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- <div id="loader">-->
+    <!--     <div class="loader-logo">Armstrong</div>-->
+    <!--     <div class="loader-bar"><span></span></div>-->
+    <!--</div>-->
+
+    {{-- ===== [TEST-PAGE-NEW-DESIGN] START: header + mobile menu for the new homepage design (used only when $test_new is passed) ===== --}}
+    @if(!empty($test_new))
+    @php
+        // Menu = same items/destinations as the ORIGINAL header menu: Products, Media, About Us, Blogs, Contact Us.
+        // Products sub-links are dynamic (active product categories); Applications stays hidden exactly like in the original header.
+        // data used by the ORIGINAL Products mega menu (same queries as the original header)
+        $product_categories = ProductCategory::where('status', 'Active')->get();
+        $orsan_products = ProductMaster::where('subcategory_id', 1)->where('product_status', 'active')->get();
+        $armstrong_products = ProductMaster::where('subcategory_id', 2)->where('product_status', 'active')->get();
+        $newlong_products = ProductMaster::where('subcategory_id', 4)->where('product_status', 'active')->get();
+        $juki_products = ProductMaster::where('subcategory_id', 3)->where('product_status', 'active')->get();
+        $tn_prod_links = [['All Products', route('productlist')]]; // only used to flag Products as having a panel
+        $tn_menu = [
+            ['Products', route('productlist'), $tn_prod_links],
+            ['Media', null, [['Events', route('front.event')], ['Videos', route('front.video')]]],
+            ['About Us', null, [['Company Profile', route('about')], ['Our Infrastructure', route('our.infrastructure')], ['Certificates', route('certificates')]]],
+            ['Blogs', route('blog'), []],
+        ];
+    @endphp
+  {{-- [TEST-PAGE-NEW-DESIGN] hidden placeholders for the OLD header elements that the shared legacy script (public/front/js/main.js) expects (.nav-link + .mega_menu, #hamburger). Without them that script stops with an error and skips the code after it on every page. Not visible, no function. --}}
+  <div style="display:none" aria-hidden="true"><span id="hamburger"></span><div class="nav-item"><a class="nav-link" href="javascript:void(0)" tabindex="-1"></a><div class="mega_menu"></div></div></div>
+  <header id="siteHeader"@if(!empty($tn_inner)) class="scrolled tn-solid"@endif>
+    <a href="{{ url('/') }}" class="hdr-brand">
+      <img class="logo logo-hdr logo-hdr--icon" src="{{ asset('public/front/assets/images/hdr-logo-icon.svg') }}" alt="" width="65" height="65">
+      <img class="logo logo-hdr logo-hdr--text" src="{{ asset('public/front/assets/images/hdr-logo-text.svg') }}" alt="Armstrong" width="178" height="51">
+    </a>
+    <div class="hdr-main">
+      <nav class="nav navw" aria-label="Primary">
+        @foreach($tn_menu as $tn_i => $tn_item)
+        <a href="{{ $tn_item[1] ?: 'javascript:void(0)' }}"@if(!empty($tn_item[2])) data-tn-mega="{{ $tn_i }}"@endif>{{ $tn_item[0] }}@if(!empty($tn_item[2]))<svg class="tn-arrow" aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l7 7 7-7"></path></svg>@endif</a>
+        @endforeach
+      </nav>
+      <div class="hdr-tools">
+        <a href="tel:+916358740011" class="ibtn" aria-label="Call +91 63587 40011"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg></a>
+        <a href="mailto:info@armstrongex.com" target="_blank" rel="noopener" class="ibtn" aria-label="Email info@armstrongex.com"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg></a>
+        <button type="button" class="ibtn tn-lang-open" id="tnLangBtn" aria-label="Select language" aria-haspopup="true"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"></path></svg></button>
+      </div>
+    </div>
+    <a href="{{ route('contact') }}" class="hdr-contact">Contact Us</a>
+    <button type="button" class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+  </header>
+
+  <!-- Mobile menu (same dynamic menu as the header above) -->
+  <div id="mobileMenu" class="mmenu" hidden data-lenis-prevent>
+    <nav aria-label="Mobile">
+      @foreach($tn_menu as $tn_i => $tn_item)
+        @if($tn_item[0] === 'Products')
+          <div class="mm-group">
+            <button type="button" class="mm-acc" aria-expanded="false">{{ $tn_item[0] }}<svg class="mm-chev" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l7 7 7-7"></path></svg></button>
+            <div class="mm-sub" hidden>
+              <a href="{{ route('productlist') }}">All Products</a>
+              @foreach($product_categories->sortBy('sort_order') as $tn_cat)<a href="{{ route('products.listing', $tn_cat->url) }}">{{ $tn_cat->name }}@if(in_array($tn_cat->name, ['Mulch Film Punching','Needle Loom'])) Machine @elseif($tn_cat->name !== 'Spare Parts') Machines @endif</a>@endforeach
+            </div>
+          </div>
+        @elseif(!empty($tn_item[2]))
+          <div class="mm-group">
+            <button type="button" class="mm-acc" aria-expanded="false">{{ $tn_item[0] }}<svg class="mm-chev" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l7 7 7-7"></path></svg></button>
+            <div class="mm-sub" hidden>@foreach($tn_item[2] as $tn_sub)<a href="{{ $tn_sub[1] }}">{{ $tn_sub[0] }}</a>@endforeach</div>
+          </div>
+        @else
+          <a class="mm-top" href="{{ $tn_item[1] }}">{{ $tn_item[0] }}</a>
+        @endif
+      @endforeach
+      <a class="mm-contact" href="{{ route('contact') }}">Contact Us</a>
+
+      <div class="mm-tools">
+        <a href="tel:+916358740011" aria-label="Call +91 63587 40011"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg></a>
+        <a href="mailto:info@armstrongex.com" target="_blank" rel="noopener" aria-label="Email info@armstrongex.com"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg></a>
+        <span class="tn-lang-open" role="button" tabindex="0" aria-label="Select language" style="cursor:pointer"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"></path></svg></span>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    /* mobile menu accordion (Products / Media / About Us) */
+    document.querySelectorAll('#mobileMenu .mm-acc').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var open = b.getAttribute('aria-expanded') === 'true', sub = b.nextElementSibling;
+        b.setAttribute('aria-expanded', open ? 'false' : 'true');
+        if (sub) sub.hidden = open;
+      });
+    });
+  </script>
+  {{-- [TEST-PAGE-NEW-DESIGN] language dropdown for the globe icon. Same markup/ids as the original header, so the ORIGINAL language script (Google Translate, search, cookie) works unchanged. --}}
+  <div class="tn-lang notranslate" id="tnLang">
+    <div class="dropdown-wrapper notranslate">
+      <input type="text" id="dropdownInput" class="dropdown-input-lan" placeholder="Select Language" readonly style="display:none">
+      <div class="dropdown-list border rounded" id="dropdownList">
+        <div class="search-box"><input type="text" id="searchInput" placeholder="Search language..."></div>
+        <div class="list-items" id="listItems"></div>
+      </div>
+    </div>
+    <div id="google_translate_element" style="display:none;"></div>
+  </div>
+  <script>
+    /* [TEST-PAGE-NEW-DESIGN] globe icon (desktop header + mobile menu) opens the language list below the header */
+    (function () {
+      var hdr = document.getElementById('siteHeader'), box = document.getElementById('tnLang'), input = document.getElementById('dropdownInput');
+      if (!hdr || !box || !input) return;
+      document.querySelectorAll('.tn-lang-open').forEach(function (b) {
+        b.addEventListener('click', function (e) {
+          e.stopPropagation(); /* the original script closes the list on any click outside it */
+          var sv = b.querySelector('svg') || b, rc = sv.getBoundingClientRect(); /* dropdown opens right under the globe drawing itself (not the taller button box) */
+          box.style.top = (rc.bottom + 6) + 'px';
+          box.style.right = Math.max(8, window.innerWidth - rc.right - 24) + 'px';
+          input.click();       /* original script toggles the list */
+        });
+      });
+    })();
+  </script>
+  {{-- [TEST-PAGE-NEW-DESIGN] ORIGINAL mega-menu panels (copied unchanged from the original header below), opened from the new header links --}}
+  <div class="tn-mega" id="tnMega" data-lenis-prevent>
+    <div class="tn-mega-panel" data-tn-panel="0">
+                            <div class="mega_menu">
+                                <div class="container">
+                                    <div class="d-flex align-items-start product_menu">
+
+                                        {{-- LEFT SIDE (Categories) --}}
+                                        <div class="nav flex-column nav-pills col-lg-3 col-md-3 col-12" id="v-pills-tab"
+                                            role="tablist" aria-orientation="vertical">
+                                            @foreach($product_categories->sortBy('sort_order') as $index => $category)
+                                            <button
+                                                class="d-none d-md-block nav-link category-btn @if($index == 0) active @endif"
+                                                data-id="{{ $category->id }}" type="button">
+                                                <a class="icon" href="{{ route('products.listing', $category->url) }}">
+                                                    <img src="{{ asset('/' . $category->category_small_image ?? 'public/front/img/cp.png') }}"
+                                                        alt="{{ $category->title }}" class="img-fluid">
+                                                    <div class="pagename">
+                                                        <span>
+                                                            {{ $category->name }}
+                                                            @if($category->name == 'Mulch Film Punching' ||
+                                                            $category->name == 'Needle Loom')
+                                                            Machine
+
+                                                            @elseif($category->name=='Spare Parts')
+
+                                                            @else
+                                                            Machines
+                                                            @endif
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </button>
+                                            <a class="icon d-block d-md-none"
+                                                href="{{ route('products.listing', $category->url) }}">
+                                                <div class="pagename">
+                                                    <span>
+                                                        {{ $category->name }}
+                                                        @if($category->name == 'Mulch Film Punching' || $category->name
+                                                        == 'Needle Loom')
+                                                        Machine
+                                                        @else
+                                                        Machines
+                                                        @endif
+                                                    </span>
+                                                </div>
+                                            </a>
+                                            @endforeach
+                                        </div>
+                                        <div class="tab-content col-lg-9 d-none d-md-block">
+                                            <div class="tab-pane fade show active">
+                                                <div class="row justify-content-between">
+                                                    <div class="col-lg-12">
+                                                        <ul id="dynamic-product-list" class="two-col-product">
+                                                            <li>Select a category to view products</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Special container for category 3 (FIBC & Woven Sack) -->
+
+                                                <!--<div id="special-category-container" class="row justify-content-between mt-5">-->
+                                                <!--     <div class="col-lg-6 mb-3">-->
+                                                <!--         <ul>-->
+                                                <!--             <h3 class="certi_head">FIBC Machines</h3>-->
+                                                <!--             <li>-->
+                                                <!--                 <a href="{{ route('products.special', 'armstrong-sewing-machines') }}">-->
+                                                <!--                     Armstrong Sewing Machines-->
+                                                <!--                 </a>-->
+                                                <!--             </li>-->
+                                                <!--             <li>-->
+                                                <!--                 <a href="{{ route('products.special', 'orsan-machines') }}">-->
+                                                <!--                     Orsan Machines-->
+                                                <!--                 </a>-->
+                                                <!--             </li>-->
+
+                                                <!--         </ul>-->
+                                                <!--     </div>-->
+                                                <!--     <div class="col-lg-6 mb-3">-->
+                                                <!--         <ul>-->
+                                                <!--             <h3 class="certi_head">Woven Sack Machines</h3>-->
+                                                <!--             <li>-->
+                                                <!--                 <a href="{{ route('products.special', 'newlong-machines') }}">-->
+                                                <!--                     NewLong Machine-->
+                                                <!--                 </a>-->
+                                                <!--             </li>-->
+                                                <!--             <li>-->
+                                                <!--                 <a href="{{ route('products.special', 'juki-machines') }}">-->
+                                                <!--                     Juki Machine-->
+                                                <!--                 </a>-->
+                                                <!--             </li>-->
+
+                                                <!--         </ul>-->
+                                                <!--     </div>-->
+                                                <!-- </div>-->
+                                                <div id="special-category-container"
+                                                    class="row justify-content-between mt-5">
+                                                    <div class="col-lg-6 mb-3">
+                                                        <ul>
+                                                            <h3 class="certi_head">FIBC Machines</h3>
+                                                            <li>
+                                                                <a
+                                                                    href="{{ route('products.special', 'armstrong-sewing-machines-fibc') }}">
+                                                                    Armstrong Sewing Machines </a>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href="{{ route('products.special', 'orsan-machines') }}">
+                                                                    Orsan Machines </a>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href="{{ route('products.special', 'juki-machines') }}">
+                                                                    Juki Machine </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-lg-6 mb-3">
+                                                        <ul>
+                                                            <h3 class="certi_head">Woven Sack Machines</h3>
+                                                            <li>
+                                                                <a
+                                                                    href="{{ route('products.special', 'armstrong-sewing-machines') }}">
+                                                                    Armstrong Sewing Machines </a>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href="{{ route('products.special', 'newlong-machines') }}">
+                                                                    NewLong Machine </a>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div id="special-category-spare"
+                                                    class="row justify-content-between mt-5">
+                                                    <div class="col-lg-6 mb-3">
+                                                        <ul>
+                                                            <h3 class="certi_head">FIBC Spare Parts</h3>
+                                                            <li>
+                                                                <a
+                                                                    href="{{ route('products.spareparts', 'armstrong-spare-parts-fibc') }}">
+                                                                    Armstrong Spare Parts </a>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href="{{ route('products.spareparts', 'orsan-spare-parts') }}">
+                                                                    Orsan Spare Parts </a>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href="{{ route('products.spareparts', 'juki-spare-parts') }}">
+                                                                    Juki Spare Parts </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-lg-6 mb-3">
+                                                        <ul>
+                                                            <h3 class="certi_head">Woven Sack Machines</h3>
+                                                            <!--<li>-->
+                                                            <!--    <a href="{{ route('products.spareparts', 'armstrong-spare-parts') }}"> Armstrong Sewing Machines </a>-->
+                                                            <!--</li>-->
+                                                            <li>
+                                                                <a
+                                                                    href="{{ route('products.spareparts', 'newlong-spare-parts') }}">
+                                                                    NewLong Machine </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-lg-6 mb-3">
+                                                        <ul>
+                                                            <a
+                                                                href="{{ route('products.spareparts', 'bag-closer-spare') }}">
+                                                                <h3 class="certi_head">Bag Closing Spare</h3>
+                                                            </a>
+
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-lg-6 mb-3">
+                                                        <ul>
+                                                            <a
+                                                                href="{{ route('products.spareparts', 'bcs-machine-spare') }}">
+                                                                <h3 class="certi_head">BCS Machine Spare</h3>
+                                                            </a>
+
+                                                    </div>
+                                                    <div class="col-lg-6 mb-3">
+                                                        <ul>
+                                                            <a
+                                                                href="{{ route('products.spareparts', 'needle-loom-spare') }}">
+                                                                <h3 class="certi_head">Needle Loom Spare</h3>
+                                                            </a>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-lg-6 mb-3">
+                                                        <ul>
+                                                            <a
+                                                                href="{{ route('products.spareparts', 'ultrasonic-loom-cutter') }}">
+                                                                <h3 class="certi_head">Ultrasonic Loom Cutter</h3>
+                                                            </a>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-lg-6 mb-3">
+                                                        <ul>
+                                                            <a
+                                                                href="{{ route('products.spareparts', 'circular-loom-spare-parts') }}">
+                                                                <h3 class="certi_head">Circular Loom Spare Parts</h3>
+                                                            </a>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    </div>
+    <div class="tn-mega-panel" data-tn-panel="1">
+                            <div class="mega_menu">
+                                <div class="container">
+                                    <div class="mega_menu_wrapper">
+                                        <div class="icons">
+                                            <a class="icon icon1" href="{{route('front.event')}}">
+                                                <img src="{{asset('public/front/img/Events.webp')}}" alt="cp"
+                                                    class="img-fluid d-none d-md-block">
+                                                <div class="pagename">
+                                                    <span>Events</span>
+                                                </div>
+                                            </a>
+                                            <a class="icon icon3 mb-0" href="{{route('front.video')}}">
+                                                <img src="{{asset('public/front/img/Videos.webp')}}" alt="cp"
+                                                    class="img-fluid d-none d-md-block">
+                                                <div class="pagename">
+                                                    <span>Videos</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="icons_bg">
+                                            <img src="{{asset('public/front/img/Media.webp')}}" alt="cp"
+                                                class=" img-fluid main-bg bd_10">
+                                            <img src="{{asset('public/front/img/event-banner.webp')}}" alt="cp"
+                                                class=" img-fluid main-bg1 bd_10">
+                                            <!--<img src="{{asset('public/front/img/gallery-banner.jpg')}}" alt="cp" class=" img-fluid main-bg2 bd_10">-->
+                                            <img src="{{asset('public/front/img/Media.webp')}}" alt="cp"
+                                                class=" img-fluid main-bg3 bd_10">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    </div>
+    <div class="tn-mega-panel" data-tn-panel="2">
+                            <div class="mega_menu">
+                                <div class="container">
+                                    <div class="mega_menu_wrapper">
+                                        <div class="icons">
+                                            <a class="icon  icon1" href="{{route('about')}}">
+                                                <img src="{{asset('public/front/img/Company Profile.webp')}}" alt="cp"
+                                                    class="img-fluid d-none d-md-block">
+                                                <div class="pagename">
+                                                    <span>Company Profile</span>
+                                                </div>
+                                            </a>
+                                            <a class="icon  icon2" href="{{route('our.infrastructure')}}">
+                                                <img src="{{asset('public/front/img/Our Infrastructure.webp')}}" alt="cp"
+                                                    class="img-fluid d-none d-md-block">
+                                                <div class="pagename">
+                                                    <span>Our Infrastructure</span>
+                                                </div>
+                                            </a>
+                                            <a class="icon mb-0  icon3" href="{{route('certificates')}}">
+                                                <img src="{{asset('public/front/img/Certificates.webp')}}" alt="cp"
+                                                    class="img-fluid d-none d-md-block">
+                                                <div class="pagename">
+                                                    <span>Certificates</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="icons_bg">
+                                            <img src="{{asset('public/front/img/ABOUT.webp')}}" alt="cp"
+                                                class=" img-fluid main-bg bd_10">
+                                            <img src="{{asset('public/front/img/company-profile-banner.webp')}}" alt="cp"
+                                                class=" img-fluid main-bg1 bd_10">
+                                            <img src="{{asset('public/front/img/ABOUT.webp')}}" alt="cp"
+                                                class=" img-fluid main-bg2 bd_10">
+                                            <img src="{{asset('public/front/img/certificates-banner.webp')}}" alt="cp"
+                                                class=" img-fluid main-bg3 bd_10">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    </div>
+  </div>
+  <script>
+    /* [TEST-PAGE-NEW-DESIGN] open/close the original mega menu on hover (desktop only) */
+    (function () {
+      var box = document.getElementById('tnMega'), hdr = document.getElementById('siteHeader'), t, openY = 0;
+      if (!box || !hdr) return;
+      var links = document.querySelectorAll('#siteHeader [data-tn-mega]'), panels = box.querySelectorAll('.tn-mega-panel');
+      /* panel always starts exactly at the bottom edge of the header (the header height changes when it turns white) */
+      function place() { box.style.top = (hdr.getBoundingClientRect().bottom - 1) + 'px'; }
+      function open(i) {
+        clearTimeout(t);
+        hdr.classList.remove('hide'); openY = window.scrollY; /* header must be visible; remember where the menu opened */
+        hdr.classList.add('tn-no-fx'); /* header changes instantly, no animation */
+        hdr.classList.add('tn-open'); /* keeps the header visible while the menu is open */
+        if (!hdr.classList.contains('scrolled')) hdr.classList.add('tn-keep'); /* header not scrolled yet: go white but keep its full size */
+        hdr.classList.add('scrolled'); /* white header while the menu is open (same look as on scroll) */
+        panels.forEach(function (p) { p.classList.toggle('on', p.getAttribute('data-tn-panel') === i); });
+        box.classList.add('open');
+        /* follow the header bottom on every frame while it animates to the white state, so the panel never overlaps/cuts the header */
+        var until = Date.now() + 700;
+        (function follow() { place(); if (Date.now() < until && box.classList.contains('open')) requestAnimationFrame(follow); })();
+      }
+      /* stays open while the pointer is anywhere on the header or the panel (no flicker when the header resizes); closes only after the pointer left both */
+      function close() {
+        clearTimeout(t);
+        t = setTimeout(function () {
+          if (hdr.matches(':hover') || box.matches(':hover')) return;
+          box.classList.remove('open');
+          hdr.classList.toggle('scrolled', window.scrollY > 60); hdr.classList.remove('tn-keep'); hdr.classList.remove('tn-open'); setTimeout(function () { if (!box.classList.contains('open')) hdr.classList.remove('tn-no-fx'); }, 100); /* back to normal (white only if the page is scrolled) */
+        }, 250);
+      }
+      /* small delay before opening (hover intent): menu does not pop up the instant the pointer touches a link; switching while already open is immediate */
+      var OPEN_DELAY = 250, ot;
+      links.forEach(function (a) {
+        a.addEventListener('mouseenter', function () {
+          clearTimeout(ot);
+          if (box.classList.contains('open')) { open(a.getAttribute('data-tn-mega')); return; }
+          ot = setTimeout(function () { open(a.getAttribute('data-tn-mega')); }, OPEN_DELAY);
+        });
+        a.addEventListener('mouseleave', function () { clearTimeout(ot); });
+      });
+      hdr.addEventListener('transitionend', function () { if (box.classList.contains('open')) place(); });
+      hdr.addEventListener('mouseleave', close);
+      box.addEventListener('mouseenter', function () { clearTimeout(t); });
+      box.addEventListener('mouseleave', close);
+      /* page scroll closes the menu, but scrolling INSIDE the menu (categories / product lists) must not */
+      /* smooth-scroll momentum keeps firing scroll events right after the user stops, so only a real scroll away from the opening position closes it */
+      window.addEventListener('scroll', function () {
+        if (!box.classList.contains('open')) return;
+        hdr.classList.remove('hide'); /* keep the header visible while its menu is open */
+        if (box.matches(':hover')) return;
+        if (Math.abs(window.scrollY - openY) > 150) { box.classList.remove('open'); hdr.classList.remove('tn-open', 'tn-keep', 'tn-no-fx'); }
+      }, { passive: true });
+    })();
+  </script>
+  @if(!empty($tn_inner))
+  <script>
+    /* [TEST-PAGE-NEW-DESIGN] inner pages: keep the header in its solid white form (the shared scroll script removes 'scrolled' near the top of the page) */
+    (function () {
+      var h = document.getElementById('siteHeader');
+      if (!h) return;
+      new MutationObserver(function () { if (!h.classList.contains('scrolled')) h.classList.add('scrolled'); }).observe(h, { attributes: true, attributeFilter: ['class'] });
+    })();
+  </script>
+  @endif
+    @else
+    {{-- ===== [TEST-PAGE-NEW-DESIGN] END (header) - the ORIGINAL header below is unchanged ===== --}}
+    <header @if(!empty($home_new)) class="hn-header" @endif>
         @if(!empty($home_new))
         <div class="hn-topbar">
             <div class="container">
@@ -226,7 +824,6 @@
                     <!--</a>-->
                     
                     <i class="hn-topbar__sep"></i>
-
                     <div  class="phone-icon">
                         <div class="hn-topbar__social hn-topbar__contact">
                             <a href="tel:+916358820089" aria-label="Call +91 6358 820 089">
@@ -234,10 +831,7 @@
                             </a>
                         </div>
                         <p>+91 6358 820 089</p>
-                    <div>
-                            
-                    
-
+                    </div>
                 </div>
             </div>
         </div>
@@ -268,9 +862,6 @@
 
 
                             @php
-                            use App\Models\ProductCategory;
-                            use App\Models\ProductMaster;
-                            use App\Models\Application;
 
                             // Fetch active categories
                             $product_categories = ProductCategory::where('status', 'Active')->get();
@@ -726,6 +1317,7 @@
             </div>
         </nav>
     </header>
+    @endif {{-- [TEST-PAGE-NEW-DESIGN] end of original-header wrapper --}}
 
     @include('layouts.quote-modal')
     @include('layouts.image-modal')
@@ -1055,7 +1647,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     </script>
-   
+
     <script>
         window.APP_URLS = {
             productDetail: "{{ Route::has('products.detail') ? route('products.detail', ':url') : '' }}",

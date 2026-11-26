@@ -121,6 +121,25 @@
                             </div>
                             <img id="preview_category_small_image" src="#" alt="Preview" class="mt-2" style="max-width: 100%; height: auto; display: none;" />
                         </div>
+
+                        {{-- [CATEGORY-VIDEO / IS-FEATURE] optional category video --}}
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-12">
+                                <label for="category_video" class="form-label">Category Video <small class="text-muted">(optional, mp4 / webm / mov)</small></label>
+                                <input type="file" class="form-control" name="category_video" id="category_video" accept="video/mp4,video/webm,video/quicktime">
+                                <span class="text-danger error" id="span_category_video"></span>
+                            </div>
+                            <video id="preview_category_video" controls class="mt-2" style="max-width: 100%; max-height: 260px; display: none;"></video>
+                        </div>
+
+                        {{-- [CATEGORY-VIDEO / IS-FEATURE] 1 = feature, 0 = not feature --}}
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-12">
+                                <label class="form-label">Is Feature</label> <br>
+                                <input type="radio" name="is_feature" id="is_feature_1" value="1"> Feature (1)
+                                <input type="radio" name="is_feature" id="is_feature_0" value="0" checked> Not Feature (0)
+                            </div>
+                        </div>
                         
                         <div class="row g-3 mb-3">
                             <div class="col-sm-12">

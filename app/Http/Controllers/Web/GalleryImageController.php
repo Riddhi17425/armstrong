@@ -10,7 +10,7 @@ use App\Models\GalleryTypes;
 class GalleryImageController extends Controller
 {
     public function gallery( Request $request)
-    {
+    {     
         $metatitle = "Industrial Machinery & Manufacturing Solutions | Armstrong";
         $metadescription = "View the Armstrong gallery to see industrial bag-making machines, equipment, and product visuals. Explore solutions for PP woven sacks and packaging production.";
         $gallery = Gallery::where('status', 'Active')->get();

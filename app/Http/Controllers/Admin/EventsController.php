@@ -141,7 +141,7 @@ class EventsController extends Controller
             'start_date'  => 'required|date',
             'end_date'    => 'required|date',
             'status'      => 'nullable|in:Active,In-Active',
-            'image'       => 'nullable|file|mimes:jpg,jpeg,png,webp|max:2048', // make optional
+            'image'       => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048', // make optional
             'alt'         => 'required|string|max:255',
             'description'       => [
                     'required',

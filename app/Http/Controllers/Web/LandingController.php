@@ -28,9 +28,9 @@ class LandingController extends Controller
     
     public function landing()
     {    
-        $title = "";
-        $description = "";
-        return view('front.landing');
+        $metatitle = "";
+        $metadescription = "Explore Armstrong's wide width flexo printing machine for woven packaging materials. Review machine details for industrial printing and production requirements.";
+        return view('front.landing', compact('metatitle', 'metadescription'));
     }
     
     
